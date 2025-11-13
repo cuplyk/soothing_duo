@@ -3,6 +3,8 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
 from .models import Post, Category, Comment
+from django.db.models import Count
+
 
 class PostListView(ListView):
     model = Post
@@ -16,8 +18,10 @@ class PostListView(ListView):
     # allows you to add additional context data
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['categories'] = Category.objects.all()  # <-- Add this
-        return context    
+        context['categories'] = Category.objects.filter(
+            post__status='published'
+        ).annotate(num_posts=Count('post')).order_by('name')
+        return context 
 
 class PostDetailView(DetailView):
     model = Post
@@ -45,7 +49,9 @@ class CategoryPostListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['category'] = self.category
-        #etches all category objects from database
+        #Show Number of Posts in Categories
+        context['categories'] = Category.objects.annotate(num_posts=Count('post'))
+        #Fetches all category objects from database
         context['categories'] = Category.objects.all()
         return context
 

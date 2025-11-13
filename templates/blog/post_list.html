@@ -61,7 +61,10 @@
             <div class="card-body">
                 {% for category in categories %}
                     <a href="{% url 'blog:category_posts' category.slug %}" 
-                       class="badge bg-secondary text-decoration-none me-1">{{ category.name }}</a>
+                       class="badge bg-secondary text-decoration-none me-1">
+                        {{ category.name }}
+                        <span class="bg-light text-dark rounded px-2 ms-1">{{ category.num_posts }}</span>
+                    </a>
                 {% endfor %}
             </div>
         </div>
