@@ -92,19 +92,28 @@ TEMPLATES = [
 import os
 from urllib.parse import urlparse, parse_qsl
 
+tmpPostgres = urlparse(config("DATABASE_URL"))
+
+
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config("SUPABASE_DB_NAME"),
-        'USER': config("SUPABASE_DB_USER"),
-        'PASSWORD': config("SUPABASE_DB_PASSWORD"),
-        'HOST': config("SUPABASE_DB_HOST"),
-        'PORT': config("SUPABASE_DB_PORT"),
-        'OPTIONS': {
-            'sslmode': 'require',
-        },
+        'NAME': config("PGDATABASE"),
+        'USER': config("PGUSER"),
+        'PASSWORD': config("PGPASSWORD"),
+        'HOST': config("PGHOST"),
+        'PORT': 5432,
+        'OPTIONS': dict(parse_qsl(tmpPostgres.query)),
     }
 }
+print("=" * 50)
+print("DATABASE CONFIG:")
+print(f"HOST: '{config('PGHOST')}'")
+print(f"PORT: '5432'")
+print(f"NAME: '{config('PGDATABASE')}'")
+print(f"USER: '{config('PGUSER')}'")
+print("=" * 50)
 
 # For Docker/PostgreSQL usage uncomment this and comment the DATABASES config above
 # DATABASES = {
