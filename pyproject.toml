@@ -12,6 +12,7 @@ dependencies = [
   "whitenoise ~=6.7",
   "python-decouple>=3.8",
   "psycopg2-binary>=2.9.11",
+  "python-slugify>=8.0.4",
 ]
 
 [dependency-groups]

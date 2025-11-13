@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     # Local
     "accounts",
     "pages",
+    "blog",
 ]
 
 # https://docs.djangoproject.com/en/dev/ref/settings/#middleware
@@ -107,14 +108,14 @@ DATABASES = {
         'OPTIONS': dict(parse_qsl(tmpPostgres.query)),
     }
 }
-print("=" * 50)
+"""print("=" * 50)
 print("DATABASE CONFIG:")
 print(f"HOST: '{config('PGHOST')}'")
 print(f"PORT: '5432'")
 print(f"NAME: '{config('PGDATABASE')}'")
 print(f"USER: '{config('PGUSER')}'")
 print("=" * 50)
-
+"""
 # For Docker/PostgreSQL usage uncomment this and comment the DATABASES config above
 # DATABASES = {
 #     "default": {
