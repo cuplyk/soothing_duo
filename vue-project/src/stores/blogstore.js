@@ -6,25 +6,38 @@ export const useBlogStore = defineStore('blog', {
     posts: [],
     categories: [],
     currentPost: null,
-    loading: false,
+    user: null,
+    loading: false
   }),
 
   actions: {
     async fetchPosts() {
       this.loading = true
-      const response = await apiClient.get('posts/')
-      this.posts = response.data
-      this.loading = false
+      try {
+        const res = await apiClient.get('/blog/posts/')
+        this.posts = res.data
+      } catch (error) {
+        console.error("Failed to load posts:", error)
+      } finally {
+        this.loading = false
+      }
     },
 
     async fetchPost(slug) {
-      const response = await apiClient.get(`posts/${slug}/`)
-      this.currentPost = response.data
+      this.loading = true
+      try {
+        const res = await apiClient.get(`/blog/posts/${slug}/`)
+        this.currentPost = res.data
+      } catch (error) {
+        console.error("Post not found:", error)
+      } finally {
+        this.loading = false
+      }
     },
 
     async fetchCategories() {
-      const response = await apiClient.get('categories/')
-      this.categories = response.data
+      const res = await apiClient.get('/blog/categories/')
+      this.categories = res.data
     }
   }
 })

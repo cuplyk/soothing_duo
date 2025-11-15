@@ -1,8 +1,8 @@
 import axios from 'axios'
 
 const apiClient = axios.create({
-  baseURL: 'http://localhost:8000/api/blog/',
-  withCredentials: true
+  baseURL: '/api',  // Proxied via Vite
+  withCredentials: true  // Keeps Django session
 })
 
 export default apiClient
