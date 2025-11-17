@@ -30,15 +30,15 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from 'vue'
-import { useBlogStore } from '@/stores/blogStore'
+import { ref, onMounted } from 'vue'
+import { useBlogStore } from '../stores/blogStore'  // Fixed import path
 
 const blogStore = useBlogStore()
 const featuredPosts = ref([])
 
 onMounted(async () => {
   await blogStore.fetchPosts()
-  // Get first 3 posts as featured (you might want different logic)
+  // Get first 3 posts as featured
   featuredPosts.value = blogStore.posts.slice(0, 3)
 })
 
@@ -56,7 +56,8 @@ const formatDate = (dateString) => {
 }
 
 .hero {
-  background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://via.placeholder.com/1200x400') center/cover no-repeat;
+  background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
+              url('https://via.placeholder.com/1200x400') center/cover no-repeat;
   border-radius: 10px;
   padding: 4rem 2rem;
   text-align: center;
