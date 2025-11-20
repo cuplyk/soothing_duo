@@ -34,6 +34,7 @@ class Post(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     publish = models.DateTimeField(null=True, blank=True)
+    views = models.PositiveIntegerField(default=0)
 
     class Meta:
         ordering = ["-created_at"]
@@ -50,6 +51,9 @@ class Post(models.Model):
         if not self.slug:
             self.slug = slugify(self.title)
         super().save(*args, **kwargs)
+    
+    def user_has_liked(self, user):
+        return self.likes.filter(user=user).exists()
 
 
 class Comment(models.Model):
@@ -65,3 +69,10 @@ class Comment(models.Model):
     def __str__(self):
         return f'Comment by {self.author.username} on {self.post.title}'
 
+class Like(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='likes')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('user', 'post')

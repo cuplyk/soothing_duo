@@ -1,0 +1,17 @@
+<div id="comment-{{ comment.id }}" class="mb-4">
+    <form hx-post="{% url 'blog:comment_update' comment.id %}"
+          hx-target="#comment-{{ comment.id }}"
+          hx-swap="outerHTML"
+          class="space-y-2">
+        {% csrf_token %}
+        <textarea name="content" class="w-full p-2 border rounded"
+                  rows="3">{{ comment.content }}</textarea>
+        <div class="flex space-x-2">
+            <button type="submit" class="px-3 py-1 bg-blue-500 text-white rounded">Save</button>
+            <button type="button" class="px-3 py-1 bg-gray-200 rounded"
+                    hx-get="{% url 'blog:comment_item' comment.id %}"
+                    hx-target="#comment-{{ comment.id }}"
+                    hx-swap="outerHTML">Cancel</button>
+        </div>
+    </form>
+</div>

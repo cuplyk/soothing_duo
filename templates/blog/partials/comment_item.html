@@ -1,0 +1,17 @@
+<div id="comment-{{ comment.id }}">
+    <div class="flex justify-between mb-2">
+        <div>
+            <strong>{{ comment.author.username }}</strong> - 
+            <span class="text-gray-500">{{ comment.created_at|timesince }} ago</span>
+        </div>
+        {% if user == comment.author %}
+        <button class="text-blue-600 text-sm"
+                hx-get="{% url 'blog:comment_edit' comment.id %}"
+                hx-target="#comment-{{ comment.id }}"
+                hx-swap="outerHTML">
+            Edit
+        </button>
+        {% endif %}
+    </div>
+    <p class="mb-4">{{ comment.content }}</p>
+</div>

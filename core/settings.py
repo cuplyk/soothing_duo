@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "debug_toolbar",
     "rest_framework",
     "corsheaders",
+    "django_htmx",
     # Local
     "accounts",
     "pages",
@@ -58,6 +59,8 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "allauth.account.middleware.AccountMiddleware",  # django-allauth
+    "django_htmx.middleware.HtmxMiddleware",
+    "blog.middleware.PostViewCounterMiddleware",
 ]
 
 # REST Framework Settings
