@@ -5,6 +5,10 @@ from django.urls import reverse_lazy
 from .models import Post, Category, Comment, Like
 from django.db.models import Count
 
+from django.views.decorators.http import require_POST
+from django.core.paginator import Paginator
+from django.template.loader import render_to_string
+from .forms import CommentForm, PostForm
 
 class PostListView(ListView):
     model = Post

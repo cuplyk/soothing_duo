@@ -25,21 +25,53 @@
             </div>
         </article>
 
-        <!-- Comments Section -->
-        <hr>
-        <h3>Comments ({{ comments.count }})</h3>
-        {% for comment in comments %}
-        <div class="card mb-3">
-            <div class="card-body">
-                <h6 class="card-subtitle mb-2 text-muted">
-                    {{ comment.author.username }} - {{ comment.created_at|date:"M d, Y H:i" }}
-                </h6>
-                <p class="card-text">{{ comment.content|linebreaks }}</p>
+        <div id="like-section"
+        class="mt-6 pt-6 border-t border-gray-200"
+        _="on htmx:afterSettle add .animate-flash then wait 2s then remove .animate-flash">
+            <div class="flex items-center mb-6">
+                <div id="like-button-container" class="mr-4">
+                {% include 'blog/partials/like_button.html' %}
+                </div>
+                <div class="text-sm text-gray-500">
+                    <span id="view-count">{{ post.views }}</span> views
+                </div>
             </div>
         </div>
-        {% empty %}
-        <p>No comments yet.</p>
-        {% endfor %}
+   
+        <hr class="my-6">
+   
+        <!-- Comments section -->
+        <h3 class="text-xl font-semibold mb-4">Comments</h3>
+        <div id="comments-container">
+            {% for comment in comments %}
+                {% include 'blog/partials/comment_item.html' %}
+            {% endfor %}
+        </div>
+   
+        <!-- Comment form -->
+        <div class="mt-8 pt-6 border-t border-gray-200">
+            <form id="comment-form"
+                    hx-post="{% url 'blog:add_comment' post.slug %}"
+                    hx-target="#comments-container"
+                    hx-swap="afterbegin"
+                    hx-on::after-request="this.reset()"
+                    class="space-y-4">
+                {% csrf_token %}
+                <div>
+                    <textarea name="content" 
+                                class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-300 focus:border-blue-500" 
+                                rows="4" 
+                                placeholder="Write a comment..."
+                                required></textarea>
+                </div>
+                <div>
+                    <button type="submit" 
+                            class="px-5 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+                        Post Comment
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 {% endblock %}
