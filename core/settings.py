@@ -72,10 +72,6 @@ REST_FRAMEWORK = {
     ]
 }
 
-#DORS Settings for Vue dev server 
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",  # Vue dev server
-]
 
 
 # https://docs.djangoproject.com/en/dev/ref/settings/#root-urlconf
