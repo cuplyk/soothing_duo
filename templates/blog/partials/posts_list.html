@@ -1,59 +1,145 @@
+<!-- templates/blog/post_list.html -->
+{% block content %}
+<div class="container py-5">
+  <div class="row">
+    <!-- Main Content -->
+    <div class="col-lg-8">
+      <!-- Hero Section -->
+      <div class="hero-section bg-gradient-primary text-white rounded-3 p-5 mb-5 shadow">
+        <div class="row align-items-center">
+          <div class="col-md-8">
+            <h1 class="display-5 fw-bold">Welcome to Soothing_Duo</h1>
+            <p class="lead mb-4">Discover amazing stories, thoughts, and ideas from our community of writers.</p>
+            {% if user.is_authenticated %}
+            <a href="{% url 'blog:post_create' %}" class="btn btn-light btn-lg">
+              <i class="fas fa-plus me-2"></i>Start Writing
+            </a>
+            {% else %}
+            <a href="{% url 'register' %}" class="btn btn-light btn-lg">
+              <i class="fas fa-user-plus me-2"></i>Join Our Community
+            </a>
+            {% endif %}
+          </div>
+          <div class="col-md-4 text-center">
+            <i class="fas fa-blog display-1 opacity-75"></i>
+          </div>
+        </div>
+      </div>
 
-{% for post in posts %}
-<article class="mb-8 p-4 border rounded-lg shadow hover:shadow-lg transition">
-    <div class="flex justify-between items-start">
-        <div>
-            <h2 class="text-xl font-bold">
-                <a href="{{ post.get_absolute_url }}" class="text-blue-600 hover:text-blue-800">
-                    {{ post.title }}
-                </a>
-            </h2>
-            <div class="mt-2 flex space-x-4 text-sm text-gray-500">
-                <span>{{ post.created_at|date:"M d, Y" }}</span>
-                <span>•</span>
-                <span>{{ post.views }} views</span>
-                <span>•</span>
-                <span id="like-section-{{ post.slug }}">
-                    {% include "blog/partials/like_button.html" %}
-                </span>
+      <!-- Posts Grid -->
+      <div id="posts-container">
+        {% for post in posts %}
+        <article class="card post-card mb-4 shadow-sm border-0">
+          <div class="card-body">
+            <div class="d-flex align-items-center mb-3">
+              <img src="https://ui-avatars.com/api/?name={{ post.author.username }}&background=007bff&color=fff" 
+                   alt="{{ post.author.username }}" class="rounded-circle me-3" width="40" height="40">
+              <div>
+                <h6 class="mb-0">{{ post.author.get_full_name|default:post.author.username }}</h6>
+                <small class="text-muted">{{ post.created_at|date:"F j, Y" }}</small>
+              </div>
             </div>
+            
+            {% if post.category %}
+            <span class="badge bg-primary mb-3">{{ post.category.name }}</span>
+            {% endif %}
+            
+            <h2 class="h4 card-title">
+              <a href="{{ post.get_absolute_url }}" class="text-decoration-none text-dark">
+                {{ post.title }}
+              </a>
+            </h2>
+            
+            <p class="card-text text-muted">
+              {{ post.content|striptags|truncatewords:30 }}
+            </p>
+            
+            <div class="d-flex justify-content-between align-items-center">
+              <a href="{{ post.get_absolute_url }}" class="btn btn-outline-primary btn-sm">
+                Read More <i class="fas fa-arrow-right ms-1"></i>
+              </a>
+              <div class="text-muted">
+                <small>
+                  <i class="far fa-comment me-1"></i>{{ post.comments.count }} comments
+                  <i class="far fa-heart ms-3 me-1"></i>{{ post.likes.count }} likes
+                </small>
+              </div>
+            </div>
+          </div>
+        </article>
+        {% empty %}
+        <div class="text-center py-5">
+          <i class="fas fa-inbox display-1 text-muted mb-3"></i>
+          <h3 class="text-muted">No posts yet</h3>
+          <p class="text-muted">Be the first to share your thoughts!</p>
+          <a href="{% url 'blog:post_create' %}" class="btn btn-primary">Create First Post</a>
         </div>
-        {% if post.category %}
-        <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">
-            {{ post.category.name }}
-        </span>
-        {% endif %}
-    </div>
-    
-    <div class="mt-4">
-        <p class="text-gray-700">{{ post.content|truncatewords:30 }}</p>
-    </div>
-    
-    <div class="mt-4">
-        <a href="{{ post.get_absolute_url }}" 
-           class="inline-flex items-center text-indigo-600 hover:text-indigo-800 font-medium">
-            Read more
+        {% endfor %}
+      </div>
 
-        </a>
+      <!-- Pagination -->
+      {% if is_paginated %}
+      <nav aria-label="Page navigation" class="mt-5">
+        <ul class="pagination justify-content-center">
+          {% if page_obj.has_previous %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+          </li>
+          {% endif %}
+          
+          {% for num in page_obj.paginator.page_range %}
+          <li class="page-item {% if page_obj.number == num %}active{% endif %}">
+            <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+          </li>
+          {% endfor %}
+          
+          {% if page_obj.has_next %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+          </li>
+          {% endif %}
+        </ul>
+      </nav>
+      {% endif %}
     </div>
-    
-    {% if post.comments.count > 0 %}
-    <div class="mt-4 pt-4 border-t border-gray-100">
-        <div class="flex items-center space-x-2 text-sm">
 
-            <span>{{ post.comments.count }} comment{{ post.comments.count|pluralize }}</span>
+    <!-- Sidebar -->
+    <div class="col-lg-4">
+      <!-- Categories Widget -->
+      <div class="card shadow-sm border-0 mb-4">
+        <div class="card-header bg-white border-0 py-3">
+          <h5 class="mb-0"><i class="fas fa-folder me-2"></i>Categories</h5>
         </div>
-    </div>
-    {% endif %}
-</article>
-{% endfor %}
+        <div class="card-body">
+          <div class="list-group list-group-flush">
+            {% for category in categories %}
+            <a href="{% url 'blog:category_posts' category.slug %}" 
+               class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+              {{ category.name }}
+              <span class="badge bg-primary rounded-pill">{{ category.num_posts }}</span>
+            </a>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
 
-{% if next_url %}
-<div class="flex justify-center my-8"
-     hx-get="{{ next_url }}"
-     hx-trigger="revealed"
-     hx-swap="afterend"
-     hx-indicator=".htmx-indicator">
-    <span class="htmx-indicator block w-8 h-8 border-t-2 border-blue-500 rounded-full animate-spin"></span>
+      <!-- Recent Posts Widget -->
+      <div class="card shadow-sm border-0">
+        <div class="card-header bg-white border-0 py-3">
+          <h5 class="mb-0"><i class="fas fa-fire me-2"></i>Trending</h5>
+        </div>
+        <div class="card-body">
+          {% for post in posts|slice:":3" %}
+          <div class="mb-3 pb-3 border-bottom">
+            <h6 class="mb-1">
+              <a href="{{ post.get_absolute_url }}" class="text-decoration-none">{{ post.title }}</a>
+            </h6>
+            <small class="text-muted">{{ post.created_at|timesince }} ago</small>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-{% endif %}
+{% endblock %}
