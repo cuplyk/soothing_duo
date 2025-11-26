@@ -74,7 +74,7 @@
           <!-- Author Actions -->
           {% if user == post.author %}
           <div class="d-flex gap-2 mb-4">
-            <a href="{% url 'blog:post_update' post.slug %}" class="btn btn-outline-primary btn-sm">
+            <a href="{% url 'blog:post_edit' post.slug %}" class="btn btn-outline-primary btn-sm">
               <i class="fas fa-edit me-1"></i>Edit
             </a>
           </div>
