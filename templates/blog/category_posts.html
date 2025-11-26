@@ -105,7 +105,7 @@
                       {% if cat.slug == category.slug %}active{% endif %}">
               {{ cat.name }}
               <span class="badge bg-{% if cat.slug == category.slug %}light text-dark{% else %}primary{% endif %} rounded-pill">
-                {{ cat.num_posts }}
+                {{ cat.num_posts }} 
               </span>
             </a>
             {% endfor %}
