@@ -4,8 +4,247 @@
 {% block title %}Home page{% endblock title %}
 
 {% block content %}
-<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-  <img src="{% static 'images/lithium.png' %}" class="img-fluid" alt="Lithium logo"/>
-  <p class="lead">A Django starter project with batteries.</p>
-</div>
+<!-- Hero Section -->
+<section class="py-5 bg-light">
+  <div class="container py-5 my-5">
+    <div class="row align-items-center">
+      <div class="col-lg-6 mb-5 mb-lg-0">
+        <h1 class="display-4 fw-bold lh-1 mb-4">
+          Experience Blogging<br>
+          <span class="text-primary">Reimagined</span>
+        </h1>
+        <p class="lead mb-4">
+          A modern, distraction-free platform built for writers who value simplicity and elegance. Focus on your craft while we handle the rest.
+        </p>
+        <div class="d-flex flex-wrap gap-3">
+          <a href="#" class="btn btn-primary btn-lg px-4">Start Writing</a>
+          <a href="#features" class="btn btn-outline-secondary btn-lg px-4">Explore Features</a>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="position-relative">
+          <div class="bg-primary rounded-4 shadow-lg" style="height: 400px; width: 100%;"></div>
+          <div class="position-absolute top-0 start-50 translate-middle-x bg-white p-3 rounded-3 shadow" style="width: 80%; height: 350px; margin-top: 3rem;">
+            <div class="d-flex flex-column h-100">
+              <div class="d-flex justify-content-between mb-3">
+                <div class="bg-light rounded-circle" style="width: 40px; height: 40px;"></div>
+                <div class="d-flex gap-2">
+                  <div class="bg-light rounded-circle" style="width: 20px; height: 20px;"></div>
+                  <div class="bg-light rounded-circle" style="width: 20px; height: 20px;"></div>
+                  <div class="bg-light rounded-circle" style="width: 20px; height: 20px;"></div>
+                </div>
+              </div>
+              <div class="flex-grow-1">
+                <div class="bg-light rounded mb-3" style="height: 20px; width: 60%;"></div>
+                <div class="bg-light rounded mb-2" style="height: 15px; width: 100%;"></div>
+                <div class="bg-light rounded mb-2" style="height: 15px; width: 90%;"></div>
+                <div class="bg-light rounded" style="height: 15px; width: 80%;"></div>
+              </div>
+              <div class="d-flex justify-content-end">
+                <div class="btn-group" role="group">
+                  <button class="btn btn-sm btn-outline-secondary">Draft</button>
+                  <button class="btn btn-sm btn-primary">Publish</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Features Section -->
+<section id="features" class="py-5">
+  <div class="container py-5">
+    <div class="row justify-content-center mb-5">
+      <div class="col-lg-8 text-center">
+        <h2 class="fw-bold mb-3">Powerful Features for Modern Writers</h2>
+        <p class="text-muted">Everything you need to create, publish, and grow your audience</p>
+      </div>
+    </div>
+    
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100 border-0 shadow-sm">
+          <div class="card-body p-4">
+            <div class="bg-primary bg-opacity-10 text-primary rounded-circle d-inline-flex p-3 mb-3">
+              <i class="fas fa-feather fa-2x"></i>
+            </div>
+            <h5 class="card-title mb-3">Minimalist Editor</h5>
+            <p class="card-text text-muted">Distraction-free writing environment with Markdown support and real-time previews</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100 border-0 shadow-sm">
+          <div class="card-body p-4">
+            <div class="bg-success bg-opacity-10 text-success rounded-circle d-inline-flex p-3 mb-3">
+              <i class="fas fa-palette fa-2x"></i>
+            </div>
+            <h5 class="card-title mb-3">Custom Themes</h5>
+            <p class="card-text text-muted">Personalize your blog with elegant themes and color schemes</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100 border-0 shadow-sm">
+          <div class="card-body p-4">
+            <div class="bg-info bg-opacity-10 text-info rounded-circle d-inline-flex p-3 mb-3">
+              <i class="fas fa-chart-line fa-2x"></i>
+            </div>
+            <h5 class="card-title mb-3">Analytics Dashboard</h5>
+            <p class="card-text text-muted">Track your readership and engagement with intuitive analytics</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100 border-0 shadow-sm">
+          <div class="card-body p-4">
+            <div class="bg-warning bg-opacity-10 text-warning rounded-circle d-inline-flex p-3 mb-3">
+              <i class="fas fa-comments fa-2x"></i>
+            </div>
+            <h5 class="card-title mb-3">Engaged Community</h5>
+            <p class="card-text text-muted">Build your audience with integrated comments and social sharing</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100 border-0 shadow-sm">
+          <div class="card-body p-4">
+            <div class="bg-danger bg-opacity-10 text-danger rounded-circle d-inline-flex p-3 mb-3">
+              <i class="fas fa-lock fa-2x"></i>
+            </div>
+            <h5 class="card-title mb-3">Privacy Focused</h5>
+            <p class="card-text text-muted">Own your data with GDPR-compliant privacy controls</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100 border-0 shadow-sm">
+          <div class="card-body p-4">
+            <div class="bg-secondary bg-opacity-10 text-secondary rounded-circle d-inline-flex p-3 mb-3">
+              <i class="fas fa-mobile-alt fa-2x"></i>
+            </div>
+            <h5 class="card-title mb-3">Mobile Ready</h5>
+            <p class="card-text text-muted">Write and publish from anywhere with our responsive design</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials -->
+<section id="testimonials" class="py-5 bg-light">
+  <div class="container py-5">
+    <div class="row justify-content-center mb-5">
+      <div class="col-lg-8 text-center">
+        <h2 class="fw-bold mb-3">Loved by Writers Worldwide</h2>
+        <p class="text-muted">Join thousands of creators who trust Soothing_Duo</p>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-md-6 col-lg-4 mb-4">
+        <div class="card border-0 shadow-sm h-100">
+          <div class="card-body p-4">
+            <div class="d-flex mb-3">
+              <div class="text-warning">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+              </div>
+            </div>
+            <p class="card-text mb-4">"The clean interface helped me focus on writing without distractions. My productivity doubled!"</p>
+            <div class="d-flex align-items-center">
+              <div class="me-3">
+                <div class="bg-secondary rounded-circle" style="width: 50px; height: 50px;"></div>
+              </div>
+              <div>
+                <h6 class="mb-0">Alex Morgan</h6>
+                <small class="text-muted">Travel Blogger</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-md-6 col-lg-4 mb-4">
+        <div class="card border-0 shadow-sm h-100">
+          <div class="card-body p-4">
+            <div class="d-flex mb-3">
+              <div class="text-warning">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+              </div>
+            </div>
+            <p class="card-text mb-4">"Finally a platform that values both aesthetics and functionality. My readers love the experience!"</p>
+            <div class="d-flex align-items-center">
+              <div class="me-3">
+                <div class="bg-secondary rounded-circle" style="width: 50px; height: 50px;"></div>
+              </div>
+              <div>
+                <h6 class="mb-0">Jamie Chen</h6>
+                <small class="text-muted">Tech Writer</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-md-6 col-lg-4 mb-4">
+        <div class="card border-0 shadow-sm h-100">
+          <div class="card-body p-4">
+            <div class="d-flex mb-3">
+              <div class="text-warning">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+              </div>
+            </div>
+            <p class="card-text mb-4">"The analytics helped me understand my audience better. Growth has never been easier!"</p>
+            <div class="d-flex align-items-center">
+              <div class="me-3">
+                <div class="bg-secondary rounded-circle" style="width: 50px; height: 50px;"></div>
+              </div>
+              <div>
+                <h6 class="mb-0">Taylor Kim</h6>
+                <small class="text-muted">Marketing Specialist</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-5">
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-8 text-center">
+        <h2 class="fw-bold mb-4">Ready to Start Your Writing Journey?</h2>
+        <p class="lead mb-5">Join thousands of creators who publish with Soothing_Duo</p>
+        <div class="d-flex flex-wrap justify-content-center gap-3">
+          <a href="#" class="btn btn-primary btn-lg px-5">Create Free Account</a>
+          <a href="#" class="btn btn-outline-secondary btn-lg px-5">View Demo</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 {% endblock content %}
