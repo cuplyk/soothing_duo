@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
@@ -32,9 +33,28 @@ class PostDetailView(DetailView):
     template_name = 'blog/post_detail.html'
     context_object_name = 'post'
     
+    def get_object(self):
+        # Get the post object
+        post = super().get_object()
+        
+        # Increment views
+        post.views += 1
+        post.save(update_fields=['views'])
+        
+        return post
+    
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['comments'] = self.object.comments.filter(active=True)
+        
+        # Check if user liked the post
+        if self.request.user.is_authenticated:
+            context['liked'] = self.object.user_has_liked(self.request.user)
+        else:
+            # Check session for guest likes
+            liked_posts = self.request.session.get('liked_posts', [])
+            context['liked'] = self.object.id in liked_posts
+        
         return context
 
 class CategoryPostListView(ListView):
@@ -95,22 +115,33 @@ def get_context_data(self, **kwargs):
 @require_POST
 def like_toggle(request, slug):
     post = get_object_or_404(Post, slug=slug)
-    user = request.user
-    
-    if not user.is_authenticated:
-        return HttpResponse('Unauthorized', status=401)
-    
-    # Check if user already liked the post
-    liked = post.user_has_liked(user)
-    
-    if liked:
-        # Unlike
-        Like.objects.filter(user=user, post=post).delete()
-        liked = False
+    if request.user.is_authenticated:
+        # Authenticated user - use database
+        like, created = Like.objects.get_or_create(user=request.user, post=post)
+        
+        if not created:
+            like.delete()
+            liked = False
+        else:
+            liked = True
     else:
-        # Like
-        Like.objects.create(user=user, post=post)
-        liked = True
+        # Guest user - use session
+        if 'liked_posts' not in request.session:
+            request.session['liked_posts'] = []
+        
+        liked_posts = request.session['liked_posts']
+        
+        if post.id in liked_posts:
+            # Unlike
+            liked_posts.remove(post.id)
+            liked = False
+        else:
+            # Like
+            liked_posts.append(post.id)
+            liked = True
+        
+        request.session['liked_posts'] = liked_posts
+        request.session.modified = True
     
     return render(request, 'blog/partials/like_button.html', {
         'post': post,

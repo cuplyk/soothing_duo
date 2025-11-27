@@ -46,6 +46,16 @@ class Post(models.Model):
     def get_absolute_url(self):
         return reverse("blog:post_detail", args=[self.slug])
 
+    def get_total_likes(self, request=None):
+        """
+            get total likes including authenticated and guest users
+        """
+        
+        # track guest likes in a separate model 
+        # for now just returning the database
+        db_likes = self.likes.count()
+
+
     # Method to save the post
     def save(self, *args, **kwargs):
         if not self.slug:
