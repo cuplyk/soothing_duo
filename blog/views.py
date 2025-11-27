@@ -99,15 +99,19 @@ def like_toggle(request, slug):
     
     if not user.is_authenticated:
         return HttpResponse('Unauthorized', status=401)
-        
-    like, created = Like.objects.get_or_create(user=user, post=post)
     
-    if not created:
-        like.delete()
+    # Check if user already liked the post
+    liked = post.user_has_liked(user)
+    
+    if liked:
+        # Unlike
+        Like.objects.filter(user=user, post=post).delete()
         liked = False
     else:
+        # Like
+        Like.objects.create(user=user, post=post)
         liked = True
-        
+    
     return render(request, 'blog/partials/like_button.html', {
         'post': post,
         'liked': liked

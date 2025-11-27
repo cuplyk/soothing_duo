@@ -46,21 +46,25 @@
 
           <!-- Like Button -->
           <div class="d-flex justify-content-between align-items-center border-top border-bottom py-3 mb-4">
-            <div class="d-flex align-items-center">
-              {% if user.is_authenticated %}
-              <form method="post" action="{% url 'blog:like_toggle' post.slug %}" class="like-form">
-                {% csrf_token %}
-                <button type="submit" class="btn btn-outline-danger border-0 like-btn {% if liked %}liked{% endif %}">
-                  <i class="{% if liked %}fas{% else %}far{% endif %} fa-heart me-2"></i>
-                  <span class="like-count">{{ post.likes.count }}</span>
-                </button>
-              </form>
-              {% else %}
-              <a href="{% url 'login' %}" class="btn btn-outline-danger border-0">
-                <i class="far fa-heart me-2"></i>
-                <span class="like-count">{{ post.likes.count }}</span>
-              </a>
-              {% endif %}
+            <div id="like-section-{{ post.slug }}">
+              <div class="d-flex align-items-center">
+                  {% if user.is_authenticated %}
+                  <button type="button" 
+                          class="btn btn-outline-danger border-0 like-btn {% if liked %}liked{% endif %}"
+                          hx-post="{% url 'blog:like_toggle' post.slug %}"
+                          hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+                          hx-target="#like-section-{{ post.slug }}"
+                          hx-swap="innerHTML">
+                      <i class="{% if liked %}fas{% else %}far{% endif %} fa-heart me-2"></i>
+                      <span class="like-count">{{ post.likes.count }}</span>
+                  </button>
+                  {% else %}
+                  <a href="{% url 'login' %}" class="btn btn-outline-danger border-0">
+                      <i class="far fa-heart me-2"></i>
+                      <span class="like-count">{{ post.likes.count }}</span>
+                  </a>
+                  {% endif %}
+              </div>
             </div>
             
             <div class="text-muted">
