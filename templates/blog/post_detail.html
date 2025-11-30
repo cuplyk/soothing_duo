@@ -1,3 +1,4 @@
+
 <!-- templates/blog/post_detail.html -->
 {% extends '_base.html' %}
 {% load static %}
@@ -91,7 +92,11 @@
         <div class="card-body">
           <!-- Comment Form -->
           {% if user.is_authenticated %}
-          <form method="post" action="{% url 'blog:add_comment' post.slug %}" class="comment-form mb-4">
+          <form hx-post="{% url 'blog:add_comment' post.slug %}" 
+                hx-target="#comments-container" 
+                hx-swap="beforeend"
+                hx-on::after-request="this.reset()"
+                class="comment-form mb-4">
             {% csrf_token %}
             <div class="mb-3">
               <textarea name="content" class="form-control" rows="4" 
@@ -141,7 +146,7 @@
               </div>
             </div>
             {% empty %}
-            <div class="text-center py-4 text-muted">
+            <div id="no-comments" class="text-center py-4 text-muted">
               <i class="fas fa-comments display-4 mb-3"></i>
               <p>No comments yet. Be the first to share your thoughts!</p>
             </div>

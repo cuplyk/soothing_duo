@@ -1,17 +1,33 @@
-<div id="comment-{{ comment.id }}">
-    <div class="flex justify-between mb-2">
+<div class="comment-item mb-4 pb-4 border-bottom" id="comment-{{ comment.id }}">
+  <div class="d-flex">
+    <img src="https://ui-avatars.com/api/?name={{ comment.author.username }}&background=6c757d&color=fff" 
+         alt="{{ comment.author.username }}" class="rounded-circle me-3" width="40" height="40">
+    <div class="flex-grow-1">
+      <div class="d-flex justify-content-between align-items-start mb-2">
         <div>
-            <strong>{{ comment.author.username }}</strong> - 
-            <span class="text-gray-500">{{ comment.created_at|timesince }} ago</span>
+          <h6 class="mb-0">{{ comment.author.get_full_name|default:comment.author.username }}</h6>
+          <small class="text-muted">{{ comment.created_at|timesince }} ago</small>
         </div>
         {% if user == comment.author %}
-        <button class="text-blue-600 text-sm"
-                hx-get="{% url 'blog:comment_edit' comment.id %}"
-                hx-target="#comment-{{ comment.id }}"
-                hx-swap="outerHTML">
-            Edit
-        </button>
+        <div class="dropdown">
+          <button class="btn btn-sm btn-outline-secondary border-0" data-bs-toggle="dropdown">
+            <i class="fas fa-ellipsis-v"></i>
+          </button>
+          <ul class="dropdown-menu">
+            <li>
+              <button class="dropdown-item edit-comment-btn" 
+                      data-comment-id="{{ comment.id }}">
+                <i class="fas fa-edit me-2"></i>Edit
+              </button>
+            </li>
+          </ul>
+        </div>
         {% endif %}
+      </div>
+      <p class="mb-0 comment-content">{{ comment.content }}</p>
     </div>
-    <p class="mb-4">{{ comment.content }}</p>
+  </div>
 </div>
+
+<!-- Remove the "no comments" message if it exists -->
+<div id="no-comments" hx-swap-oob="delete"></div>
