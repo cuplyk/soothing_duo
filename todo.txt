@@ -1,5 +1,0 @@
-Rich Text Editor (Markdown or WYSIWYG) - Essential for better content creation
-Image Upload - Featured images make posts more engaging
-Search Functionality - Critical for content discovery
-User Profiles - Enhance the community aspect
-Tags System - Better content organization

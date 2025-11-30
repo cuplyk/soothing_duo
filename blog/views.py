@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseForbidden
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
@@ -157,7 +157,9 @@ def add_comment(request, slug):
     if form.is_valid():
         comment = form.save(commit=False)
         comment.post = post
-        comment.author = request.user
+        if request.user.is_authenticated:
+            comment.author = request.user
+        # For guests, author is None, name/email come from form
         comment.save()
         
         return render(request, 'blog/partials/comment_item.html', {

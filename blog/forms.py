@@ -10,8 +10,16 @@ class CommentForm(forms.ModelForm):
     """
     class Meta:
         model = Comment
-        fields = ['content']
+        fields = ['name', 'email', 'content']
         widgets = {
+            'name': forms.TextInput(attrs={
+                'class': 'w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-300 focus:border-blue-500 mb-3',
+                'placeholder': 'Your Name (Optional)'
+            }),
+            'email': forms.EmailInput(attrs={
+                'class': 'w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-300 focus:border-blue-500 mb-3',
+                'placeholder': 'Your Email (Optional)'
+            }),
             'content': forms.Textarea(attrs={
                 'class': 'w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-300 focus:border-blue-500', 
                 'rows': '3',
