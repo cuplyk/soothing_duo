@@ -25,7 +25,7 @@ class PostForm(forms.ModelForm):
     """
     class Meta:
         model = Post
-        fields = ['title', 'content', 'category', 'status']
+        fields = ['title', 'content', 'category', 'status',"tags"]
         widgets = {
             'title': forms.TextInput(attrs={
                 'class': 'w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-300 focus:border-blue-500',
@@ -40,6 +40,9 @@ class PostForm(forms.ModelForm):
                 'class': 'w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-300 focus:border-blue-500'
             }),
             'status': forms.Select(attrs={
+                'class': 'w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-300 focus:border-blue-500'
+            }),
+            'tags': forms.SelectMultiple(attrs={
                 'class': 'w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-300 focus:border-blue-500'
             }),
         }

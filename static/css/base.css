@@ -38,7 +38,7 @@ main {
 
 .card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15) !important;
 }
 
 /* Post Content */
@@ -105,11 +105,11 @@ main {
     text-align: center;
     padding: 3rem 1.5rem !important;
   }
-  
+
   .display-5 {
     font-size: 2rem;
   }
-  
+
   .card-body {
     padding: 1.5rem !important;
   }
@@ -121,6 +121,7 @@ main {
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);

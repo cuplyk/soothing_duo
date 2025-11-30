@@ -3,6 +3,7 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.urls import reverse 
 from django.utils.text import slugify
+from taggit.managers import TaggableManager
 
 # access the user model
 User = get_user_model()
@@ -30,7 +31,8 @@ class Post(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="blog_posts")
     content = models.TextField()
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)
-    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default="draft")
+    tags = TaggableManager()
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default="published")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     publish = models.DateTimeField(null=True, blank=True)

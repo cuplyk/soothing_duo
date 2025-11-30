@@ -16,6 +16,7 @@ dependencies = [
   "djangorestframework>=3.16.1",
   "django-cors-headers>=4.9.0",
   "django-htmx>=1.26.0",
+  "django-taggit>=6.1.0",
 ]
 
 [dependency-groups]
