@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "corsheaders",
     "django_htmx",
     "taggit",
+    "tinymce",
     # Local
     "accounts",
     "pages",
@@ -262,3 +263,35 @@ CSRF_TRUSTED_ORIGINS = [
     "http://localhost:8000",  # Default Django dev server
     "http://127.0.0.1:8000",  # Alternative local address
 ]
+
+
+
+#tinymce config
+TINYMCE_DEFAULT_CONFIG = {
+    'height': 760,
+    'width': '100%',
+    'cleanup_on_startup': True,
+    'custom_undo_redo_levels': 20,
+    'selector': 'textarea',
+    'theme': 'silver',
+    'plugins': '''
+            textcolor save link image media preview codesample contextmenu
+            table code lists fullscreen  insertdatetime  nonbreaking
+            contextmenu directionality searchreplace wordcount visualblocks
+            visualchars code fullscreen autolink lists  charmap print  hr
+            anchor pagebreak
+            ''',
+    'toolbar1': '''
+            fullscreen preview bold italic underline | fontselect,
+            fontsizeselect  | forecolor backcolor | alignleft alignright |
+            aligncenter alignjustify | indent outdent | bullist numlist table |
+            | link image media | codesample |
+            ''',
+    'toolbar2': '''
+            visualblocks visualchars |
+            charmap hr pagebreak nonbreaking anchor |  code |
+            ''',
+    'contextmenu': 'formats | link image',
+    'menubar': True,
+    'statusbar': True,
+}

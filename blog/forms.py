@@ -2,6 +2,7 @@
 
 from django import forms
 from .models import Post, Comment
+from tinymce.widgets import TinyMCE
 
 class CommentForm(forms.ModelForm):
     """
@@ -23,6 +24,8 @@ class PostForm(forms.ModelForm):
     """
     Form for creating and editing a blog post.
     """
+
+    content = forms.CharField(widget=TinyMCE(attrs={'cols': 80, 'rows': 30}))
     class Meta:
         model = Post
         fields = ['title', 'content', 'category', 'status',"tags"]

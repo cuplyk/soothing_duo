@@ -4,6 +4,7 @@ from django.contrib.auth import get_user_model
 from django.urls import reverse 
 from django.utils.text import slugify
 from taggit.managers import TaggableManager
+from tinymce.models import HTMLField
 
 # access the user model
 User = get_user_model()
@@ -29,7 +30,7 @@ class Post(models.Model):
     title = models.CharField(max_length=250)
     slug = models.SlugField(max_length=250, unique_for_date="publish")
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="blog_posts")
-    content = models.TextField()
+    content = HTMLField()
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)
     tags = TaggableManager()
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default="published")
