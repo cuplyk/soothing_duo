@@ -161,10 +161,10 @@ def add_comment(request, slug):
             comment.author = request.user
         # For guests, author is None, name/email come from form
         comment.save()
-        
+
         return render(request, 'blog/partials/comment_item.html', {
             'comment': comment,
-            'post': post
+            'post': post,
         })
         
     return HttpResponse(status=400)
@@ -195,6 +195,9 @@ def comment_item(request, pk):
     return render(request, 'blog/partials/comment_item.html', {
         'comment': comment
     })
+
+
+
 
 # Infinite scroll
 def posts_list(request):
