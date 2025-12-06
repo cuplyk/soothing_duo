@@ -1,57 +1,124 @@
 <!-- templates/includes/navbar.html -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
-  <div class="container">
-    <a class="navbar-brand fw-bold" href="{% url 'home' %}">
-      <i class="fas fa-blog me-2"></i>Tecno Pronto
-    </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarContent">
-      <ul class="navbar-nav me-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'home' %}">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'about' %}">About</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'blog:post_list' %}">Blog</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
-            Categories
-          </a> 
-          <ul class="dropdown-menu">
-            {% for category in categories %}
-            <li>
-              <a class="dropdown-item" href="{% url 'blog:category_posts' category.slug %}">
-                {{ category.name }}
-              </a>
-            </li>
-            {% endfor %}
-          </ul>
-        </li>
-      </ul>
-      <div class="d-flex">
-        {% if user.is_authenticated %}
-        <div class="dropdown">
-          <button class="btn btn-outline-light dropdown-toggle" data-bs-toggle="dropdown">
-            <i class="fas fa-user me-1"></i>{{ user.username }}
-          </button>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Profile</a></li>
-            <li><a class="dropdown-item" href="#">My Posts</a></li>
-            <li><a class="dropdown-item" href="{% url 'account_change_password' %}">Change password</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="{% url 'account_logout' %}">Logout</a></li>
-          </ul>
+<nav class="bg-gray-800 shadow-sm" x-data="{ mobileMenuOpen: false }">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+      <!-- Logo -->
+      <div class="flex items-center">
+        <a class="flex-shrink-0 flex items-center text-white font-bold text-xl" href="{% url 'home' %}">
+          <i class="fas fa-blog mr-2"></i>Tecno Pronto
+        </a>
+        <!-- Desktop Menu -->
+        <div class="hidden md:block">
+          <div class="ml-10 flex items-baseline space-x-4">
+            <a href="{% url 'home' %}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</a>
+            <a href="{% url 'about' %}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">About</a>
+            <a href="{% url 'blog:post_list' %}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Blog</a>
+            
+            <!-- Categories Dropdown -->
+            <div class="relative inline-block text-left" x-data="{ open: false }">
+              <div>
+                <button @click="open = !open" @click.away="open = false" type="button" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium inline-flex items-center">
+                  Categories
+                  <svg class="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                  </svg>
+                </button>
+              </div>
+              <div x-show="open" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95" class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-10" style="display: none;">
+                <div class="py-1">
+                  {% for category in categories %}
+                  <a href="{% url 'blog:category_posts' category.slug %}" class="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100">{{ category.name }}</a>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        {% else %}
-        <a href="{% url 'account_login' %}" class="btn btn-outline-light me-2">Login</a>
-        <a href="{% url 'account_signup' %}" class="btn btn-primary">Sign Up</a>
-        {% endif %}
       </div>
+      
+      <!-- Right Side (User/Auth) -->
+      <div class="hidden md:block">
+        <div class="ml-4 flex items-center md:ml-6">
+          {% if user.is_authenticated %}
+          <!-- User Dropdown -->
+          <div class="relative ml-3" x-data="{ userOpen: false }">
+            <div>
+              <button @click="userOpen = !userOpen" @click.away="userOpen = false" type="button" class="max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white text-gray-300 hover:text-white" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
+                <span class="sr-only">Open user menu</span>
+                <i class="fas fa-user mr-1"></i> {{ user.username }}
+              </button>
+            </div>
+            <div x-show="userOpen" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95" class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-10" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" style="display: none;">
+              <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Profile</a>
+              <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">My Posts</a>
+              <a href="{% url 'account_change_password' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Change password</a>
+              <div class="border-t border-gray-100"></div>
+              <a href="{% url 'account_logout' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Logout</a>
+            </div>
+          </div>
+          {% else %}
+          <div class="flex space-x-2">
+            <a href="{% url 'account_login' %}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium border border-gray-500">Login</a>
+            <a href="{% url 'account_signup' %}" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded-md text-sm font-medium">Sign Up</a>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+      
+      <!-- Mobile menu button -->
+      <div class="-mr-2 flex md:hidden">
+        <button @click="mobileMenuOpen = !mobileMenuOpen" type="button" class="bg-gray-800 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
+          <span class="sr-only">Open main menu</span>
+          <svg class="block h-6 w-6" :class="{'hidden': mobileMenuOpen, 'block': !mobileMenuOpen }" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+          <svg class="hidden h-6 w-6" :class="{'block': mobileMenuOpen, 'hidden': !mobileMenuOpen }" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile menu, show/hide based on menu state. -->
+  <div class="md:hidden" id="mobile-menu" x-show="mobileMenuOpen" style="display: none;">
+    <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+      <a href="{% url 'home' %}" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Home</a>
+      <a href="{% url 'about' %}" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">About</a>
+      <a href="{% url 'blog:post_list' %}" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Blog</a>
+      
+      <!-- Mobile Categories -->
+      <div class="text-gray-300 px-3 py-2 rounded-md text-base font-medium font-bold">Categories</div>
+      <div class="pl-4">
+          {% for category in categories %}
+          <a href="{% url 'blog:category_posts' category.slug %}" class="text-gray-400 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-sm font-medium">{{ category.name }}</a>
+          {% endfor %}
+      </div>
+    </div>
+    
+    <div class="pt-4 pb-3 border-t border-gray-700">
+      {% if user.is_authenticated %}
+      <div class="flex items-center px-5">
+        <div class="flex-shrink-0">
+           <i class="fas fa-user-circle fa-2x text-gray-400"></i>
+        </div>
+        <div class="ml-3">
+          <div class="text-base font-medium leading-none text-white">{{ user.username }}</div>
+          <div class="text-sm font-medium leading-none text-gray-400">{{ user.email }}</div>
+        </div>
+      </div>
+      <div class="mt-3 px-2 space-y-1">
+        <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">Profile</a>
+        <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">My Posts</a>
+        <a href="{% url 'account_change_password' %}" class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">Change password</a>
+        <a href="{% url 'account_logout' %}" class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">Logout</a>
+      </div>
+      {% else %}
+      <div class="mt-3 px-2 space-y-1">
+          <a href="{% url 'account_login' %}" class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">Login</a>
+          <a href="{% url 'account_signup' %}" class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">Sign Up</a>
+      </div>
+      {% endif %}
     </div>
   </div>
 </nav>

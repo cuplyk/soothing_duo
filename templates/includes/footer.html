@@ -1,56 +1,54 @@
 <!-- Footer -->
-<footer class="bg-dark text-light py-5">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-4 mb-4">
-        <h5 class="fw-bold mb-4">Tecno Pronto</h5>
-        <p class="opacity-75">A modern blogging platform built for writers who value simplicity, elegance, and focus.</p>
-        <div class="d-flex gap-3 mt-3">
-          <a href="#" class="text-light opacity-75 hover-opacity-100"><i class="fab fa-twitter fa-lg"></i></a>
-          <a href="#" class="text-light opacity-75 hover-opacity-100"><i class="fab fa-instagram fa-lg"></i></a>
-          <a href="#" class="text-light opacity-75 hover-opacity-100"><i class="fab fa-linkedin fa-lg"></i></a>
-          <a href="#" class="text-light opacity-75 hover-opacity-100"><i class="fab fa-github fa-lg"></i></a>
+<footer class="bg-gray-900 text-white py-12">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div class="mb-8 md:mb-0">
+        <h5 class="font-bold text-lg mb-4">Tecno Pronto</h5>
+        <p class="text-gray-400 text-sm">A modern blogging platform built for writers who value simplicity, elegance, and focus.</p>
+        <div class="flex space-x-4 mt-4">
+          <a href="#" class="text-gray-400 hover:text-white transition-colors duration-200"><i class="fab fa-twitter fa-lg"></i></a>
+          <a href="#" class="text-gray-400 hover:text-white transition-colors duration-200"><i class="fab fa-instagram fa-lg"></i></a>
+          <a href="#" class="text-gray-400 hover:text-white transition-colors duration-200"><i class="fab fa-linkedin fa-lg"></i></a>
+          <a href="#" class="text-gray-400 hover:text-white transition-colors duration-200"><i class="fab fa-github fa-lg"></i></a>
         </div>
       </div>
       
-      <div class="col-md-2 mb-4">
-        <h6 class="fw-bold mb-3">Product</h6>
-        <ul class="list-unstyled">
-          <li class="mb-2"><a href="#" class="text-light opacity-75 hover-opacity-100">Features</a></li>
-          <li class="mb-2"><a href="#" class="text-light opacity-75 hover-opacity-100">Pricing</a></li>
-          <li class="mb-2"><a href="#" class="text-light opacity-75 hover-opacity-100">Integrations</a></li>
-          <li class="mb-2"><a href="#" class="text-light opacity-75 hover-opacity-100">Roadmap</a></li>
+      <div class="mb-8 md:mb-0">
+        <h6 class="font-bold text-gray-100 mb-4 tracking-wider uppercase text-sm">Product</h6>
+        <ul class="space-y-2">
+          <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-200 text-sm">Features</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-200 text-sm">Pricing</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-200 text-sm">Integrations</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-200 text-sm">Roadmap</a></li>
         </ul>
       </div>
       
-      <div class="col-md-2 mb-4">
-        <h6 class="fw-bold mb-3">Category</h6>
-        {% for category in categories|slice:":4" %}
-        <ul class="list-unstyled">
-          <li class="mb-2"><a href="{% url 'blog:category_posts' category.slug %}" class="text-light opacity-75 hover-opacity-100">{{ category.name }}</a></li>
+      <div class="mb-8 md:mb-0">
+        <h6 class="font-bold text-gray-100 mb-4 tracking-wider uppercase text-sm">Category</h6>
+        <ul class="space-y-2">
+            {% for category in categories|slice:":4" %}
+            <li><a href="{% url 'blog:category_posts' category.slug %}" class="text-gray-400 hover:text-white transition-colors duration-200 text-sm">{{ category.name }}</a></li>
+            {% endfor %}
         </ul>
-        {% endfor %}
       </div>
       
-      <div class="col-md-4 mb-4">
-        <h6 class="fw-bold mb-3">Subscribe to Newsletter</h6>
-        <p class="opacity-75">Get the latest updates and writing tips</p>
-        <form class="d-flex">
-          <input type="email" class="form-control me-2" placeholder="Your email">
-          <button class="btn btn-primary" type="submit">Join</button>
+      <div>
+        <h6 class="font-bold text-gray-100 mb-4 tracking-wider uppercase text-sm">Subscribe to Newsletter</h6>
+        <p class="text-gray-400 text-sm mb-4">Get the latest updates and writing tips</p>
+        <form class="flex">
+          <input type="email" class="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-l-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-500 text-sm" placeholder="Your email">
+          <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-r-md text-sm font-medium transition-colors duration-200" type="submit">Join</button>
         </form>
       </div>
     </div>
     
-    <hr class="opacity-25 my-4">
-    
-    <div class="row">
-      <div class="col-md-6">
-        <p class="opacity-75 mb-0">© 2025 Soothing_Duo Blog. All rights reserved.</p>
-      </div>
-      <div class="col-md-6 text-md-end">
-        <a href="#" class="text-light opacity-75 hover-opacity-100 me-3">Privacy Policy</a>
-        <a href="#" class="text-light opacity-75 hover-opacity-100">Terms of Service</a>
+    <div class="border-t border-gray-800 mt-12 pt-8">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <p class="text-gray-400 text-sm md:mb-0">© 2025 Soothing_Duo Blog. All rights reserved.</p>
+        <div class="flex space-x-6">
+          <a href="#" class="text-gray-400 hover:text-white transition-colors duration-200 text-sm">Privacy Policy</a>
+          <a href="#" class="text-gray-400 hover:text-white transition-colors duration-200 text-sm">Terms of Service</a>
+        </div>
       </div>
     </div>
   </div>

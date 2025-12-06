@@ -1,213 +1,198 @@
 {% extends '_base.html' %}
 {% load static %}
 
-{% block title %}Tecno Pronto - Tech Support, On Your Schedule{% endblock title %}
-
-{% block css %}
-{{ block.super }}
-<link rel="stylesheet" href="{% static 'css/home.css' %}">
-{% endblock css %}
+{% block title %}Tecno Pronto - Home{% endblock %}
 
 {% block content %}
 <!-- Hero Section -->
-<header class="hero-section text-white text-center">
-    <div class="container hero-content">
-        <h1 class="hero-title">Tech Support, On Your Schedule</h1>
-        <p class="hero-subtitle mb-4">We fix your tech headaches when you're actually home. 6 PM - 10 PM Support.</p>
-        <a href="#booking" class="btn btn-primary btn-cta btn-lg shadow-lg">Book Your Fix Now</a>
+<header class="relative bg-gray-900 text-white overflow-hidden">
+    <div class="absolute inset-0 z-0">
+         <!-- Placeholder for hero background -->
+        <div class="absolute inset-0 bg-gradient-to-r from-gray-900 to-gray-800 opacity-90"></div>
+    </div>
+    
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32 flex flex-col items-center text-center">
+        <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-6">
+            Expert IT Support <span class="text-blue-500">When You Need It</span>
+        </h1>
+        <p class="text-xl md:text-2xl text-gray-300 max-w-3xl mb-10">
+            Professional technical support for families and businesses. Available evenings and weekends.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4">
+            <a href="{% url 'account_signup' %}" class="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg shadow-lg transition duration-300 flex items-center justify-center">
+                Get Started
+                <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+            <a href="#services" class="px-8 py-4 bg-gray-800 hover:bg-gray-700 text-gray-200 font-bold rounded-lg border border-gray-700 transition duration-300 flex items-center justify-center">
+                View Services
+            </a>
+        </div>
     </div>
 </header>
 
-<!-- 3-Step Process Section -->
-<section id="how-it-works" class="py-5 bg-white">
-    <div class="container text-center">
-        <h2 class="fw-bold mb-5 display-5 text-dark">How It Works</h2>
-        <div class="row g-4">
-            <div class="col-md-4">
-                <div class="card h-100 border-0">
-                    <div class="card-body">
-                        <div class="rounded-circle bg-primary text-white d-inline-flex align-items-center justify-content-center mb-4 shadow" style="width: 80px; height: 80px; font-size: 2rem;">1</div>
-                        <h4 class="fw-bold mb-3">Describe Issue</h4>
-                        <p class="text-muted lead">Briefly tell us what's wrong. Slow laptop? Wi-Fi dead? We've seen it all.</p>
-                    </div>
-                </div>
+<!-- How It Works / Process -->
+<section class="py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">How It Works</h2>
+            <p class="text-gray-600 max-w-2xl mx-auto">Getting support shouldn't be complicated. We've streamlined our process to get you back up and running fast.</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Step 1 -->
+            <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-100 text-center relative">
+                <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-6">1</div>
+                <h3 class="text-xl font-bold text-gray-900 mb-3">Describe Your Issue</h3>
+                <p class="text-gray-600">Tell us what's wrong through our simple online portal or give us a quick call.</p>
             </div>
-            <div class="col-md-4">
-                <div class="card h-100 border-0">
-                    <div class="card-body">
-                        <div class="rounded-circle bg-primary text-white d-inline-flex align-items-center justify-content-center mb-4 shadow" style="width: 80px; height: 80px; font-size: 2rem;">2</div>
-                        <h4 class="fw-bold mb-3">Pick Time</h4>
-                        <p class="text-muted lead">Select a slot between 6 PM and 10 PM. No need to take time off work.</p>
-                    </div>
-                </div>
+            
+            <!-- Step 2 -->
+            <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-100 text-center relative">
+                <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-6">2</div>
+                <h3 class="text-xl font-bold text-gray-900 mb-3">Expert Diagnosis</h3>
+                <p class="text-gray-600">Our certified technicians will diagnose the problem remotely or schedule an onsite visit.</p>
             </div>
-            <div class="col-md-4">
-                <div class="card h-100 border-0">
-                    <div class="card-body">
-                        <div class="rounded-circle bg-success text-white d-inline-flex align-items-center justify-content-center mb-4 shadow" style="width: 80px; height: 80px; font-size: 2rem;"><i class="fas fa-check"></i></div>
-                        <h4 class="fw-bold mb-3">Get Fixed</h4>
-                        <p class="text-muted lead">We log in remotely or stop by. Problem solved, stress gone.</p>
-                    </div>
-                </div>
+            
+            <!-- Step 3 -->
+            <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-100 text-center relative">
+                <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-6">3</div>
+                <h3 class="text-xl font-bold text-gray-900 mb-3">Problem Solved</h3>
+                <p class="text-gray-600">We fix the issue and ensure everything is running smoothly before we sign off.</p>
             </div>
         </div>
     </div>
 </section>
 
 <!-- Services Grid -->
-<section id="services" class="py-5 bg-light">
-    <div class="container">
-        <div class="text-center mb-5">
-            <h2 class="fw-bold display-5 text-dark">Our Services</h2>
-            <p class="lead text-muted">Expert help for your home technology.</p>
+<section id="services" class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">Our Services</h2>
+            <p class="text-gray-600 max-w-2xl mx-auto">Comprehensive IT solutions tailored for your home and business needs.</p>
         </div>
-        <div class="row g-4">
-            <div class="col-md-4 col-sm-6">
-                <div class="card h-100 border-0 shadow-sm hover-shadow transition">
-                    <div class="card-body p-4 text-center">
-                        <i class="fas fa-virus fa-3x text-danger mb-3"></i>
-                        <h5 class="fw-bold">Virus Removal</h5>
-                        <p class="text-muted">Clean up malware and speed up your PC.</p>
-                    </div>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Service 1 -->
+            <div class="p-6 rounded-xl hover:shadow-lg transition-shadow duration-300 border border-gray-100 group">
+                <div class="w-14 h-14 bg-gray-50 rounded-lg flex items-center justify-center mb-6 group-hover:bg-blue-600 transition-colors duration-300">
+                    <i class="fas fa-desktop text-2xl text-blue-600 group-hover:text-white transition-colors duration-300"></i>
                 </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">Computer Repair</h3>
+                <p class="text-gray-600">Hardware & software troubleshooting for Macs and PCs. We breathe life back into slow machines.</p>
             </div>
-            <div class="col-md-4 col-sm-6">
-                <div class="card h-100 border-0 shadow-sm hover-shadow transition">
-                    <div class="card-body p-4 text-center">
-                        <i class="fas fa-wifi fa-3x text-primary mb-3"></i>
-                        <h5 class="fw-bold">Wi-Fi Help</h5>
-                        <p class="text-muted">Fix dead zones and connection drops.</p>
-                    </div>
+            
+            <!-- Service 2 -->
+            <div class="p-6 rounded-xl hover:shadow-lg transition-shadow duration-300 border border-gray-100 group">
+                <div class="w-14 h-14 bg-gray-50 rounded-lg flex items-center justify-center mb-6 group-hover:bg-blue-600 transition-colors duration-300">
+                    <i class="fas fa-wifi text-2xl text-blue-600 group-hover:text-white transition-colors duration-300"></i>
                 </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">Network Setup</h3>
+                <p class="text-gray-600">WiFi optimization, mesh network installation, and security configuration for home offices.</p>
             </div>
-            <div class="col-md-4 col-sm-6">
-                <div class="card h-100 border-0 shadow-sm hover-shadow transition">
-                    <div class="card-body p-4 text-center">
-                        <i class="fas fa-download fa-3x text-info mb-3"></i>
-                        <h5 class="fw-bold">Software Setup</h5>
-                        <p class="text-muted">Install and configure programs correctly.</p>
-                    </div>
+            
+            <!-- Service 3 -->
+            <div class="p-6 rounded-xl hover:shadow-lg transition-shadow duration-300 border border-gray-100 group">
+                <div class="w-14 h-14 bg-gray-50 rounded-lg flex items-center justify-center mb-6 group-hover:bg-blue-600 transition-colors duration-300">
+                    <i class="fas fa-shield-alt text-2xl text-blue-600 group-hover:text-white transition-colors duration-300"></i>
                 </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">Cybersecurity</h3>
+                <p class="text-gray-600">Virus removal, malware protection, and security audits to keep your data safe.</p>
             </div>
-            <div class="col-md-4 col-sm-6">
-                <div class="card h-100 border-0 shadow-sm hover-shadow transition">
-                    <div class="card-body p-4 text-center">
-                        <i class="fas fa-hdd fa-3x text-secondary mb-3"></i>
-                        <h5 class="fw-bold">Data Backup</h5>
-                        <p class="text-muted">Secure your photos and documents.</p>
-                    </div>
+            
+             <!-- Service 4 -->
+             <div class="p-6 rounded-xl hover:shadow-lg transition-shadow duration-300 border border-gray-100 group">
+                <div class="w-14 h-14 bg-gray-50 rounded-lg flex items-center justify-center mb-6 group-hover:bg-blue-600 transition-colors duration-300">
+                    <i class="fas fa-hdd text-2xl text-blue-600 group-hover:text-white transition-colors duration-300"></i>
                 </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">Data Recovery</h3>
+                <p class="text-gray-600">Lost files? We help recover your precious photos, documents, and business data.</p>
             </div>
-            <div class="col-md-4 col-sm-6">
-                <div class="card h-100 border-0 shadow-sm hover-shadow transition">
-                    <div class="card-body p-4 text-center">
-                        <i class="fas fa-print fa-3x text-dark mb-3"></i>
-                        <h5 class="fw-bold">Printer Issues</h5>
-                        <p class="text-muted">Get that printer connecting again.</p>
-                    </div>
+            
+            <!-- Service 5 -->
+            <div class="p-6 rounded-xl hover:shadow-lg transition-shadow duration-300 border border-gray-100 group">
+                <div class="w-14 h-14 bg-gray-50 rounded-lg flex items-center justify-center mb-6 group-hover:bg-blue-600 transition-colors duration-300">
+                    <i class="fas fa-headset text-2xl text-blue-600 group-hover:text-white transition-colors duration-300"></i>
                 </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">Remote Support</h3>
+                <p class="text-gray-600">Quick fixes for software issues without the need for a home visit. Secure and efficient.</p>
             </div>
-            <div class="col-md-4 col-sm-6">
-                <div class="card h-100 border-0 shadow-sm hover-shadow transition">
-                    <div class="card-body p-4 text-center">
-                        <i class="fas fa-mobile-alt fa-3x text-success mb-3"></i>
-                        <h5 class="fw-bold">Device Sync</h5>
-                        <p class="text-muted">Sync phone, tablet, and computer.</p>
-                    </div>
+            
+             <!-- Service 6 -->
+             <div class="p-6 rounded-xl hover:shadow-lg transition-shadow duration-300 border border-gray-100 group">
+                <div class="w-14 h-14 bg-gray-50 rounded-lg flex items-center justify-center mb-6 group-hover:bg-blue-600 transition-colors duration-300">
+                    <i class="fas fa-home text-2xl text-blue-600 group-hover:text-white transition-colors duration-300"></i>
                 </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">Smart Home</h3>
+                <p class="text-gray-600">Installation and configuration of smart devices, cameras, and automation systems.</p>
             </div>
         </div>
     </div>
 </section>
 
 <!-- Value Propositions -->
-<section class="py-5 text-white bg-dark">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-6 mb-4 mb-lg-0">
-                <h2 class="fw-bold display-5 mb-4">Why Choose Us?</h2>
-                <div class="d-flex mb-3">
-                    <div class="me-3"><i class="fas fa-moon fa-2x text-warning"></i></div>
-                    <div>
-                        <h5 class="fw-bold">After-Hours Availability</h5>
-                        <p class="opacity-75">We work when you're home. No need to leave work early.</p>
-                    </div>
-                </div>
-                <div class="d-flex mb-3">
-                    <div class="me-3"><i class="fas fa-tag fa-2x text-warning"></i></div>
-                    <div>
-                        <h5 class="fw-bold">Flat-Rate Pricing</h5>
-                        <p class="opacity-75">Know the cost upfront. No hourly surprises.</p>
-                    </div>
-                </div>
-                <div class="d-flex mb-3">
-                    <div class="me-3"><i class="fas fa-laptop-house fa-2x text-warning"></i></div>
-                    <div>
-                        <h5 class="fw-bold">Remote or In-Person</h5>
-                        <p class="opacity-75">We can fix many issues online instantly, or come to you.</p>
-                    </div>
-                </div>
-                <div class="d-flex">
-                    <div class="me-3"><i class="fas fa-file-contract fa-2x text-warning"></i></div>
-                    <div>
-                        <h5 class="fw-bold">No Contracts</h5>
-                        <p class="opacity-75">Pay only when you need us. Simple.</p>
+<section class="py-20 bg-gray-50">
+     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col lg:flex-row items-center gap-12">
+            <div class="lg:w-1/2">
+                <div class="bg-white p-2 rounded-2xl shadow-xl transform rotate-2">
+                    <!-- Placeholder for generic tech image -->
+                    <div class="bg-gray-200 h-64 md:h-96 rounded-xl flex items-center justify-center text-gray-400">
+                        <i class="fas fa-users text-6xl"></i>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-6">
-                <!-- Placeholder for an image or just clean space. Maybe a testimonial card -->
-                <div class="p-5 bg-white text-dark rounded-3 shadow">
-                    <div class="mb-3 text-warning">
-                        <i class="fas fa-star fa-lg"></i>
-                        <i class="fas fa-star fa-lg"></i>
-                        <i class="fas fa-star fa-lg"></i>
-                        <i class="fas fa-star fa-lg"></i>
-                        <i class="fas fa-star fa-lg"></i>
+            <div class="lg:w-1/2">
+                <h2 class="text-3xl font-bold text-gray-900 mb-6">Why Choose Tecno Pronto?</h2>
+                <div class="space-y-6">
+                    <div class="flex">
+                        <div class="flex-shrink-0">
+                            <div class="flex items-center justify-center h-12 w-12 rounded-md bg-blue-600 text-white">
+                                <i class="fas fa-clock text-xl"></i>
+                            </div>
+                        </div>
+                        <div class="ml-4">
+                            <h4 class="text-lg font-bold text-gray-900">After-Hours Availability</h4>
+                            <p class="mt-2 text-gray-600">We work when you don't. Evening and weekend appointments available at no extra cost.</p>
+                        </div>
                     </div>
-                    <blockquote class="blockquote fs-4">
-                        "Tecno Pronto saved my evening! My presentation was stuck and they fixed it remotely in 20 minutes."
-                    </blockquote>
-                    <figcaption class="blockquote-footer mt-2">
-                        Sarah J., <cite title="Source Title">Busy Mom & Architect</cite>
-                    </figcaption>
+                    
+                    <div class="flex">
+                        <div class="flex-shrink-0">
+                            <div class="flex items-center justify-center h-12 w-12 rounded-md bg-blue-600 text-white">
+                                <i class="fas fa-tags text-xl"></i>
+                            </div>
+                        </div>
+                        <div class="ml-4">
+                            <h4 class="text-lg font-bold text-gray-900">Transparent Pricing</h4>
+                            <p class="mt-2 text-gray-600">No hidden fees. We provide clear quotes before starting any work.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex">
+                        <div class="flex-shrink-0">
+                            <div class="flex items-center justify-center h-12 w-12 rounded-md bg-blue-600 text-white">
+                                <i class="fas fa-smile text-xl"></i>
+                            </div>
+                        </div>
+                        <div class="ml-4">
+                            <h4 class="text-lg font-bold text-gray-900">Satisfaction Guaranteed</h4>
+                            <p class="mt-2 text-gray-600">We don't stop until the problem is solved and you're happy with the result.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+     </div>
 </section>
 
-<!-- Dynamic Call-to-Action -->
-<section id="booking" class="py-5 bg-primary text-white text-center">
-    <div class="container py-4">
-        <h2 class="fw-bold display-4 mb-3">Ready to end the frustration?</h2>
-        <p class="lead mb-4">Book your slot now and get back to what matters.</p>
-        <div class="d-flex gap-3 justify-content-center">
-            <a href="#" class="btn btn-warning btn-lg px-5 fw-bold text-dark">Book Now</a>
-            <a href="{% url 'account_login' %}" class="btn btn-outline-light btn-lg px-5">Log In</a>
-        </div>
+<!-- Call to Action -->
+<section class="py-20 bg-blue-600 text-white">
+    <div class="max-w-4xl mx-auto px-4 text-center">
+        <h2 class="text-3xl font-bold mb-4">Ready for Stress-Free IT Support?</h2>
+        <p class="text-blue-100 text-xl mb-8">Join hundreds of satisfied families and businesses who trust Tecno Pronto.</p>
+        <a href="{% url 'account_signup' %}" class="inline-block bg-white text-blue-600 font-bold py-4 px-10 rounded-full shadow-lg hover:bg-gray-100 transition duration-300 transform hover:-translate-y-1">
+            Get Started Today
+        </a>
     </div>
 </section>
 {% endblock content %}
-
-{% block footer %}
-<footer class="bg-dark text-light py-4 border-top border-secondary">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                <h5 class="fw-bold mb-0"><i class="fas fa-microchip me-2"></i>Tecno Pronto</h5>
-                <small class="text-white-50">Tech Support, On Your Schedule</small>
-            </div>
-            <div class="col-md-6 text-center text-md-end">
-                <a href="#" class="text-white-50 text-decoration-none me-3 hover-white">Services</a>
-                <a href="#" class="text-white-50 text-decoration-none me-3 hover-white">Pricing</a>
-                <a href="mailto:support@tecnopronto.com" class="text-white-50 text-decoration-none hover-white">support@tecnopronto.com</a>
-            </div>
-        </div>
-        <hr class="border-secondary my-3 opacity-25">
-        <div class="text-center text-white-50 small">
-            &copy; 2025 Tecno Pronto. All rights reserved.
-        </div>
-    </div>
-</footer>
-{% endblock footer %}
