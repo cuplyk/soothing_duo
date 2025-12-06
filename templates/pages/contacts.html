@@ -1,7 +1,7 @@
 {% extends '_base.html' %}
 {% load static %}
 
-{% block title %}Tecno Pronto Answers{% endblock %}
+{% block title %}Tecno Pronto - Contacts{% endblock %}
 
 {% block navbar %}
 {% endblock %}
@@ -10,20 +10,20 @@
 <!-- Page Container with Flex Layout for Sidebar + Main -->
 <div class="flex h-screen bg-[#0B1416] font-sans overflow-hidden">
     
-    <!-- Sidebar (Hidden on mobile to match responsive design) -->
+    <!-- Sidebar -->
     <aside class="w-[270px] hidden lg:flex flex-col border-r border-[#1A282D] bg-[#0B1416] text-[#818384] overflow-y-auto custom-scrollbar h-full">
         <div class="p-4 space-y-4">
             
-            <!-- Logo Area (Optional replacement for Navbar Logo) -->
+            <!-- Logo Area -->
             <div class="px-4 py-4 mb-2">
-                <a href="#" class="flex items-center text-[#D7DADC] font-bold text-xl">
+                <a href="{% url 'home' %}" class="flex items-center text-[#D7DADC] font-bold text-xl">
                      <span class="text-[#D93A00] mr-1">Tecno</span>Pronto
                 </a>
             </div>
 
             <!-- Main Navigation -->
             <div class="space-y-1">
-                <a href="#" class="flex items-center px-4 py-2.5 text-gray-200 bg-[#273539] rounded-full font-medium transition-colors">
+                <a href="#" class="flex items-center px-4 py-2.5 hover:bg-[#1A282D] rounded-full font-medium transition-colors">
                     <i class="fas fa-fire mr-4 text-lg w-5 text-center"></i> Popular
                 </a>
                 <a href="{% url 'blog:post_list' %}" class="flex items-center px-4 py-2.5 hover:bg-[#1A282D] rounded-full font-medium transition-colors">
@@ -36,7 +36,7 @@
 
             <hr class="border-[#1A282D] mx-2">
 
-            <!-- Topics / Resources -->
+            <!-- Topics -->
             <div>
                 <h3 class="px-4 text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Topics</h3>
                 <div class="space-y-1">
@@ -64,7 +64,8 @@
                     <a href="{% url 'about' %}" class="flex items-center px-4 py-2 hover:bg-[#1A282D] rounded-full transition-colors">
                         <i class="fas fa-info-circle mr-4 w-5 text-center"></i> About Us
                     </a>
-                    <a href="{% url 'contacts' %}" class="flex items-center px-4 py-2 hover:bg-[#1A282D] rounded-full transition-colors">
+                    <!-- Active State for Contacts -->
+                    <a href="{% url 'contacts' %}" class="flex items-center px-4 py-2 text-gray-200 bg-[#273539] rounded-full transition-colors font-medium">
                         <i class="fas fa-wrench mr-4 w-5 text-center"></i> Contacts
                     </a>
                     <a href="{% url 'blog:post_list' %}" class="flex items-center px-4 py-2 hover:bg-[#1A282D] rounded-full transition-colors">
@@ -79,7 +80,7 @@
     <!-- Main Content Area -->
     <div class="flex-1 relative flex flex-col items-center justify-center p-4 overflow-hidden bg-[#0B1416]">
         
-        <!-- Top Right Auth Buttons (Minimal replacement for navbar) -->
+        <!-- Top Right Auth Buttons -->
         <div class="absolute top-6 right-6 z-30 flex gap-3">
             {% if user.is_authenticated %}
                 <span class="text-gray-400 self-center mr-2">Hello, {{ user.username }}</span>
@@ -100,93 +101,67 @@
 
         <!-- Floating Pills Background -->
         <div class="absolute inset-0 pointer-events-none overflow-hidden select-none">
-            <!-- Top Cluster -->
+             <!-- Scatter pills -->
             <div class="floating-pill absolute top-[15%] left-[10%] bg-[#1A282D] text-[#D7DADC] px-4 py-2 rounded-full text-sm border border-[#343536] opacity-60">
-                <i class="fas fa-bug text-red-400 mr-2"></i>Virus Removal
+                <i class="fas fa-map-marker-alt text-red-400 mr-2"></i>Verona
             </div>
             <div class="floating-pill absolute top-[20%] right-[15%] bg-[#1A282D] text-[#D7DADC] px-4 py-2 rounded-full text-sm border border-[#343536] opacity-50">
-                <i class="fas fa-memory text-green-400 mr-2"></i>RAM Upgrade?
+                <i class="fas fa-phone text-green-400 mr-2"></i>Support
             </div>
              <div class="floating-pill absolute top-[10%] right-[30%] bg-[#1A282D] text-[#D7DADC] px-4 py-2 rounded-full text-sm border border-[#343536] opacity-40">
-                <i class="fab fa-apple text-gray-200 mr-2"></i>MacBook Slow
-            </div>
-
-            <!-- Side/Bottom Scatter -->
-             <div class="floating-pill absolute top-[40%] left-[5%] bg-[#1A282D] text-[#D7DADC] px-4 py-2 rounded-full text-sm border border-[#343536] opacity-40">
-                <i class="fab fa-windows text-blue-400 mr-2"></i>Blue Screen
-            </div>
-            <div class="floating-pill absolute bottom-[30%] right-[10%] bg-[#1A282D] text-[#D7DADC] px-4 py-2 rounded-full text-sm border border-[#343536] opacity-60">
-                <i class="fas fa-wifi text-yellow-400 mr-2"></i>No Internet
-            </div>
-             <div class="floating-pill absolute bottom-[20%] left-[15%] bg-[#1A282D] text-[#D7DADC] px-4 py-2 rounded-full text-sm border border-[#343536] opacity-50">
-                <i class="fas fa-database text-purple-400 mr-2"></i>Data Recovery
+                <i class="fas fa-envelope text-gray-200 mr-2"></i>Email Us
             </div>
         </div>
 
-        <!-- Hero Content -->
-        <div class="z-10 text-center max-w-4xl mx-auto mb-32 relative">
-            <h1 class="text-5xl md:text-7xl font-bold mb-6 tracking-tight text-[#D7DADC]">
-                <span class="text-[#D93A00]">Tecno Pronto</span> Answers
+        <!-- Contact Content container -->
+        <div class="z-10 text-center max-w-4xl mx-auto mb-10 relative bg-[#1A282D]/50 p-10 rounded-3xl border border-[#343536] backdrop-blur-sm shadow-2xl">
+            <h1 class="text-4xl md:text-6xl font-bold mb-8 tracking-tight text-[#D7DADC]">
+                <span class="text-[#D93A00]">Contact</span> Us
             </h1>
             
-            <p class="text-xl md:text-2xl text-[#818384] font-medium mb-12 max-w-2xl mx-auto leading-relaxed">
-                Have a technical question? Ask and receive answers, diagnostics, and support from our experts.
-            </p>
-
-            <!-- Topic Pills Row -->
-            <div class="flex flex-wrap justify-center gap-3 opacity-90">
-                 <button class="px-4 py-1.5 bg-[#272729] hover:bg-[#343536] border border-[#343536] text-gray-300 rounded-full text-sm font-medium transition-colors">
-                    top questions
-                 </button>
-                 <button class="px-4 py-1.5 bg-[#272729] hover:bg-[#343536] border border-[#343536] text-gray-300 rounded-full text-sm font-medium transition-colors">
-                    hardware
-                 </button>
-                 <button class="px-4 py-1.5 bg-[#272729] hover:bg-[#343536] border border-[#343536] text-gray-300 rounded-full text-sm font-medium transition-colors">
-                    software
-                 </button>
-                 <button class="px-4 py-1.5 bg-[#272729] hover:bg-[#343536] border border-[#343536] text-gray-300 rounded-full text-sm font-medium transition-colors">
-                    urgent support
-                 </button>
-            </div>
-        </div>
-
-        <!-- Search Bar -->
-        <div class="w-full max-w-[680px] px-4 absolute bottom-12 z-20">
-            <form action="#" method="GET" class="relative group" x-data="{ focused: false }">
-                <div class="relative transition-all duration-300 transform" :class="{'scale-105': focused}">
-                    <div class="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
-                        <i class="fas fa-search text-gray-500 text-lg transition-colors group-focus-within:text-white"></i>
+            <div class="flex flex-col md:flex-row justify-center items-center gap-10 md:gap-20 text-xl text-[#D7DADC] py-8">
+                <!-- Address Section -->
+                <div class="flex flex-col items-center group">
+                    <div class="w-20 h-20 bg-[#273539] rounded-full flex items-center justify-center mb-6 border border-[#343536] group-hover:border-[#D93A00] group-hover:bg-[#273539]/80 shadow-lg transition-all duration-300 transform group-hover:-translate-y-2">
+                         <i class="fas fa-map-marker-alt text-3xl text-gray-200 group-hover:text-[#D93A00] transition-colors"></i>
                     </div>
-                    <input type="text" 
-                        @focus="focused = true" @blur="focused = false"
-                        class="block w-full pl-12 pr-12 py-4 rounded-full bg-[#1A282D] border border-[#343536] hover:border-gray-500 focus:border-[#D93A00] text-gray-100 placeholder-gray-500 focus:ring-0 focus:bg-[#272729] transition-all duration-200 text-lg shadow-lg" 
-                        placeholder="Ask a question..."
-                        aria-label="Ask a question">
-                    <button type="submit" class="absolute inset-y-0 right-0 pr-5 flex items-center cursor-pointer text-gray-500 hover:text-[#D93A00] transition-colors">
-                        <i class="fas fa-arrow-right text-lg"></i>
-                    </button>
+                    <p class="font-bold text-[#818384] text-sm uppercase tracking-widest mb-2">Visit Us</p>
+                    <p class="text-2xl font-semibold text-white">Via Mameli 23</p>
+                    <p class="text-lg text-[#818384]">Verona</p>
                 </div>
-            </form>
+
+                <!-- Divider for desktop -->
+                <div class="hidden md:block w-px h-32 bg-gradient-to-b from-transparent via-[#343536] to-transparent"></div>
+                <!-- Divider for mobile -->
+                <div class="md:hidden w-32 h-px bg-gradient-to-r from-transparent via-[#343536] to-transparent"></div>
+
+                <!-- Phone Section -->
+                <div class="flex flex-col items-center group">
+                    <div class="w-20 h-20 bg-[#273539] rounded-full flex items-center justify-center mb-6 border border-[#343536] group-hover:border-[#D93A00] group-hover:bg-[#273539]/80 shadow-lg transition-all duration-300 transform group-hover:-translate-y-2">
+                         <i class="fas fa-phone-alt text-3xl text-gray-200 group-hover:text-[#D93A00] transition-colors"></i>
+                    </div>
+                     <p class="font-bold text-[#818384] text-sm uppercase tracking-widest mb-2">Call Us</p>
+                    <p class="text-2xl font-semibold text-white">+39 4566384</p>
+                    <p class="text-lg text-[#818384]">Support 24/7</p>
+                </div>
+            </div>
+            
+            <div class="mt-12">
+                 <a href="tel:+394566384" class="inline-flex items-center gap-2 px-8 py-3 bg-[#D93A00] hover:bg-orange-600 text-white rounded-full font-bold shadow-lg shadow-orange-900/30 transition-all duration-300 hover:scale-105 active:scale-95">
+                    <i class="fas fa-phone"></i> Call Now
+                 </a>
+            </div>
         </div>
 
     </div>
 </div>
 
 <style>
-    /* Custom Scrollbar for Sidebar */
-    .custom-scrollbar::-webkit-scrollbar {
-        width: 8px;
-    }
-    .custom-scrollbar::-webkit-scrollbar-track {
-        background: #0B1416; 
-    }
-    .custom-scrollbar::-webkit-scrollbar-thumb {
-        background: #273539; 
-        border-radius: 4px;
-    }
-    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-        background: #343536; 
-    }
+    /* Reuse styles from home.html */
+    .custom-scrollbar::-webkit-scrollbar { width: 8px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: #0B1416; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: #273539; border-radius: 4px; }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #343536; }
 
     /* Floating Animations */
     @keyframes float1 {
@@ -204,9 +179,7 @@
         50% { transform: translate(40px, 40px) rotate(8deg); }
     }
     
-    .floating-pill {
-        will-change: transform;
-    }
+    .floating-pill { will-change: transform; }
 </style>
 
 <script>
@@ -215,10 +188,9 @@
         const animations = ['float1', 'float2', 'float3'];
         
         pills.forEach(pill => {
-            // Randomize animation properties
             const animationName = animations[Math.floor(Math.random() * animations.length)];
-            const duration = 15 + Math.random() * 20; // 15-35s
-            const delay = -1 * Math.random() * 20; // negative delay to start mid-animation
+            const duration = 15 + Math.random() * 20; 
+            const delay = -1 * Math.random() * 20; 
             
             pill.style.animation = `${animationName} ${duration}s ease-in-out infinite`;
             pill.style.animationDelay = `${delay}s`;
