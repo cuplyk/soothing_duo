@@ -28,20 +28,8 @@ class PostListView(ListView):
     
     # allows you to add additional context data
     def get_context_data(self, **kwargs):
-                """
-        Add additional context data to the template.
-
-        This method adds a list of categories to the context, which is used to
-        display the categories in the sidebar. Each category is annotated with
-        the number of published posts.
-
-        Returns:
-            dict: The context data for the template.
-        """
         context = super().get_context_data(**kwargs)
-        context['categories'] = Category.objects.filter(
-            post__status='published'
-        ).annotate(num_posts=Count('post')).order_by('name')
+        context['categories'] = Category.objects.filter(post__status='published').annotate(num_posts=Count('post')).order_by('name')
         return context 
 
 class PostDetailView(DetailView):
@@ -57,21 +45,17 @@ class PostDetailView(DetailView):
     
     def get_object(self):
         """
-        Return the post object and increment its view count.
+        Return the post object.
         Returns:
             Post: The Post object that is being displayed.
         """
         # Get the post object
         post = super().get_object()
         
-        # Increment views
-        post.views += 1
-        post.save(update_fields=['views'])
-        
         return post
     
     def get_context_data(self, **kwargs):
-                """
+        """
         Add additional context data to the template.
 
         This method adds the post's active comments and indicates whether the
@@ -106,7 +90,7 @@ class CategoryPostListView(ListView):
     paginate_by = 5
     
     def get_queryset(self):
-               """
+        """
         Return the queryset of published posts for the specified category.
 
         Returns:
@@ -117,7 +101,7 @@ class CategoryPostListView(ListView):
         return Post.objects.filter(category=self.category, status="published")
     
     def get_context_data(self, **kwargs):
-                """
+        """
         Add additional context data to the template.
 
         This method adds the current category and a list of all categories to
@@ -145,7 +129,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy('blog:post_list')
     
     def form_valid(self, form):
-               """
+        """
         Set the author of the post to the current user.
 
         This method is called when the form is valid. It sets the author of the

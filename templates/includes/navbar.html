@@ -28,7 +28,7 @@
             {% for category in categories %}
             <li>
               <a class="dropdown-item" href="{% url 'blog:category_posts' category.slug %}">
-                {{ category.name }} <span class="badge bg-primary ms-1">{{ category.num_posts }}</span>
+                {{ category.name }}
               </a>
             </li>
             {% endfor %}

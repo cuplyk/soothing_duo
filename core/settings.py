@@ -62,7 +62,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "allauth.account.middleware.AccountMiddleware",  # django-allauth
     "django_htmx.middleware.HtmxMiddleware",    
-    "blog.middleware.PostViewCounterMiddleware",
+
 ]
 
 # REST Framework Settings
