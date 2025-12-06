@@ -1,0 +1,59 @@
+/* Tecno Pronto Home CSS */
+
+:root {
+    --tp-primary: #0d6efd;
+    --tp-secondary: #6c757d;
+    --tp-dark: #212529;
+    --tp-light: #f8f9fa;
+    --tp-accent: #ffc107;
+    /* Warning color for action */
+}
+
+/* Hero Section */
+.hero-section {
+    background: linear-gradient(rgba(33, 37, 41, 0.7), rgba(33, 37, 41, 0.7)), url('../images/hero_bg.png');
+    /* Assuming PNG from generator */
+    background-size: cover;
+    background-position: center;
+    color: white;
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+}
+
+.hero-subtitle {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    font-weight: 300;
+}
+
+.btn-cta {
+    padding: 1rem 2.5rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+}
+
+.btn-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Sections General */
+section {
+    padding: 5rem 0;
+}

@@ -93,16 +93,16 @@ wheels = [
 ]
 
 [[package]]
-name = "crispy-bootstrap5"
-version = "2024.10"
+name = "crispy-tailwind"
+version = "1.0.3"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "django" },
     { name = "django-crispy-forms" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/04/9f/28326c4d35062fdb4ed228c555525da482bbb408cb1c2665a932a5a19880/crispy_bootstrap5-2024.10.tar.gz", hash = "sha256:55b442fe675dd95ad280123c7fe464f454186e90b8e5642e751f436c87627c44", size = 23645, upload-time = "2024-10-05T12:09:02.347Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/ae/ac/a307ae5ce869d7151b90d4b8b042a48eb454a936dacc695f6418486e5bd8/crispy-tailwind-1.0.3.tar.gz", hash = "sha256:2bc9f616d406e4b003f25d46fcb0079f1c2522719d97adb107667271d849459a", size = 19172, upload-time = "2024-02-13T09:52:37.895Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/bf/3f/bc3bdbda8a6acc1d6b89b63ddd8b82a55a27b5828742716fefca0384e3be/crispy_bootstrap5-2024.10-py3-none-any.whl", hash = "sha256:59e91dac5e45a8c954af3fbcaa6804cd5aef4402f027af2f99a352b096c4016f", size = 24454, upload-time = "2024-10-05T12:09:00.863Z" },
+    { url = "https://files.pythonhosted.org/packages/c9/ca/11f65e24f3c182dfaf90fd3710d2dcca0fbc3026923e47b43f52a4a2349b/crispy_tailwind-1.0.3-py3-none-any.whl", hash = "sha256:31427f66b1c4fd0d6fb040f4197cfb97d104cdbe7641ea2dea940c0057c4db4b", size = 25700, upload-time = "2024-02-13T09:52:35.928Z" },
 ]
 
 [[package]]
@@ -178,6 +178,19 @@ socialaccount = [
 ]
 
 [[package]]
+name = "django-browser-reload"
+version = "1.21.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "asgiref" },
+    { name = "django" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/79/ef/ab407c1a2f14e13c75a6419a2d124954aa0364f62580ad95a3d31dc6c73d/django_browser_reload-1.21.0.tar.gz", hash = "sha256:3335ad3d107eb657f623d1a8e680dfbcab8a83ae1f94df1895e069dddf5604ba", size = 15800, upload-time = "2025-09-22T17:00:35.199Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/46/61/1b4a8c589652859995bcab87682286443eb9fdf2d7fd584975b9ffc1db33/django_browser_reload-1.21.0-py3-none-any.whl", hash = "sha256:0b2a86ab460774fa9bb142a121c70e75a72f18109f51a4f6de409cd633d3a70d", size = 12852, upload-time = "2025-09-22T17:00:33.479Z" },
+]
+
+[[package]]
 name = "django-cors-headers"
 version = "4.9.0"
 source = { registry = "https://pypi.org/simple" }
@@ -238,6 +251,23 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/34/a6/f1beaf8f552fe90c153cc039316ebab942c23dfbc88588dde081fefca816/django_taggit-6.1.0.tar.gz", hash = "sha256:c4d1199e6df34125dd36db5eb0efe545b254dec3980ce5dd80e6bab3e78757c3", size = 38151, upload-time = "2024-09-29T08:07:39.477Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/6b/34/4185c345530b91d05cb82e05d07148f481a5eb5dc2ac44e092b3daa6f206/django_taggit-6.1.0-py3-none-any.whl", hash = "sha256:ab776264bbc76cb3d7e49e1bf9054962457831bd21c3a42db9138b41956e4cf0", size = 75749, upload-time = "2024-09-29T08:07:14.612Z" },
+]
+
+[[package]]
+name = "django-tailwind"
+version = "3.9.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "django" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/cd/4a/ad6f842aa3eccffd4fd4f5d20419800fe11cdf45e23bc4e3a2efa3a599a2/django_tailwind-3.9.1.tar.gz", hash = "sha256:518ba44d1e50c285f8ec5c46ebafb3075cec7a753d39a7f5fb69c71abc35009a", size = 9081, upload-time = "2025-04-02T13:26:18.963Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/98/3a/57675729ff6a0d0828c38596bedf342df9c16c82e7c9f45bafbb0881472f/django_tailwind-3.9.1-py3-none-any.whl", hash = "sha256:3a1807b4ed93c893d9c8ddbaf2b771d2bc4ef462f2406e17105571234005c601", size = 13028, upload-time = "2025-04-02T13:26:17.628Z" },
+]
+
+[package.optional-dependencies]
+reload = [
+    { name = "django-browser-reload" },
 ]
 
 [[package]]
@@ -480,13 +510,15 @@ name = "soothing-duo"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
-    { name = "crispy-bootstrap5" },
+    { name = "crispy-tailwind" },
     { name = "django" },
     { name = "django-allauth", extra = ["openid", "socialaccount"] },
+    { name = "django-browser-reload" },
     { name = "django-cors-headers" },
     { name = "django-debug-toolbar" },
     { name = "django-htmx" },
     { name = "django-taggit" },
+    { name = "django-tailwind", extra = ["reload"] },
     { name = "django-tinymce" },
     { name = "djangorestframework" },
     { name = "gunicorn" },
@@ -504,13 +536,15 @@ dev = [
 
 [package.metadata]
 requires-dist = [
-    { name = "crispy-bootstrap5", specifier = "~=2024.10" },
+    { name = "crispy-tailwind", specifier = "~=1.0" },
     { name = "django", specifier = "~=5.1" },
     { name = "django-allauth", extras = ["openid", "socialaccount"], specifier = "~=65.2" },
+    { name = "django-browser-reload", specifier = "~=1.17" },
     { name = "django-cors-headers", specifier = ">=4.9.0" },
     { name = "django-debug-toolbar", specifier = "~=4.4" },
     { name = "django-htmx", specifier = ">=1.26.0" },
     { name = "django-taggit", specifier = ">=6.1.0" },
+    { name = "django-tailwind", extras = ["reload"], specifier = "~=3.8" },
     { name = "django-tinymce", specifier = ">=5.0.0" },
     { name = "djangorestframework", specifier = ">=3.16.1" },
     { name = "gunicorn", specifier = "~=23.0" },

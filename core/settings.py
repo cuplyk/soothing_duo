@@ -35,7 +35,7 @@ INSTALLED_APPS = [
     "allauth",
     "allauth.account",
     "crispy_forms",
-    "crispy_bootstrap5",
+    "crispy_tailwind",
     "debug_toolbar",
     "rest_framework",
     "corsheaders",
@@ -46,6 +46,9 @@ INSTALLED_APPS = [
     "accounts",
     "pages",
     "blog",
+    "tailwind",
+    "theme",
+    "django_browser_reload",
 ]
 
 # https://docs.djangoproject.com/en/dev/ref/settings/#middleware
@@ -61,8 +64,8 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "allauth.account.middleware.AccountMiddleware",  # django-allauth
-    "django_htmx.middleware.HtmxMiddleware",    
-
+    "django_htmx.middleware.HtmxMiddleware",
+    "django_browser_reload.middleware.BrowserReloadMiddleware",
 ]
 
 # REST Framework Settings
@@ -214,8 +217,8 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # django-crispy-forms
 # https://django-crispy-forms.readthedocs.io/en/latest/install.html#template-packs
-CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
-CRISPY_TEMPLATE_PACK = "bootstrap5"
+CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
+CRISPY_TEMPLATE_PACK = "tailwind"
 
 # https://docs.djangoproject.com/en/dev/ref/settings/#email-backend
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
@@ -226,7 +229,11 @@ DEFAULT_FROM_EMAIL = "root@localhost"
 # django-debug-toolbar
 # https://django-debug-toolbar.readthedocs.io/en/latest/installation.html
 # https://docs.djangoproject.com/en/dev/ref/settings/#internal-ips
+# https://docs.djangoproject.com/en/dev/ref/settings/#internal-ips
 INTERNAL_IPS = ["127.0.0.1"]
+
+TAILWIND_APP_NAME = 'theme'
+NPM_BIN_PATH = "npm.cmd"
 
 # https://docs.djangoproject.com/en/dev/topics/auth/customizing/#substituting-a-custom-user-model
 AUTH_USER_MODEL = "accounts.CustomUser"

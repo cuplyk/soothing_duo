@@ -6,7 +6,7 @@ dependencies = [
   "django ~=5.1",
   "django-allauth[openid,socialaccount] ~=65.2",
   "django-debug-toolbar ~=4.4",
-  "crispy-bootstrap5 ~=2024.10",
+  "crispy-tailwind ~=1.0",
   "gunicorn ~=23.0",
   "psycopg[binary] ~=3.2",
   "whitenoise ~=6.7",
@@ -18,6 +18,8 @@ dependencies = [
   "django-htmx>=1.26.0",
   "django-taggit>=6.1.0",
   "django-tinymce>=5.0.0",
+  "django-tailwind[reload] ~=3.8",
+  "django-browser-reload ~=1.17",
 ]
 
 [dependency-groups]
