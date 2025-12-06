@@ -16,7 +16,7 @@
             
             <!-- Logo Area (Optional replacement for Navbar Logo) -->
             <div class="px-4 py-4 mb-2">
-                <a href="{% url 'home' %}" class="flex items-center text-[#D7DADC] font-bold text-xl">
+                <a href="#" class="flex items-center text-[#D7DADC] font-bold text-xl">
                      <span class="text-[#D93A00] mr-1">Tecno</span>Pronto
                 </a>
             </div>
@@ -98,24 +98,24 @@
         <!-- Floating Pills Background -->
         <div class="absolute inset-0 pointer-events-none overflow-hidden select-none">
             <!-- Top Cluster -->
-            <div class="absolute top-[15%] left-[10%] bg-[#1A282D] text-[#D7DADC] px-4 py-2 rounded-full text-sm border border-[#343536] opacity-60">
+            <div class="floating-pill absolute top-[15%] left-[10%] bg-[#1A282D] text-[#D7DADC] px-4 py-2 rounded-full text-sm border border-[#343536] opacity-60">
                 <i class="fas fa-bug text-red-400 mr-2"></i>Virus Removal
             </div>
-            <div class="absolute top-[20%] right-[15%] bg-[#1A282D] text-[#D7DADC] px-4 py-2 rounded-full text-sm border border-[#343536] opacity-50">
+            <div class="floating-pill absolute top-[20%] right-[15%] bg-[#1A282D] text-[#D7DADC] px-4 py-2 rounded-full text-sm border border-[#343536] opacity-50">
                 <i class="fas fa-memory text-green-400 mr-2"></i>RAM Upgrade?
             </div>
-             <div class="absolute top-[10%] right-[30%] bg-[#1A282D] text-[#D7DADC] px-4 py-2 rounded-full text-sm border border-[#343536] opacity-40">
+             <div class="floating-pill absolute top-[10%] right-[30%] bg-[#1A282D] text-[#D7DADC] px-4 py-2 rounded-full text-sm border border-[#343536] opacity-40">
                 <i class="fab fa-apple text-gray-200 mr-2"></i>MacBook Slow
             </div>
 
             <!-- Side/Bottom Scatter -->
-             <div class="absolute top-[40%] left-[5%] bg-[#1A282D] text-[#D7DADC] px-4 py-2 rounded-full text-sm border border-[#343536] opacity-40">
+             <div class="floating-pill absolute top-[40%] left-[5%] bg-[#1A282D] text-[#D7DADC] px-4 py-2 rounded-full text-sm border border-[#343536] opacity-40">
                 <i class="fab fa-windows text-blue-400 mr-2"></i>Blue Screen
             </div>
-            <div class="absolute bottom-[30%] right-[10%] bg-[#1A282D] text-[#D7DADC] px-4 py-2 rounded-full text-sm border border-[#343536] opacity-60">
+            <div class="floating-pill absolute bottom-[30%] right-[10%] bg-[#1A282D] text-[#D7DADC] px-4 py-2 rounded-full text-sm border border-[#343536] opacity-60">
                 <i class="fas fa-wifi text-yellow-400 mr-2"></i>No Internet
             </div>
-             <div class="absolute bottom-[20%] left-[15%] bg-[#1A282D] text-[#D7DADC] px-4 py-2 rounded-full text-sm border border-[#343536] opacity-50">
+             <div class="floating-pill absolute bottom-[20%] left-[15%] bg-[#1A282D] text-[#D7DADC] px-4 py-2 rounded-full text-sm border border-[#343536] opacity-50">
                 <i class="fas fa-database text-purple-400 mr-2"></i>Data Recovery
             </div>
         </div>
@@ -184,7 +184,44 @@
     .custom-scrollbar::-webkit-scrollbar-thumb:hover {
         background: #343536; 
     }
+
+    /* Floating Animations */
+    @keyframes float1 {
+        0%, 100% { transform: translate(0, 0) rotate(0deg); }
+        33% { transform: translate(30px, -50px) rotate(5deg); }
+        66% { transform: translate(-20px, 20px) rotate(-5deg); }
+    }
+    @keyframes float2 {
+        0%, 100% { transform: translate(0, 0) rotate(0deg); }
+        33% { transform: translate(-30px, 40px) rotate(-5deg); }
+        66% { transform: translate(25px, -30px) rotate(5deg); }
+    }
+    @keyframes float3 {
+        0%, 100% { transform: translate(0, 0) rotate(0deg); }
+        50% { transform: translate(40px, 40px) rotate(8deg); }
+    }
+    
+    .floating-pill {
+        will-change: transform;
+    }
 </style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const pills = document.querySelectorAll('.floating-pill');
+        const animations = ['float1', 'float2', 'float3'];
+        
+        pills.forEach(pill => {
+            // Randomize animation properties
+            const animationName = animations[Math.floor(Math.random() * animations.length)];
+            const duration = 15 + Math.random() * 20; // 15-35s
+            const delay = -1 * Math.random() * 20; // negative delay to start mid-animation
+            
+            pill.style.animation = `${animationName} ${duration}s ease-in-out infinite`;
+            pill.style.animationDelay = `${delay}s`;
+        });
+    });
+</script>
 {% endblock content %}
 
 {% block footer_block %}

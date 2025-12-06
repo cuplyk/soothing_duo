@@ -9,4 +9,4 @@ class AboutPageView(TemplateView):
     template_name = "pages/about.html"
 
 class Blog(TemplateView):
-    pass
+    pass    
