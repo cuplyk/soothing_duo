@@ -65,7 +65,7 @@ class PostDetailView(DetailView):
             dict: The context data for the template.
         """
         context = super().get_context_data(**kwargs)
-        context['comments'] = self.object.comments.filter(active=True)
+        context['comments'] = self.object.comments.select_related('author').filter(active=True)
         
         # Check if user liked the post
         if self.request.user.is_authenticated:

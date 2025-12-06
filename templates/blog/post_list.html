@@ -3,9 +3,8 @@
 {% block title %}Blog Posts{% endblock %}
 
 {% block content %}
-<div id="posts-container" 
-     class="space-y-6"
-     _="on htmx:afterSettle add .animate-flash to #posts-container > article:first-child then wait 2s then remove .animate-flash">
+
+<div id="posts-container" class="space-y-6"_="on htmx:afterSettle add .animate-flash to #posts-container > article:first-child then wait 2s then remove .animate-flash">
     {% include "blog/partials/posts_list.html" %}
 </div>
 
