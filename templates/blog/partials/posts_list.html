@@ -61,7 +61,7 @@
             </h2>
 
             <p class="text-gray-600 mb-4 line-clamp-3">
-              {{ post.content|striptags|truncatewords:30 }}
+              {{ post.content|striptags|safe|truncatewords:30 }}
             </p>
 
             <div class="flex items-center justify-between border-t border-gray-100 pt-4">
