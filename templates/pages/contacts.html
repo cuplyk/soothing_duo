@@ -7,196 +7,132 @@
 {% endblock %}
 
 {% block content %}
-<!-- Page Container with Flex Layout for Sidebar + Main -->
-<div class="flex h-screen bg-[#0B1416] font-sans overflow-hidden">
-    
-    <!-- Sidebar -->
-    <aside class="w-[270px] hidden lg:flex flex-col border-r border-[#1A282D] bg-[#0B1416] text-[#818384] overflow-y-auto custom-scrollbar h-full">
-        <div class="p-4 space-y-4">
-            
-            <!-- Logo Area -->
-            <div class="px-4 py-4 mb-2">
-                <a href="{% url 'home' %}" class="flex items-center text-[#D7DADC] font-bold text-xl">
-                     <span class="text-[#D93A00] mr-1">Tecno</span>Pronto
-                </a>
-            </div>
+<!-- Page Container -->
+<div class="flex h-screen bg-[#080c0e] font-sans selection:bg-[#D93A00] selection:text-white overflow-hidden text-[#e3e5e8]">
 
-            <!-- Main Navigation -->
-            <div class="space-y-1">
-                <a href="#" class="flex items-center px-4 py-2.5 hover:bg-[#1A282D] rounded-full font-medium transition-colors">
-                    <i class="fas fa-fire mr-4 text-lg w-5 text-center"></i> Popular
-                </a>
-                <a href="{% url 'blog:post_list' %}" class="flex items-center px-4 py-2.5 hover:bg-[#1A282D] rounded-full font-medium transition-colors">
-                    <i class="fas fa-compass mr-4 text-lg w-5 text-center"></i> Explore
-                </a>
-                <a href="#" class="flex items-center px-4 py-2.5 hover:bg-[#1A282D] rounded-full font-medium transition-colors">
-                    <i class="fas fa-chart-line mr-4 text-lg w-5 text-center"></i> Trending
-                </a>
-            </div>
-
-            <hr class="border-[#1A282D] mx-2">
-
-            <!-- Topics -->
-            <div>
-                <h3 class="px-4 text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Topics</h3>
-                <div class="space-y-1">
-                    <a href="#" class="flex items-center px-4 py-2 hover:bg-[#1A282D] rounded-full transition-colors">
-                        <i class="fas fa-laptop mr-4 w-5 text-center"></i> Hardware
-                    </a>
-                    <a href="#" class="flex items-center px-4 py-2 hover:bg-[#1A282D] rounded-full transition-colors">
-                        <i class="fab fa-windows mr-4 w-5 text-center"></i> Software
-                    </a>
-                    <a href="#" class="flex items-center px-4 py-2 hover:bg-[#1A282D] rounded-full transition-colors">
-                        <i class="fas fa-wifi mr-4 w-5 text-center"></i> Network
-                    </a>
-                    <a href="#" class="flex items-center px-4 py-2 hover:bg-[#1A282D] rounded-full transition-colors">
-                        <i class="fas fa-mobile-alt mr-4 w-5 text-center"></i> Mobile
-                    </a>
-                </div>
-            </div>
-
-            <hr class="border-[#1A282D] mx-2">
-
-            <!-- Resources -->
-             <div>
-                <h3 class="px-4 text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Resources</h3>
-                <div class="space-y-1">
-                    <a href="{% url 'about' %}" class="flex items-center px-4 py-2 hover:bg-[#1A282D] rounded-full transition-colors">
-                        <i class="fas fa-info-circle mr-4 w-5 text-center"></i> About Us
-                    </a>
-                    <!-- Active State for Contacts -->
-                    <a href="{% url 'contacts' %}" class="flex items-center px-4 py-2 text-gray-200 bg-[#273539] rounded-full transition-colors font-medium">
-                        <i class="fas fa-wrench mr-4 w-5 text-center"></i> Contacts
-                    </a>
-                    <a href="{% url 'blog:post_list' %}" class="flex items-center px-4 py-2 hover:bg-[#1A282D] rounded-full transition-colors">
-                        <i class="fas fa-blog mr-4 w-5 text-center"></i> Blog
-                    </a>
-                </div>
-            </div>
-
-        </div>
-    </aside>
-
-    <!-- Main Content Area -->
-    <div class="flex-1 relative flex flex-col items-center justify-center p-4 overflow-hidden bg-[#0B1416]">
+    <!-- Main Content -->
+    <main class="flex-1 relative flex flex-col overflow-y-auto overflow-x-hidden custom-scrollbar">
         
-        <!-- Top Right Auth Buttons -->
-        <div class="absolute top-6 right-6 z-30 flex gap-3">
-            {% if user.is_authenticated %}
-                <span class="text-gray-400 self-center mr-2">Hello, {{ user.username }}</span>
-                <a href="{% url 'account_logout' %}" class="px-4 py-2 rounded-full bg-[#1A282D] hover:bg-[#273539] text-white text-sm font-semibold transition-colors">
-                    Log out
-                </a>
-            {% else %}
-                 <a href="{% url 'account_login' %}" class="px-5 py-2 rounded-full bg-[#D93A00] hover:bg-orange-600 text-white text-sm font-semibold transition-colors shadow-lg shadow-orange-900/20">
-                    Log In
-                </a>
-            {% endif %}
-        </div>
+        <!-- Contact Hero -->
+        <div class="relative pt-24 pb-12 px-4 sm:px-6 z-10 text-center">
+            <!-- Background Glow -->
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-[#D93A00]/10 rounded-full blur-[120px] pointer-events-none mix-blend-screen"></div>
 
-        <!-- Decorative Elements (Gradients) -->
-        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-[128px] pointer-events-none"></div>
-        <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-orange-500/10 rounded-full blur-[128px] pointer-events-none"></div>
-
-
-        <!-- Floating Pills Background -->
-        <div class="absolute inset-0 pointer-events-none overflow-hidden select-none">
-             <!-- Scatter pills -->
-            <div class="floating-pill absolute top-[15%] left-[10%] bg-[#1A282D] text-[#D7DADC] px-4 py-2 rounded-full text-sm border border-[#343536] opacity-60">
-                <i class="fas fa-map-marker-alt text-red-400 mr-2"></i>Verona
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/5 text-[11px] uppercase tracking-wider font-semibold text-[#D93A00] mb-6">
+                <span class="w-1.5 h-1.5 rounded-full bg-[#D93A00] animate-pulse"></span>
+                We are online
             </div>
-            <div class="floating-pill absolute top-[20%] right-[15%] bg-[#1A282D] text-[#D7DADC] px-4 py-2 rounded-full text-sm border border-[#343536] opacity-50">
-                <i class="fas fa-phone text-green-400 mr-2"></i>Support
-            </div>
-             <div class="floating-pill absolute top-[10%] right-[30%] bg-[#1A282D] text-[#D7DADC] px-4 py-2 rounded-full text-sm border border-[#343536] opacity-40">
-                <i class="fas fa-envelope text-gray-200 mr-2"></i>Email Us
-            </div>
-        </div>
-
-        <!-- Contact Content container -->
-        <div class="z-10 text-center max-w-4xl mx-auto mb-10 relative bg-[#1A282D]/50 p-10 rounded-3xl border border-[#343536] backdrop-blur-sm shadow-2xl">
-            <h1 class="text-4xl md:text-6xl font-bold mb-8 tracking-tight text-[#D7DADC]">
-                <span class="text-[#D93A00]">Contact</span> Us
+            
+            <h1 class="text-5xl md:text-7xl font-bold tracking-tight mb-6 text-white">
+                Get in <span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-white/40">Touch</span>
             </h1>
-            
-            <div class="flex flex-col md:flex-row justify-center items-center gap-10 md:gap-20 text-xl text-[#D7DADC] py-8">
-                <!-- Address Section -->
-                <div class="flex flex-col items-center group">
-                    <div class="w-20 h-20 bg-[#273539] rounded-full flex items-center justify-center mb-6 border border-[#343536] group-hover:border-[#D93A00] group-hover:bg-[#273539]/80 shadow-lg transition-all duration-300 transform group-hover:-translate-y-2">
-                         <i class="fas fa-map-marker-alt text-3xl text-gray-200 group-hover:text-[#D93A00] transition-colors"></i>
+            <p class="text-xl text-white/50 max-w-2xl mx-auto leading-relaxed">
+                Have a question or need immediate support? <br>
+                Our team is ready to help you solve your IT challenges.
+            </p>
+        </div>
+
+        <!-- Contact Grid -->
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 py-12 w-full relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+                
+                <!-- Info Column -->
+                <div class="space-y-6">
+                    <!-- Address Card -->
+                    <div class="group p-8 rounded-2xl bg-[#0F1619] border border-white/5 hover:border-white/10 transition-all hover:-translate-y-1 relative overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        
+                        <div class="flex items-start gap-6 relative z-10">
+                            <div class="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-400 font-bold text-xl shrink-0">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-white mb-1">Visit Our Office</h3>
+                                <p class="text-white/60 mb-2">Come say hello at our HQ.</p>
+                                <p class="text-xl text-white font-medium">Verona, Via Mameli 23</p>
+                            </div>
+                        </div>
                     </div>
-                    <p class="font-bold text-[#818384] text-sm uppercase tracking-widest mb-2">Visit Us</p>
-                    <p class="text-2xl font-semibold text-white">Via Mameli 23</p>
-                    <p class="text-lg text-[#818384]">Verona</p>
+
+                    <!-- Phone Card -->
+                    <div class="group p-8 rounded-2xl bg-[#0F1619] border border-white/5 hover:border-white/10 transition-all hover:-translate-y-1 relative overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        
+                        <div class="flex items-start gap-6 relative z-10">
+                            <div class="w-12 h-12 rounded-xl bg-[#D93A00]/10 flex items-center justify-center text-[#D93A00] font-bold text-xl shrink-0">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-white mb-1">Call Support</h3>
+                                <p class="text-white/60 mb-2">Mon-Fri from 8am to 5pm.</p>
+                                <p class="text-xl text-white font-medium">+39 4566384</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Email Card -->
+                    <div class="group p-8 rounded-2xl bg-[#0F1619] border border-white/5 hover:border-white/10 transition-all hover:-translate-y-1 relative overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        
+                        <div class="flex items-start gap-6 relative z-10">
+                            <div class="w-12 h-12 rounded-xl bg-green-500/10 flex items-center justify-center text-green-400 font-bold text-xl shrink-0">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-white mb-1">Chat with us</h3>
+                                <p class="text-white/60 mb-2">Send us a friendly email.</p>
+                                <a href="mailto:support@tecnopronto.com" class="text-xl text-white font-medium hover:text-[#D93A00] transition-colors">support@tecnopronto.com</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Divider for desktop -->
-                <div class="hidden md:block w-px h-32 bg-gradient-to-b from-transparent via-[#343536] to-transparent"></div>
-                <!-- Divider for mobile -->
-                <div class="md:hidden w-32 h-px bg-gradient-to-r from-transparent via-[#343536] to-transparent"></div>
+                <!-- Form Column -->
+                <div class="relative">
+                    <div class="absolute -inset-1 bg-gradient-to-r from-[#D93A00] to-blue-600 rounded-2xl blur opacity-20 pointer-events-none"></div>
+                    <form class="relative bg-[#0F1619] border border-white/5 p-8 sm:p-10 rounded-2xl shadow-2xl space-y-6">
+                        <h3 class="text-2xl font-bold text-white mb-2">Send a Message</h3>
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label class="text-xs font-bold uppercase tracking-wider text-white/50">First Name</label>
+                                <input type="text" class="w-full bg-[#080c0e] border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#D93A00] focus:ring-1 focus:ring-[#D93A00] transition-all" placeholder="John">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-xs font-bold uppercase tracking-wider text-white/50">Last Name</label>
+                                <input type="text" class="w-full bg-[#080c0e] border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#D93A00] focus:ring-1 focus:ring-[#D93A00] transition-all" placeholder="Doe">
+                            </div>
+                        </div>
 
-                <!-- Phone Section -->
-                <div class="flex flex-col items-center group">
-                    <div class="w-20 h-20 bg-[#273539] rounded-full flex items-center justify-center mb-6 border border-[#343536] group-hover:border-[#D93A00] group-hover:bg-[#273539]/80 shadow-lg transition-all duration-300 transform group-hover:-translate-y-2">
-                         <i class="fas fa-phone-alt text-3xl text-gray-200 group-hover:text-[#D93A00] transition-colors"></i>
-                    </div>
-                     <p class="font-bold text-[#818384] text-sm uppercase tracking-widest mb-2">Call Us</p>
-                    <p class="text-2xl font-semibold text-white">+39 4566384</p>
-                    <p class="text-lg text-[#818384]">Support 24/7</p>
+                        <div class="space-y-2">
+                            <label class="text-xs font-bold uppercase tracking-wider text-white/50">Email</label>
+                            <input type="email" class="w-full bg-[#080c0e] border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#D93A00] focus:ring-1 focus:ring-[#D93A00] transition-all" placeholder="john@example.com">
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="text-xs font-bold uppercase tracking-wider text-white/50">Message</label>
+                            <textarea rows="4" class="w-full bg-[#080c0e] border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#D93A00] focus:ring-1 focus:ring-[#D93A00] transition-all" placeholder="How can we help you?"></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full py-4 bg-[#D93A00] hover:bg-[#b03000] text-white font-bold rounded-lg shadow-lg shadow-[#D93A00]/20 transition-all hover:translate-y-[-2px]">
+                            Send Message
+                        </button>
+                    </form>
                 </div>
-            </div>
-            
-            <div class="mt-12">
-                 <a href="tel:+394566384" class="inline-flex items-center gap-2 px-8 py-3 bg-[#D93A00] hover:bg-orange-600 text-white rounded-full font-bold shadow-lg shadow-orange-900/30 transition-all duration-300 hover:scale-105 active:scale-95">
-                    <i class="fas fa-phone"></i> Call Now
-                 </a>
+
             </div>
         </div>
 
-    </div>
+    </main>
 </div>
 
 <style>
-    /* Reuse styles from home.html */
-    .custom-scrollbar::-webkit-scrollbar { width: 8px; }
-    .custom-scrollbar::-webkit-scrollbar-track { background: #0B1416; }
-    .custom-scrollbar::-webkit-scrollbar-thumb { background: #273539; border-radius: 4px; }
-    .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #343536; }
-
-    /* Floating Animations */
-    @keyframes float1 {
-        0%, 100% { transform: translate(0, 0) rotate(0deg); }
-        33% { transform: translate(30px, -50px) rotate(5deg); }
-        66% { transform: translate(-20px, 20px) rotate(-5deg); }
-    }
-    @keyframes float2 {
-        0%, 100% { transform: translate(0, 0) rotate(0deg); }
-        33% { transform: translate(-30px, 40px) rotate(-5deg); }
-        66% { transform: translate(25px, -30px) rotate(5deg); }
-    }
-    @keyframes float3 {
-        0%, 100% { transform: translate(0, 0) rotate(0deg); }
-        50% { transform: translate(40px, 40px) rotate(8deg); }
-    }
-    
-    .floating-pill { will-change: transform; }
+    /* Custom Scrollbar */
+    .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
 </style>
-
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const pills = document.querySelectorAll('.floating-pill');
-        const animations = ['float1', 'float2', 'float3'];
-        
-        pills.forEach(pill => {
-            const animationName = animations[Math.floor(Math.random() * animations.length)];
-            const duration = 15 + Math.random() * 20; 
-            const delay = -1 * Math.random() * 20; 
-            
-            pill.style.animation = `${animationName} ${duration}s ease-in-out infinite`;
-            pill.style.animationDelay = `${delay}s`;
-        });
-    });
-</script>
 {% endblock content %}
 
 {% block footer_block %}

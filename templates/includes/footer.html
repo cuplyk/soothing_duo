@@ -1,54 +1,80 @@
 <!-- Footer -->
-<footer class="bg-gray-900 text-white py-12">
+<footer class="bg-[#080c0e] border-t border-white/5 py-16 text-sm text-white/50">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-      <div class="mb-8 md:mb-0">
-        <h5 class="font-bold text-lg mb-4">Tecno Pronto</h5>
-        <p class="text-gray-400 text-sm">A modern blogging platform built for writers who value simplicity, elegance, and focus.</p>
-        <div class="flex space-x-4 mt-4">
-          <a href="#" class="text-gray-400 hover:text-white transition-colors duration-200"><i class="fab fa-twitter fa-lg"></i></a>
-          <a href="#" class="text-gray-400 hover:text-white transition-colors duration-200"><i class="fab fa-instagram fa-lg"></i></a>
-          <a href="#" class="text-gray-400 hover:text-white transition-colors duration-200"><i class="fab fa-linkedin fa-lg"></i></a>
-          <a href="#" class="text-gray-400 hover:text-white transition-colors duration-200"><i class="fab fa-github fa-lg"></i></a>
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+      
+      <!-- Brand Column -->
+      <div class="space-y-4">
+        <a href="{% url 'home' %}" class="flex items-center gap-2 font-bold text-lg text-white">
+             <div class="w-1.5 h-1.5 rounded-full bg-[#D93A00]"></div>
+             <span>Tecno<span class="text-[#D93A00]">Pronto</span></span>
+        </a>
+        <p class="leading-relaxed text-white/40 max-w-xs">
+          Professional IT support when you need it most. 
+          Expert help for your home and business technology.
+        </p>
+        <div class="flex space-x-4 pt-2">
+          <a href="#" class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-white/40 hover:bg-[#D93A00] hover:text-white transition-all duration-300 transform hover:-translate-y-1">
+              <i class="fab fa-twitter"></i>
+          </a>
+          <a href="#" class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-white/40 hover:bg-[#D93A00] hover:text-white transition-all duration-300 transform hover:-translate-y-1">
+              <i class="fab fa-instagram"></i>
+          </a>
+          <a href="#" class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-white/40 hover:bg-[#D93A00] hover:text-white transition-all duration-300 transform hover:-translate-y-1">
+              <i class="fab fa-linkedin"></i>
+          </a>
         </div>
       </div>
       
-      <div class="mb-8 md:mb-0">
-        <h6 class="font-bold text-gray-100 mb-4 tracking-wider uppercase text-sm">Product</h6>
-        <ul class="space-y-2">
-          <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-200 text-sm">Features</a></li>
-          <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-200 text-sm">Pricing</a></li>
-          <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-200 text-sm">Integrations</a></li>
-          <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-200 text-sm">Roadmap</a></li>
+      <!-- Product Links -->
+      <div>
+        <h6 class="font-bold text-white mb-6 uppercase tracking-wider text-xs">Product</h6>
+        <ul class="space-y-3">
+          <li><a href="#" class="hover:text-white transition-colors">Features</a></li>
+          <li><a href="#" class="hover:text-white transition-colors">Pricing</a></li>
+          <li><a href="#" class="hover:text-white transition-colors">Integrations</a></li>
+          <li><a href="#" class="hover:text-white transition-colors">Roadmap</a></li>
         </ul>
       </div>
       
-      <div class="mb-8 md:mb-0">
-        <h6 class="font-bold text-gray-100 mb-4 tracking-wider uppercase text-sm">Category</h6>
-        <ul class="space-y-2">
-            {% for category in categories|slice:":4" %}
-            <li><a href="{% url 'blog:category_posts' category.slug %}" class="text-gray-400 hover:text-white transition-colors duration-200 text-sm">{{ category.name }}</a></li>
+      <!-- Categories -->
+      <div>
+        <h6 class="font-bold text-white mb-6 uppercase tracking-wider text-xs">Explore</h6>
+        <ul class="space-y-3">
+             {% for category in categories|slice:":4" %}
+            <li>
+                <a href="{% url 'blog:category_posts' category.slug %}" class="hover:text-white transition-colors flex items-center group">
+                    <span class="w-1 h-1 rounded-full bg-white/20 mr-2 group-hover:bg-[#D93A00] transition-colors"></span>
+                    {{ category.name }}
+                </a>
+            </li>
             {% endfor %}
         </ul>
       </div>
       
+      <!-- Newsletter -->
       <div>
-        <h6 class="font-bold text-gray-100 mb-4 tracking-wider uppercase text-sm">Subscribe to Newsletter</h6>
-        <p class="text-gray-400 text-sm mb-4">Get the latest updates and writing tips</p>
-        <form class="flex">
-          <input type="email" class="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-l-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-500 text-sm" placeholder="Your email">
-          <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-r-md text-sm font-medium transition-colors duration-200" type="submit">Join</button>
+        <h6 class="font-bold text-white mb-6 uppercase tracking-wider text-xs">Newsletter</h6>
+        <p class="mb-4 text-white/40">Get the latest updates and tips.</p>
+        <form class="relative">
+          <input type="email" 
+                 class="w-full pl-4 pr-12 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-white/20 focus:outline-none focus:border-[#D93A00]/50 focus:bg-white/10 transition-all text-sm" 
+                 placeholder="Your email">
+          <button class="absolute top-1 right-1 bottom-1 px-3 bg-[#D93A00] hover:bg-[#b03000] text-white rounded-md text-sm font-medium transition-colors" type="submit">
+              Join
+          </button>
         </form>
       </div>
+
     </div>
     
-    <div class="border-t border-gray-800 mt-12 pt-8">
-      <div class="flex flex-col md:flex-row justify-between items-center">
-        <p class="text-gray-400 text-sm md:mb-0">© 2025 Soothing_Duo Blog. All rights reserved.</p>
-        <div class="flex space-x-6">
-          <a href="#" class="text-gray-400 hover:text-white transition-colors duration-200 text-sm">Privacy Policy</a>
-          <a href="#" class="text-gray-400 hover:text-white transition-colors duration-200 text-sm">Terms of Service</a>
-        </div>
+    <!-- Bottom Bar -->
+    <div class="border-t border-white/5 mt-16 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+      <p class="text-white/30 text-xs">© 2025 Tecno Pronto. All rights reserved.</p>
+      <div class="flex space-x-6 text-xs text-white/40">
+        <a href="#" class="hover:text-white transition-colors">Privacy</a>
+        <a href="#" class="hover:text-white transition-colors">Terms</a>
+        <a href="#" class="hover:text-white transition-colors">Cookies</a>
       </div>
     </div>
   </div>
