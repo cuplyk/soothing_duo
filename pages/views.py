@@ -13,3 +13,6 @@ class ContactsPageView(TemplateView):
 
 class Blog(TemplateView):
     pass    
+
+class TicketPageView(TemplateView):
+    template_name = "pages/ticket.html" 
