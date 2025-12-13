@@ -1,14 +1,14 @@
 {% extends '_base.html' %}
+{% load static %}
 
 {% block title %}Blog Posts{% endblock %}
 
 {% block content %}
-
-<div id="posts-container" class="space-y-6"_="on htmx:afterSettle add .animate-flash to #posts-container > article:first-child then wait 2s then remove .animate-flash">
+<div class="min-h-screen bg-[#080c0e] font-sans text-[#e3e5e8]">
     {% include "blog/partials/posts_list.html" %}
+    
+    {% if not posts %}
+    <div class="text-center py-12 text-white/40">No posts available</div>
+    {% endif %}
 </div>
-
-{% if not posts %}
-<p class="text-center py-12 text-gray-500">No posts available</p>
-{% endif %}
 {% endblock %}

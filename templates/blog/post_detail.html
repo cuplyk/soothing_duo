@@ -5,169 +5,183 @@
 {% block title %}{{ post.title }} - Tecno Pronto Blog{% endblock %}
 
 {% block content %}
-<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-  <!-- Post Header -->
-  <article class="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden mb-8">
-    <div class="p-8 md:p-12">
-      <!-- Breadcrumb -->
-      <nav class="flex mb-6 text-sm text-gray-500 font-medium space-x-2" aria-label="Breadcrumb">
-        <a href="{% url 'blog:post_list' %}" class="hover:text-blue-600 transition-colors">Home</a>
-        <span class="text-gray-300">/</span>
-        {% if post.category %}
-        <a href="{% url 'blog:category_posts' post.category.slug %}" class="hover:text-blue-600 transition-colors">{{ post.category.name }}</a>
-        <span class="text-gray-300">/</span>
-        {% endif %}
-        <span class="text-gray-900 truncate max-w-xs">{{ post.title|truncatewords:5 }}</span>
-      </nav>
-
-      {% if post.category %}
-      <div class="mb-4">
-        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold leading-5 bg-blue-100 text-blue-800 uppercase tracking-wide">
-          {{ post.category.name }}
-        </span>
-      </div>
-      {% endif %}
-      
-      <h1 class="text-3xl md:text-5xl font-extrabold text-gray-900 mb-6 leading-tight">{{ post.title }}</h1>
-      
-      <div class="flex items-center mb-8 pb-8 border-b border-gray-100">
-        <img src="https://ui-avatars.com/api/?name={{ post.author.username }}&background=3b82f6&color=fff" 
-             alt="{{ post.author.username }}" class="w-12 h-12 rounded-full mr-4 shadow-sm">
-        <div>
-          <h6 class="text-base font-semibold text-gray-900">{{ post.author.get_full_name|default:post.author.username }}</h6>
-          <div class="flex items-center text-sm text-gray-500 mt-1">
-            <span>{{ post.created_at|date:"F j, Y" }}</span>
-            <span class="mx-2">•</span>
-            <span>{{ post.content|wordcount }} words</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Post Content -->
-      <div class="prose prose-lg prose-blue max-w-none text-gray-700 leading-relaxed">
-        {{ post.content|safe }}
-      </div>
-
-      <!-- Like & Actions -->
-      <div class="flex flex-col sm:flex-row justify-between items-center border-t border-gray-100 pt-8 mt-8">
-        <div id="like-section-{{ post.slug }}" class="mb-4 sm:mb-0">
-            <button type="button" 
-                    class="group flex items-center space-x-2 text-gray-500 hover:text-red-500 transition-colors duration-200 focus:outline-none"
-                    hx-post="{% url 'blog:like_toggle' post.slug %}"
-                    hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
-                    hx-target="#like-section-{{ post.slug }}"
-                    hx-swap="innerHTML">
-                <span class="p-2 rounded-full group-hover:bg-red-50 transition-colors duration-200">
-                    <i class="{% if liked %}fas text-red-500{% else %}far{% endif %} fa-heart text-xl"></i>
-                </span>
-                <span class="font-medium text-lg like-count">{{ post.likes.count }}</span>
-            </button>
-        </div>
-        
-        <div class="flex items-center space-x-6 text-gray-500 text-sm font-medium">
-          <span class="flex items-center"><i class="far fa-eye mr-2 text-lg"></i>{{ post.views }} views</span>
-          <span class="flex items-center"><i class="far fa-comment mr-2 text-lg"></i>{{ post.comments.count }} comments</span>
-        </div>
-      </div>
-
-      <!-- Author Actions -->
-      {% if user == post.author %}
-      <div class="mt-6 pt-6 border-t border-gray-100 flex gap-3">
-        <a href="{% url 'blog:post_edit' post.slug %}" class="inline-flex items-center px-4 py-2 border border-blue-600 text-blue-600 rounded-md hover:bg-blue-50 transition-colors text-sm font-medium">
-          <i class="fas fa-edit mr-2"></i>Edit Post
-        </a>
-      </div>
-      {% endif %}
-    </div>
-  </article>
-
-  <!-- Comments Section -->
-  <div class="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden" id="comments-section">
-    <div class="bg-gray-50 px-8 py-5 border-b border-gray-100 flex justify-between items-center">
-      <h5 class="text-lg font-bold text-gray-900 flex items-center">
-        <i class="fas fa-comments mr-3 text-blue-500"></i>
-        Comments <span class="ml-2 bg-blue-100 text-blue-800 text-xs py-1 px-2.5 rounded-full">{{ comments.count }}</span>
-      </h5>
-    </div>
+<div class="min-h-screen bg-[#080c0e] font-sans text-[#e3e5e8]">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 pt-24">
     
-    <div class="p-8">
-      <!-- Comment Form -->
-      {% if user.is_authenticated %}
-      <form hx-post="{% url 'blog:add_comment' post.slug %}" 
-            hx-target="#comments-container" 
-            hx-swap="beforeend"
-            hx-on::after-request="this.reset()"
-            class="mb-10">
-        {% csrf_token %}
-        <div class="mb-4">
-          <textarea name="content" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200 resize-y min-h-[120px]" 
-                    placeholder="Share your thoughts..." required></textarea>
-        </div>
-        <button type="submit" class="inline-flex items-center bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-6 rounded-lg transition duration-200 shadow-md">
-          <i class="fas fa-paper-plane mr-2"></i>Post Comment
-        </button>
-      </form>
-      {% else %}
-      <div class="bg-blue-50 border border-blue-100 text-blue-800 rounded-lg p-6 text-center mb-10">
-        <p class="font-medium">
-            <a href="{% url 'account_signup' %}" class="underline hover:text-blue-900">Sign up</a> or <a href="{% url 'account_login' %}" class="underline hover:text-blue-900">Log in</a> to join the conversation.
-        </p>
-      </div>
-      {% endif %}
+    <!-- Post Header -->
+    <article class="relative bg-[#0F1619] rounded-2xl border border-white/5 shadow-2xl overflow-hidden mb-8">
+      <!-- Background Effect -->
+      <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-600/5 rounded-full blur-[100px] pointer-events-none mix-blend-screen"></div>
 
-      <!-- Comments List -->
-      <div id="comments-container" class="space-y-8">
-        {% for comment in comments %}
-        <div class="flex space-x-4 border-b border-gray-100 pb-8 last:border-0 last:pb-0 group" id="comment-{{ comment.id }}">
-          <div class="flex-shrink-0">
-             <img src="https://ui-avatars.com/api/?name={{ comment.author.username }}&background=9ca3af&color=fff" 
-                  alt="{{ comment.author.username }}" class="w-10 h-10 rounded-full shadow-sm">
+      <div class="relative z-10 p-8 md:p-12">
+        <!-- Breadcrumb -->
+        <nav class="flex mb-8 text-xs font-medium space-x-2 text-white/40 uppercase tracking-widest" aria-label="Breadcrumb">
+          <a href="{% url 'blog:post_list' %}" class="hover:text-white transition-colors">Blog</a>
+          <span class="text-white/20">/</span>
+          {% if post.category %}
+          <a href="{% url 'blog:category_posts' post.category.slug %}" class="hover:text-white transition-colors">{{ post.category.name }}</a>
+          <span class="text-white/20">/</span>
+          {% endif %}
+          <span class="text-white/60 truncate max-w-[150px]">{{ post.title|truncatewords:3 }}</span>
+        </nav>
+
+        {% if post.category %}
+        <div class="mb-6">
+          <span class="inline-flex items-center px-3 py-1 rounded-full text-[10px] font-bold leading-5 bg-[#D93A00]/10 text-[#D93A00] border border-[#D93A00]/20 uppercase tracking-wide">
+            {{ post.category.name }}
+          </span>
+        </div>
+        {% endif %}
+        
+        <h1 class="text-3xl md:text-5xl font-bold text-white mb-8 leading-tight tracking-tight">{{ post.title }}</h1>
+        
+        <div class="flex items-center mb-10 pb-10 border-b border-white/5">
+          <img src="https://ui-avatars.com/api/?name={{ post.author.username }}&background=D93A00&color=fff" 
+               alt="{{ post.author.username }}" class="w-14 h-14 rounded-full mr-5 ring-4 ring-[#0F1619] shadow-lg">
+          <div>
+            <h6 class="text-sm font-bold text-white">{{ post.author.get_full_name|default:post.author.username }}</h6>
+            <div class="flex items-center text-xs text-white/40 mt-1 font-medium">
+              <span>{{ post.created_at|date:"F j, Y" }}</span>
+              <span class="mx-2 text-white/10">•</span>
+              <span>{{ post.content|wordcount }} words</span>
+            </div>
           </div>
-          <div class="flex-grow">
-            <div class="flex justify-between items-start mb-2">
-              <div>
-                <h6 class="text-sm font-bold text-gray-900">{{ comment.author.get_full_name|default:comment.author.username }}</h6>
-                <small class="text-gray-500 text-xs">{{ comment.created_at|timesince }} ago</small>
-              </div>
-              
-              {% if user == comment.author %}
-              <div class="relative" x-data="{ open: false }">
-                <button @click="open = !open" @click.away="open = false" class="text-gray-400 hover:text-gray-600 focus:outline-none p-1 rounded-full hover:bg-gray-100 transition-colors">
-                  <i class="fas fa-ellipsis-v text-sm"></i>
-                </button>
-                <div x-show="open" 
-                     x-transition:enter="transition ease-out duration-100"
-                     x-transition:enter-start="transform opacity-0 scale-95"
-                     x-transition:enter-end="transform opacity-100 scale-100"
-                     x-transition:leave="transition ease-in duration-75"
-                     x-transition:leave-start="transform opacity-100 scale-100"
-                     x-transition:leave-end="transform opacity-0 scale-95"
-                     class="origin-top-right absolute right-0 mt-2 w-32 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-10" 
-                     style="display: none;">
-                  <div class="py-1">
-                    <button class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center edit-comment-btn" 
-                            data-comment-id="{{ comment.id }}">
-                      <i class="fas fa-edit mr-2 text-gray-400"></i>Edit
-                    </button>
-                    <!-- Add delete if needed later -->
+        </div>
+
+        <!-- Post Content -->
+        <div class="prose prose-lg prose-invert max-w-none text-white/70 leading-relaxed 
+                    prose-headings:text-white prose-headings:font-bold 
+                    prose-a:text-[#D93A00] prose-a:no-underline hover:prose-a:text-[#ff5c1a] hover:prose-a:underline
+                    prose-strong:text-white prose-code:text-[#D93A00] prose-pre:bg-[#080c0e] prose-pre:border prose-pre:border-white/5
+                    prose-blockquote:border-l-[#D93A00] prose-blockquote:bg-white/5 prose-blockquote:py-2 prose-blockquote:px-6 prose-blockquote:rounded-r-lg prose-blockquote:not-italic">
+          {{ post.content|safe }}
+        </div>
+
+        <!-- Like & Actions -->
+        <div class="flex flex-col sm:flex-row justify-between items-center border-t border-white/5 pt-10 mt-10">
+          <div id="like-section-{{ post.slug }}" class="mb-6 sm:mb-0">
+              <button type="button" 
+                      class="group flex items-center gap-3 text-white/50 hover:text-[#D93A00] transition-colors duration-200 focus:outline-none"
+                      hx-post="{% url 'blog:like_toggle' post.slug %}"
+                      hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+                      hx-target="#like-section-{{ post.slug }}"
+                      hx-swap="innerHTML">
+                  <span class="p-3 rounded-full bg-white/5 group-hover:bg-[#D93A00]/10 transition-colors duration-200 ring-1 ring-white/5 group-hover:ring-[#D93A00]/30 shadow-lg">
+                      <i class="{% if liked %}fas text-[#D93A00]{% else %}far{% endif %} fa-heart text-xl transition-transform group-hover:scale-110"></i>
+                  </span>
+                  <span class="font-bold text-lg like-count">{{ post.likes.count }}</span>
+              </button>
+          </div>
+          
+          <div class="flex items-center space-x-6 text-white/40 text-sm font-medium">
+            <span class="flex items-center gap-2"><i class="far fa-eye text-white/20"></i>{{ post.views }} views</span>
+            <span class="flex items-center gap-2"><i class="far fa-comment text-white/20"></i>{{ post.comments.count }} comments</span>
+          </div>
+        </div>
+
+        <!-- Author Actions -->
+        {% if user == post.author %}
+        <div class="mt-8 pt-8 border-t border-white/5 flex gap-3">
+          <a href="{% url 'blog:post_edit' post.slug %}" class="inline-flex items-center px-4 py-2 border border-white/10 bg-white/5 text-white/70 rounded-lg hover:bg-white/10 hover:text-white transition-colors text-sm font-medium">
+            <i class="fas fa-edit mr-2"></i>Edit Post
+          </a>
+        </div>
+        {% endif %}
+      </div>
+    </article>
+
+    <!-- Comments Section -->
+    <div class="bg-[#0F1619] rounded-2xl border border-white/5 shadow-xl overflow-hidden" id="comments-section">
+      <div class="px-8 py-6 border-b border-white/5 bg-white/[0.02] flex justify-between items-center">
+        <h5 class="text-lg font-bold text-white flex items-center">
+          <i class="fas fa-comments mr-3 text-[#D93A00]"></i>
+          Discussion <span class="ml-3 bg-[#D93A00]/10 text-[#D93A00] border border-[#D93A00]/20 text-xs py-0.5 px-2.5 rounded-full">{{ comments.count }}</span>
+        </h5>
+      </div>
+      
+      <div class="p-8">
+        <!-- Comment Form -->
+        {% if user.is_authenticated %}
+        <form hx-post="{% url 'blog:add_comment' post.slug %}" 
+              hx-target="#comments-container" 
+              hx-swap="beforeend"
+              hx-on::after-request="this.reset()"
+              class="mb-12">
+          {% csrf_token %}
+          <div class="mb-4 relative">
+            <textarea name="content" class="w-full px-5 py-4 bg-[#080c0e] border border-white/10 rounded-xl text-white placeholder-white/30 focus:ring-1 focus:ring-[#D93A00] focus:border-[#D93A00] transition duration-200 resize-y min-h-[140px]" 
+                      placeholder="What are your thoughts?" required></textarea>
+            <div class="absolute bottom-3 right-3 text-[10px] text-white/20 font-mono">Markdown supported</div>
+          </div>
+          <div class="flex justify-end">
+            <button type="submit" class="inline-flex items-center bg-[#D93A00] hover:bg-[#b03000] text-white font-bold py-2.5 px-6 rounded-lg transition duration-200 shadow-lg hover:shadow-[#D93A00]/30 transform hover:-translate-y-0.5">
+              <i class="fas fa-paper-plane mr-2"></i>Post Comment
+            </button>
+          </div>
+        </form>
+        {% else %}
+        <div class="bg-blue-900/10 border border-blue-500/20 text-blue-200 rounded-xl p-8 text-center mb-12">
+          <p class="font-medium text-lg">
+              <a href="{% url 'account_signup' %}" class="text-[#D93A00] hover:text-[#ff5c1a] underline decoration-2 underline-offset-2">Sign up</a> or <a href="{% url 'account_login' %}" class="text-[#D93A00] hover:text-[#ff5c1a] underline decoration-2 underline-offset-2">Log in</a> to join the conversation.
+          </p>
+        </div>
+        {% endif %}
+
+        <!-- Comments List -->
+        <div id="comments-container" class="space-y-8">
+          {% for comment in comments %}
+          <div class="flex space-x-4 border-b border-white/5 pb-8 last:border-0 last:pb-0 group" id="comment-{{ comment.id }}">
+            <div class="flex-shrink-0">
+               <img src="https://ui-avatars.com/api/?name={{ comment.author.username }}&background=2d3748&color=fff" 
+                    alt="{{ comment.author.username }}" class="w-10 h-10 rounded-full ring-2 ring-[#0F1619]">
+            </div>
+            <div class="flex-grow">
+              <div class="flex justify-between items-start mb-2">
+                <div>
+                  <h6 class="text-sm font-bold text-white">{{ comment.author.get_full_name|default:comment.author.username }}</h6>
+                  <small class="text-white/30 text-xs">{{ comment.created_at|timesince }} ago</small>
+                </div>
+                
+                {% if user == comment.author %}
+                <div class="relative" x-data="{ open: false }">
+                  <button @click="open = !open" @click.away="open = false" class="text-white/20 hover:text-white transition-colors focus:outline-none p-1 rounded-full hover:bg-white/5">
+                    <i class="fas fa-ellipsis-v text-xs"></i>
+                  </button>
+                  <div x-show="open" 
+                       x-transition:enter="transition ease-out duration-100"
+                       x-transition:enter-start="transform opacity-0 scale-95"
+                       x-transition:enter-end="transform opacity-100 scale-100"
+                       x-transition:leave="transition ease-in duration-75"
+                       x-transition:leave-start="transform opacity-100 scale-100"
+                       x-transition:leave-end="transform opacity-0 scale-95"
+                       class="origin-top-right absolute right-0 mt-2 w-32 rounded-lg shadow-xl bg-[#13191c] border border-white/10 focus:outline-none z-10" 
+                       style="display: none;">
+                    <div class="py-1">
+                      <button class="w-full text-left px-4 py-2 text-xs font-medium text-white/70 hover:text-white hover:bg-white/5 flex items-center edit-comment-btn transition-colors" 
+                              data-comment-id="{{ comment.id }}">
+                        <i class="fas fa-edit mr-2 text-white/30"></i>Edit
+                      </button>
+                    </div>
                   </div>
                 </div>
+                {% endif %}
               </div>
-              {% endif %}
-            </div>
-            
-            <div class="text-gray-700 text-sm leading-relaxed comment-content">
-                {{ comment.content }}
+              
+              <div class="text-white/70 text-sm leading-relaxed comment-content prose prose-invert prose-sm max-w-none">
+                  {{ comment.content }}
+              </div>
             </div>
           </div>
+          {% empty %}
+          <div id="no-comments" class="text-center py-12">
+            <div class="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-comments text-2xl text-white/20"></i>
+            </div>
+            <p class="text-white/40 text-lg font-medium">No comments yet.</p>
+            <p class="text-white/30 text-sm">Be the first to share your thoughts!</p>
+          </div>
+          {% endfor %}
         </div>
-        {% empty %}
-        <div id="no-comments" class="text-center py-10 text-gray-400">
-          <i class="fas fa-comments text-5xl mb-4 opacity-50"></i>
-          <p class="text-lg">No comments yet.</p>
-          <p class="text-sm">Be the first to share your thoughts!</p>
-        </div>
-        {% endfor %}
       </div>
     </div>
   </div>
