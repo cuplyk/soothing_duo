@@ -59,6 +59,6 @@ USER app
 # Expose the default port (documentation only)
 EXPOSE 8080
 
-# Run migrations and then start gunicorn
-# We use the shell form to allow variable expansion of $PORT and command chaining
-CMD python manage.py migrate --no-input && gunicorn core.wsgi:application --bind 0.0.0.0:${PORT} --workers 2
+# Start gunicorn, binding to the dynamic PORT provided by Railway
+# We use the shell form to allow variable expansion of $PORT
+CMD gunicorn core.wsgi:application --bind 0.0.0.0:${PORT} --workers 2
