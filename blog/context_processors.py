@@ -6,8 +6,9 @@ def categories_processor(request):
     context processor to make categories available across all templates
     """
     try:
-        categories = Category.objects.all().order_by('name')
+        # Convert to list to force evaluation and catch potential DB errors here
+        categories = list(Category.objects.all().order_by('name'))
         return {'categories': categories}
-    except Exception as e:
-        # Return empty queryset if there's any issue
-        return {'categories': Category.objects.none()}
+    except Exception:
+        # Return empty list if there's any issue (e.g. missing migrations)
+        return {'categories': []}
