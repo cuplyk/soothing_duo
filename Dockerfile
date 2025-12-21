@@ -13,6 +13,7 @@ ENV UV_LINK_MODE=copy
 WORKDIR /app
 
 # Install Python dependencies first (layer caching)
+COPY pyproject.toml uv.lock ./
 RUN uv sync --frozen --no-install-project --no-dev
 
 # Copy project files
