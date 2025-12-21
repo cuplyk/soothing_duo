@@ -13,7 +13,7 @@ ENV UV_LINK_MODE=copy
 WORKDIR /app
 
 # Install Python dependencies first (layer caching)
-RUN --mount=type=cache,target=/root/.cache/uv \
+RUN --mount=type=cache,id=uv,target=/root/.cache/uv \
     --mount=type=bind,source=uv.lock,target=uv.lock \
     --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
     uv sync --frozen --no-install-project --no-dev
@@ -27,7 +27,7 @@ RUN npm install && npm run build
 
 # Finalize uv sync with the actual project
 WORKDIR /app
-RUN --mount=type=cache,target=/root/.cache/uv \
+RUN --mount=type=cache,id=uv,target=/root/.cache/uv \
     uv sync --frozen --no-dev
 
 # Collect static files
