@@ -12,7 +12,7 @@ class ContactsPageView(TemplateView):
     template_name = "pages/contacts.html"    
 
 class Blog(TemplateView):
-    pass    
+    template_name = "pages/blog.html"    
 
 class TicketPageView(TemplateView):
     template_name = "pages/ticket.html" 

@@ -3,17 +3,41 @@
 
 {% block title %}Log out{% endblock %}
 
-
 {% block content %}
-<div class="max-w-md mx-auto mt-10 px-4">
-  <h1 class="text-2xl font-bold mb-4">Sign Out</h1>
+<div class="min-h-screen bg-[#080c0e] flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative overflow-hidden font-sans">
+  
+  <!-- Background Glow -->
+  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#D93A00]/10 rounded-full blur-[120px] pointer-events-none"></div>
 
-  <p class="mb-6 text-gray-700">Are you sure you want to sign out?</p>
+  <!-- Header -->
+  <div class="sm:mx-auto sm:w-full sm:max-w-md relative z-10">
+    <h2 class="mt-6 text-center text-3xl font-extrabold text-white">
+      Sign Out
+    </h2>
+    <p class="mt-2 text-center text-sm text-white/50">
+      Are you sure you want to sign out?
+    </p>
+  </div>
 
-  <form method="post" action="{% url 'account_logout' %}">
-    {% csrf_token %}
-    {{ form|crispy }}
-    <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">Sign Out</button>
-  </form>
+  <!-- Form Card -->
+  <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md relative z-10">
+    <div class="bg-[#0F1619] py-8 px-4 shadow-2xl border border-white/5 sm:rounded-2xl sm:px-10">
+      
+      <form method="post" action="{% url 'account_logout' %}" class="space-y-6">
+        {% csrf_token %}
+        <div class="pt-2">
+            <button class="w-full flex justify-center py-3 px-4 border border-transparent rounded-full shadow-lg text-sm font-bold text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-all transform hover:scale-[1.02]" type="submit">
+                Sign Out
+            </button>
+            <a href="/" class="mt-4 w-full flex justify-center py-3 px-4 border border-white/10 rounded-full text-sm font-medium text-white hover:bg-white/5 transition-colors">
+                Cancel
+            </a>
+        </div>
+      </form>
+
+    </div>
+  </div>
 </div>
 {% endblock content %}
+{% block footer_block %}
+{% endblock footer_block %}
