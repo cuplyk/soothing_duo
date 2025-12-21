@@ -32,7 +32,8 @@ RUN uv sync --frozen --no-dev
 RUN SECRET_KEY=build-time-secret-key-12345 \
     DEBUG=False \
     DATABASE_URL=sqlite:///:memory: \
-    python manage.py collectstatic --no-input
+    uv run python manage.py collectstatic --no-input
+
 
 # --- Final Image ---
 FROM python:3.12-slim-bookworm

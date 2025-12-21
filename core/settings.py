@@ -3,17 +3,20 @@ from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+REPO_DIR = BASE_DIR.parent
+TEMPLATES_DIR = REPO_DIR / "templates"
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/dev/howto/deployment/checklist/
-DEBUG = config("DEBUG")
-# https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
-# SECURITY WARNING: keep the secret key used in production secret!
+import dj_database_url
+
+DEBUG = config("DEBUG", default=False, cast=bool)
+
 SECRET_KEY = config("SECRET_KEY")
 
-# https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = ["localhost", "0.0.0.0", "127.0.0.1"]
+ALLOWED_HOSTS = config("ALLOWED_HOSTS", default="localhost,127.0.0.1,.railway.app").split(",")
+
+CSRF_TRUSTED_ORIGINS = config("CSRF_TRUSTED_ORIGINS", default="http://localhost:8000,http://127.0.0.1:8000,https://*.railway.app").split(",")
 
 
 # Application definition
@@ -32,7 +35,6 @@ INSTALLED_APPS = [
     "allauth.account",
     "crispy_forms",
     "crispy_tailwind",
-    "debug_toolbar",
     "rest_framework",
     "corsheaders",
     "django_htmx",
@@ -47,8 +49,11 @@ INSTALLED_APPS = [
     "scheduling",
     "ticket",
     "services",
-    "django_browser_reload",
 ]
+
+if DEBUG:
+    INSTALLED_APPS.append("debug_toolbar")
+    INSTALLED_APPS.append("django_browser_reload")
 
 # https://docs.djangoproject.com/en/dev/ref/settings/#middleware
 MIDDLEWARE = [
@@ -57,15 +62,17 @@ MIDDLEWARE = [
     "whitenoise.middleware.WhiteNoiseMiddleware",  # WhiteNoise
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
-    "debug_toolbar.middleware.DebugToolbarMiddleware",  # Django Debug Toolbar
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "allauth.account.middleware.AccountMiddleware",  # django-allauth
     "django_htmx.middleware.HtmxMiddleware",
-    "django_browser_reload.middleware.BrowserReloadMiddleware",
 ]
+
+if DEBUG:
+    MIDDLEWARE.append("debug_toolbar.middleware.DebugToolbarMiddleware")
+    MIDDLEWARE.append("django_browser_reload.middleware.BrowserReloadMiddleware")
 
 # REST Framework Settings
 
@@ -106,53 +113,13 @@ TEMPLATES = [
     },
 ]
 
-# https://docs.djangoproject.com/en/dev/ref/settings/#databases
-#DATABASES = {
-#    "default": {
-#        "ENGINE": "django.db.backends.sqlite3",
-#        "NAME": BASE_DIR / "db.sqlite3",
-#    }
-#}
-
-# NEON settings
-# Add these at the top of your settings.py
-import os
-from urllib.parse import urlparse, parse_qsl
-
-tmpPostgres = urlparse(config("DATABASE_URL"))
-
-
-
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config("PGDATABASE"),
-        'USER': config("PGUSER"),
-        'PASSWORD': config("PGPASSWORD"),
-        'HOST': config("PGHOST"),
-        'PORT': 5432,
-        'OPTIONS': dict(parse_qsl(tmpPostgres.query)),
-    }
+    "default": dj_database_url.config(
+        default=config("DATABASE_URL", default="sqlite:///db.sqlite3"),
+        conn_max_age=600,
+        conn_health_checks=True,
+    )
 }
-"""print("=" * 50)
-print("DATABASE CONFIG:")
-print(f"HOST: '{config('PGHOST')}'")
-print(f"PORT: '5432'")
-print(f"NAME: '{config('PGDATABASE')}'")
-print(f"USER: '{config('PGUSER')}'")
-print("=" * 50)
-"""
-# For Docker/PostgreSQL usage uncomment this and comment the DATABASES config above
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.postgresql",
-#         "NAME": "postgres",
-#         "USER": "postgres",
-#         "PASSWORD": "postgres",
-#         "HOST": "db",  # set in docker-compose.yml
-#         "PORT": 5432,  # default postgres port
-#     }
-# }
 
 # Password validation
 # https://docs.djangoproject.com/en/dev/ref/settings/#auth-password-validators
@@ -232,8 +199,9 @@ DEFAULT_FROM_EMAIL = "root@localhost"
 # https://docs.djangoproject.com/en/dev/ref/settings/#internal-ips
 INTERNAL_IPS = ["127.0.0.1"]
 
-TAILWIND_APP_NAME = 'theme'
-NPM_BIN_PATH = "npm.cmd"
+# Use "npm" on Linux/Railway, "npm.cmd" on Windows (if needed)
+import platform
+NPM_BIN_PATH = "npm" if platform.system() != "Windows" else "npm.cmd"
 
 # https://docs.djangoproject.com/en/dev/topics/auth/customizing/#substituting-a-custom-user-model
 AUTH_USER_MODEL = "accounts.CustomUser"
@@ -263,13 +231,6 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
-
-
-# https://docs.djangoproject.com/en/dev/ref/settings/#csrf-trusted-origins
-CSRF_TRUSTED_ORIGINS = [
-    "http://localhost:8000",  # Default Django dev server
-    "http://127.0.0.1:8000",  # Alternative local address
-]
 
 
 

@@ -111,6 +111,21 @@ For production or containerized testing:
    docker-compose exec web python manage.py migrate
    ```
 
+## 🚂 Deployment to Railway
+
+This project is optimized for deployment on [Railway](https://railway.app/).
+
+### Steps to Deploy:
+1. **Connect your GitHub repository** to a new Railway project.
+2. **Environment Variables:** Set the following variables in the Railway "Variables" tab:
+   - `DEBUG`: `False`
+   - `SECRET_KEY`: (A long random string)
+   - `ALLOWED_HOSTS`: `.railway.app`
+   - `CSRF_TRUSTED_ORIGINS`: `https://*.railway.app`
+   - `DATABASE_URL`: (Automatically provided if you add a PostgreSQL plugin)
+3. **Database:** Add a PostgreSQL service to your Railway project.
+4. **Build:** Railway will automatically detect the `Dockerfile` and build the image.
+
 ---
 
 ## 🎨 Design Philosophy
