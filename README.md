@@ -1,125 +1,137 @@
-# My Personal Blog
+# 🛠️ Tecno Pronto (soothing_duo)
 
-A simple Django-powered blog to share thoughts, tutorials, and projects.
+**Tecno Pronto** is a premium, after-hours IT support platform designed for busy professionals and families. It offers high-quality technical assistance outside of regular business hours, ensuring that your technology works when you need it most.
+
+Built with a sleek, modern, dark-themed aesthetic inspired by [ready.so](https://ready.so), this project leverages the latest web technologies to provide a fast, responsive, and delightful user experience.
+
+---
 
 ## 🚀 Features
 
-- Technical Stack
-- Django 5.1 + Python 3.13
-- PostgreSQL (Neon DB)
-- HTMX for dynamic interactions
-- WhiteNoise for static files
-- Docker-ready deployment
-- Custom 404, 500, and 403 error pages
+- **Dynamic Hero Section:** A visually stunning entrance with glassmorphic elements and smooth transitions.
+- **Service Availability:** Real-time availability tracking (`Mon-Fri 18:00-24:00 & Weekends`) with dynamic UI indicators.
+- **Three-Step Process:** A clear, intuitive guide for users to get support.
+- **Services Grid:** Organized display of IT solutions offered.
+- **Account Management:** Secure user registration and authentication via `django-allauth`.
+- **Blog & Tutorials:** A knowledge base for technical tips and guides.
+- **Responsive Design:** Fully optimized for mobile, tablet, and desktop views.
+- **High-End Aesthetics:** Custom dark mode with accent colors, modern typography (Outfit/Inter), and micro-animations.
 
-- **Post Management:** Create, edit, and delete blog posts through the Django admin interface.
-- **Categories and Tags:** Organize posts with categories and tags for easy navigation.
-- **Dynamic Interactions:** HTMX is used for seamless, real-time interactions like post liking and comment submission without full page reloads.
-- **Guest and Authenticated Likes:** Both registered users and guests can like posts.
-- **Infinite Scroll:** Smoothly browse through a continuous list of posts.
-- **Dockerized Environment:** Comes with `Dockerfile` and `docker-compose.yml` for easy setup and deployment.
-- **Custom Error Pages:** User-friendly custom templates for 403, 404, and 500 errors.
+---
 
-## 🛠 Technical Stack
+## 🛠️ Technical Stack
 
-- **Backend:** Django 5.1, Python 3.13
-- **Database:** PostgreSQL (Neon DB)
-- **Frontend:** HTMX, Tailwind CSS
-- **Static Files:** WhiteNoise
-- **Deployment:** Docker
+- **Backend:** [Django 5.1](https://www.djangoproject.com/) & [Python 3.13](https://www.python.org/)
+- **Frontend Logic:** [HTMX](https://htmx.org/) (for SPA-like feel without full page reloads)
+- **Styling:** [Tailwind CSS](https://tailwindcss.com/) via `django-tailwind`
+- **Database:** PostgreSQL (Neon DB recommended)
+- **Authentication:** `django-allauth`
+- **Static Assets:** [WhiteNoise](https://whitenoise.readthedocs.io/)
+- **Environment Management:** [uv](https://github.com/astral-sh/uv)
+- **Containerization:** Docker & Docker Compose
+
+---
 
 ## 🏁 Getting Started
 
-Follow these instructions to get the project up and running on your local machine.
-
 ### Prerequisites
 
-- Python 3.13+
-- Docker and Docker Compose (recommended)
-- Git
+- [Python 3.13+](https://www.python.org/)
+- [uv](https://github.com/astral-sh/uv) (Fast Python package manager)
+- [Node.js & npm](https://nodejs.org/) (For Tailwind CSS compilation)
+- Docker (Optional, for containerized execution)
 
-### Installation with Docker (Recommended)
+### Installation
 
-1.  **Clone the repository:**
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/your-username/soothing_duo.git
+   cd soothing_duo
+   ```
 
-    ```bash
-    git clone https://github.com/your-username/my-personal-blog.git
-    cd my-personal-blog
-    ```
+2. **Set up the virtual environment and install dependencies:**
+   ```bash
+   uv sync
+   ```
 
-2.  **Create an environment file:**
-    Create a `.env` file in the project root and add the following, replacing the placeholder values:
+3. **Configure Environment Variables:**
+   Create a `.env` file in the root directory:
+   ```env
+   SECRET_KEY='your-secret-key'
+   DEBUG=True
+   DATABASE_URL='your-postgresql-url'
+   ```
 
-    ```
-    SECRET_KEY='your-secret-key'
-    DEBUG=True
-    DATABASE_URL='your-postgresql-database-url'
-    ```
+4. **Initialize Tailwind:**
+   ```bash
+   uv run .\manage.py tailwind install
+   ```
 
-3.  **Build and run the containers:**
+5. **Apply Database Migrations:**
+   ```bash
+   uv run .\manage.py migrate
+   ```
 
-    ```bash
-    docker-compose up --build
-    ```
+6. **Create a Superuser:**
+   ```bash
+   uv run .\manage.py createsuperuser
+   ```
 
-4.  **Apply database migrations:**
-    In a separate terminal, run:
+---
 
-    ```bash
-    docker-compose exec web python manage.py migrate
-    ```
+## 💻 Development
 
-5.  **Create a superuser:**
-    ```bash
-    docker-compose exec web python manage.py createsuperuser
-    ```
+To start the development environment, you will need two terminal windows running:
 
-The application will be available at `http://localhost:8000`.
-
-### Manual Installation
-
-1.  **Clone the repository:**
-
-    ```bash
-    git clone https://github.com/your-username/my-personal-blog.git
-    cd my-personal-blog
-    ```
-
-2.  **Create a virtual environment and install dependencies:**
-
-    ```bash
-    python -m venv venv
-    source venv/bin/activate
-    pip install -r requirements.txt
-    ```
-
-3.  **Create an environment file:**
-    Follow step 2 from the Docker installation.
-
-4.  **Apply database migrations and create a superuser:**
-
-    ```bash
-    python manage.py migrate
-    python manage.py createsuperuser
-    ```
-
-5.  **Run the development server:**
-    ```bash
-    python manage.py runserver
-    ```
-
-The application will be available at `http://localhost:8000`.
-
-## usage Usage
-
-- **Admin Interface:** Access the admin panel at `/admin` to manage posts, categories, and users.
-- **Creating Posts:** Use the admin panel to create new blog posts with a rich text editor.
-- **Commenting and Liking:** Engage with posts by leaving comments and liking them.
-
-## 🧪 Running Tests
-
-To run the test suite, use the following command:
-
+### 1. Start Tailwind CSS Watcher
 ```bash
-python manage.py test
+uv run .\manage.py tailwind start
 ```
+
+### 2. Start Django Server
+```bash
+uv run .\manage.py runserver
+```
+
+The application will be available at `http://localhost:8000`.
+
+---
+
+## 🐳 Docker Deployment
+
+For production or containerized testing:
+
+1. **Build and Run:**
+   ```bash
+   docker-compose up --build
+   ```
+
+2. **Access the Container:**
+   ```bash
+   docker-compose exec web python manage.py migrate
+   ```
+
+---
+
+## 🎨 Design Philosophy
+
+Tecno Pronto follows a **Dark First** design language:
+- **Primary Background:** `#080c0e` (Deep Obsidian)
+- **Accent Color:** High-contrast oranges and custom gradients.
+- **Typography:** Using modern, clean sans-serif fonts for readability.
+- **Components:** Glassmorphic sidebars, floating background animations, and interactive hover states.
+
+---
+
+## 🧪 Testing
+
+Run the test suite to ensure stability:
+```bash
+uv run .\manage.py test
+```
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
