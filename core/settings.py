@@ -12,10 +12,6 @@ DEBUG = config("DEBUG")
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config("SECRET_KEY")
 
-# https://docs.djangoproject.com/en/dev/ref/settings/#debug
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
 # https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = ["localhost", "0.0.0.0", "127.0.0.1"]
 
