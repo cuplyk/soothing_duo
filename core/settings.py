@@ -48,6 +48,9 @@ INSTALLED_APPS = [
     "blog",
     "tailwind",
     "theme",
+    "scheduling",
+    "ticket",
+    "services",
     "django_browser_reload",
 ]
 
@@ -101,6 +104,7 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
                 "blog.context_processors.categories_processor",
+                "scheduling.context_processors.availability_status",
             ],
         },
     },
@@ -178,7 +182,7 @@ AUTH_PASSWORD_VALIDATORS = [
 LANGUAGE_CODE = "en-us"
 
 # https://docs.djangoproject.com/en/dev/ref/settings/#time-zone
-TIME_ZONE = "UTC"
+TIME_ZONE = "Europe/Rome"
 
 # https://docs.djangoproject.com/en/dev/ref/settings/#std:setting-USE_I18N
 USE_I18N = True

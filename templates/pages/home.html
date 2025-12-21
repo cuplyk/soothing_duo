@@ -23,12 +23,12 @@
         <div class="absolute bottom-0 left-0 w-[600px] h-[400px] bg-[#D93A00]/5 rounded-full blur-[100px] pointer-events-none mix-blend-screen animate-float-delayed"></div>
 
         <div class="max-w-5xl mx-auto text-center relative z-20">
-            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-green-500/20 bg-green-500/10 text-xs uppercase tracking-wider font-bold text-green-400 mb-8 shadow-[0_0_15px_rgba(74,222,128,0.1)]">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-{{ availability.status_border }} bg-{{ availability.status_bg }} text-xs uppercase tracking-wider font-bold text-{{ availability.status_text_color }} mb-8 shadow-[0_0_15px_rgba(74,222,128,0.1)]">
                 <span class="relative flex h-2 w-2">
-                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                  <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-{{ availability.status_bullet_ping }} opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-2 w-2 bg-{{ availability.status_bullet }}"></span>
                 </span>
-                Available: Mon-Fri 18:00-24:00 & Weekends
+                {{ availability.status_text }}: {{ availability.schedule }}
             </div>
 
             <h1 class="text-5xl md:text-7xl font-bold tracking-tight mb-6 leading-tight animate-fade-in-up">
@@ -216,7 +216,7 @@
                 <div class="text-4xl font-bold text-white mb-4">€50<span class="text-lg text-white/40 font-normal">/hr</span></div>
                 <p class="text-sm text-white/50 mb-6">Hardware repairs & Networking.</p>
                 <ul class="text-left space-y-3 mb-8 text-sm text-white/70 flex-1">
-                    <li class="flex items-center gap-2"><i class="fas fa-check text-[#D93A00]"></i> 18:00 - 23:00</li>
+                    <li class="flex items-center gap-2"><i class="fas fa-check text-[#D93A00]"></i> 18:00 - 24:00</li>
                     <li class="flex items-center gap-2"><i class="fas fa-check text-[#D93A00]"></i> Weekends Available</li>
                 </ul>
                 <a href="{% url 'account_signup' %}" class="block w-full py-2 text-center rounded-lg bg-[#D93A00] text-white hover:bg-[#b03000] transition-colors font-semibold">Schedule Visit</a>
