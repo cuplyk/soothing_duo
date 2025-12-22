@@ -1,64 +1,78 @@
-# Use uv for fast dependency management
+# --- Build Stage ---
 FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim AS builder
 
-# Install Node.js for Tailwind CSS build
-RUN apt-get update && apt-get install -y curl && \
-    curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
-    apt-get install -y nodejs && \
-    rm -rf /var/lib/apt/lists/*
-
-ENV UV_COMPILE_BYTECODE=1
-ENV UV_LINK_MODE=copy
+# Set build-time environment variables
+ENV UV_COMPILE_BYTECODE=1 \
+    UV_LINK_MODE=copy \
+    PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1
 
 WORKDIR /app
 
-# Install Python dependencies first (layer caching)
+# Install Node.js (needed for Tailwind CSS build)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    curl \
+    gnupg \
+    && curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+    && apt-get install -y --no-install-recommends nodejs \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install dependencies first for better caching
 COPY pyproject.toml uv.lock ./
 RUN uv sync --frozen --no-install-project --no-dev
 
-# Copy project files
-COPY . /app
+# Copy the rest of the source code
+COPY . .
 
 # Build Tailwind CSS
+# Assuming the tailwind app is named 'theme' and static_src is inside it
 WORKDIR /app/theme/static_src
 RUN npm install && npm run build
-
-# Finalize uv sync with the actual project
 WORKDIR /app
+
+# Build the project (finalizes the .venv)
 RUN uv sync --frozen --no-dev
 
-# Collect static files
-# Mock environment variables for the build-time collection
-RUN SECRET_KEY=build-time-secret-key-12345 \
+# Run collectstatic with dummy environment variables
+# We use DATABASE_URL=sqlite:///:memory: to avoid needing a real DB during build
+RUN SECRET_KEY=dummy-key-for-build-purposes-only \
     DEBUG=False \
     DATABASE_URL=sqlite:///:memory: \
     uv run python manage.py collectstatic --no-input
 
+# Clean up build-only files to keep the final image slim
+RUN rm -rf theme/static_src/node_modules
 
-# --- Final Image ---
+# --- Final Runtime Stage ---
 FROM python:3.12-slim-bookworm
+
+# Set runtime environment variables
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PATH="/app/.venv/bin:$PATH" \
+    PORT=8080
 
 WORKDIR /app
 
-# Create a non-root user for security
-RUN groupadd -r app && useradd -r -g app app
+# Install runtime system dependencies (if any)
+# For example, libpq might be needed if not using psycopg2-binary
+# RUN apt-get update && apt-get install -y --no-install-recommends \
+#     libpq5 \
+#     && rm -rf /var/lib/apt/lists/*
 
-# Copy the application and virtual environment from the builder
+# Create a non-privileged user to run the app
+RUN groupadd -g 1001 app && \
+    useradd -u 1001 -g app -s /bin/bash -m app
+
+# Copy the application from the builder stage
 COPY --from=builder --chown=app:app /app /app
 
-# Set production environment variables
-ENV PYTHONDONTWRITEBYTECODE=1
-ENV PYTHONUNBUFFERED=1
-ENV PATH="/app/.venv/bin:$PATH"
-# Default port if not provided by Railway
-ENV PORT=8080
-
-# Switch to the non-root user
+# Switch to the non-privileged user
 USER app
 
-# Expose the default port (documentation only)
+# Document the port the container listens on
 EXPOSE 8080
 
-# Start gunicorn, binding to the dynamic PORT provided by Railway
-# We use the shell form to allow variable expansion of $PORT
-CMD gunicorn core.wsgi:application --bind 0.0.0.0:${PORT} --workers 2
+# The actual start command is often overridden in railway.json
+# But we provide a sensible default here
+CMD ["gunicorn", "core.wsgi:application", "--bind", "0.0.0.0:8080", "--workers", "2", "--timeout", "120"]
