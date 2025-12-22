@@ -14,7 +14,7 @@ DEBUG = config("DEBUG", default=False, cast=bool)
 
 SECRET_KEY = config("SECRET_KEY")
 
-ALLOWED_HOSTS = config("ALLOWED_HOSTS", default="localhost,127.0.0.1,.railway.app,https://www.tecnopronto.it").split(",")
+ALLOWED_HOSTS = ["*"]
 
 CSRF_TRUSTED_ORIGINS = config("CSRF_TRUSTED_ORIGINS", default="http://localhost:8000,http://127.0.0.1:8000,https://*up.railway.app,https://www.tecnopronto.it").split(",")
 
@@ -114,7 +114,7 @@ TEMPLATES = [
 ]
 
 DB_LIVE = config("DB_LIVE", default=False, cast=bool)
-if DB_LIVE is ["False", False]:
+if not DB_LIVE:
     DATABASES = {
     "default": dj_database_url.config(
         default=config("DATABASE_URL", default="sqlite:///db.sqlite3"),
