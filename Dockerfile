@@ -66,6 +66,7 @@ RUN groupadd -g 1001 app && \
 
 # Copy the application from the builder stage
 COPY --from=builder --chown=app:app /app /app
+COPY --from=builder /usr/local/bin/uv /usr/local/bin/uv
 
 # Switch to the non-privileged user
 USER app

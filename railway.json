@@ -13,9 +13,12 @@
         ]
     },
     "deploy": {
-        "startCommand": "python manage.py migrate --noinput && gunicorn core.wsgi:application --bind 0.0.0.0:${PORT} --workers 2",
+        "startCommand": "uv run python manage.py migrate --noinput && uv run gunicorn core.wsgi:application --bind 0.0.0.0:${PORT} --workers 2 --timeout 120 --log-level debug --access-logfile -",
         "restartPolicyType": "ON_FAILURE",
         "numReplicas": 1,
-        "sleepApplication": false
+        "sleepApplication": false,
+        "healthCheckPath": "/",
+        "healthCheckTimeout": 120,
+        "healthCheckInterval": 30
     }
 }
