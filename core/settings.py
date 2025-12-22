@@ -14,9 +14,9 @@ DEBUG = config("DEBUG", default=False, cast=bool)
 
 SECRET_KEY = config("SECRET_KEY")
 
-ALLOWED_HOSTS = config("ALLOWED_HOSTS", default="localhost,127.0.0.1,.railway.app").split(",")
+ALLOWED_HOSTS = config("ALLOWED_HOSTS", default="localhost,127.0.0.1,.railway.app,https://www.tecnopronto.it").split(",")
 
-CSRF_TRUSTED_ORIGINS = config("CSRF_TRUSTED_ORIGINS", default="http://localhost:8000,http://127.0.0.1:8000,https://*.railway.app").split(",")
+CSRF_TRUSTED_ORIGINS = config("CSRF_TRUSTED_ORIGINS", default="http://localhost:8000,http://127.0.0.1:8000,https://*up.railway.app,https://www.tecnopronto.it").split(",")
 
 
 # Application definition
@@ -113,12 +113,25 @@ TEMPLATES = [
     },
 ]
 
-DATABASES = {
+DB_LIVE = config("DB_LIVE", default=False, cast=bool)
+if DB_LIVE is ["False", False]:
+    DATABASES = {
     "default": dj_database_url.config(
         default=config("DATABASE_URL", default="sqlite:///db.sqlite3"),
         conn_max_age=600,
         conn_health_checks=True,
     )
+}
+else:
+    DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': config("PGDATABASE"),
+        'USER': config("PGUSER"),
+        'PASSWORD': config("PGPASSWORD"),
+        'HOST': config("PGHOST"),
+        'PORT': 5432,
+    }
 }
 
 # Password validation
@@ -186,6 +199,8 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # https://django-crispy-forms.readthedocs.io/en/latest/install.html#template-packs
 CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
 CRISPY_TEMPLATE_PACK = "tailwind"
+
+TAILWIND_APP_NAME = "theme"
 
 # https://docs.djangoproject.com/en/dev/ref/settings/#email-backend
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
