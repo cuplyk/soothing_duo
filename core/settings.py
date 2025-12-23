@@ -17,7 +17,7 @@ SECRET_KEY = config("SECRET_KEY", default="django-insecure-default-key-please-se
 
 ALLOWED_HOSTS = ["*"]
 
-CSRF_TRUSTED_ORIGINS = config("CSRF_TRUSTED_ORIGINS", default="http://localhost:8000,http://127.0.0.1:8000,https://*up.railway.app,https://www.tecnopronto.it").split(",")
+CSRF_TRUSTED_ORIGINS = config("CSRF_TRUSTED_ORIGINS", default="http://localhost:8000,http://127.0.0.1:8000,https://*.railway.app,https://www.tecnopronto.it").split(",")
 
 
 # Application definition
