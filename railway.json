@@ -13,7 +13,7 @@
         ]
     },
     "deploy": {
-        "startCommand": "python manage.py migrate --noinput && python -m gunicorn core.wsgi:application --bind 0.0.0.0:${PORT} --workers 2 --timeout 120 --log-level debug",
+        "startCommand": "echo '==> Running migrations...' && python manage.py migrate --noinput && echo '==> Migrations complete. Starting Gunicorn...' && gunicorn core.wsgi:application --bind 0.0.0.0:${PORT} --workers 2 --timeout 120 --log-level debug",
         "restartPolicyType": "ON_FAILURE",
         "numReplicas": 1,
         "sleepApplication": false
