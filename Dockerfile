@@ -1,63 +1,77 @@
 # --- Build Stage ---
 FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim AS builder
 
+# Set build-time environment variables
 ENV UV_COMPILE_BYTECODE=1 \
     UV_LINK_MODE=copy \
-    PYTHONUNBUFFERED=1
+    PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1
 
 WORKDIR /app
 
-# Install Node.js
+# Install Node.js (needed for Tailwind CSS build)
 RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
+    gnupg \
     && curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
     && apt-get install -y --no-install-recommends nodejs \
     && rm -rf /var/lib/apt/lists/*
 
-# Install dependencies
+# Install dependencies first for better caching
 COPY pyproject.toml uv.lock ./
 RUN uv sync --frozen --no-install-project --no-dev
 
-# Copy source
+# Copy the rest of the source code
 COPY . .
 
-# Build Tailwind
+# Build Tailwind CSS
 WORKDIR /app/theme/static_src
 RUN npm install && npm run build
 WORKDIR /app
 
-# Finalize venv and collect static
+# Build the project (finalizes the .venv)
 RUN uv sync --frozen --no-dev
+
+# Run collectstatic with dummy environment variables
+# Ensure STATIC_ROOT in settings.py points to /app/staticfiles
 RUN SECRET_KEY=dummy-key-for-build-purposes-only \
     DEBUG=False \
     DATABASE_URL=sqlite:///:memory: \
     uv run python manage.py collectstatic --no-input
 
+# Clean up build-only files
+RUN rm -rf theme/static_src/node_modules
+
 # --- Final Runtime Stage ---
 FROM python:3.12-slim-bookworm
 
+# Set runtime environment variables
 ENV PYTHONUNBUFFERED=1 \
-    # Add both the app and the venv bin to path
+    PYTHONDONTWRITEBYTECODE=1 \
+    # This ensures the python from the builder's venv is used
     PATH="/app/.venv/bin:$PATH"
 
 WORKDIR /app
 
-# Install runtime libs (libpq5 is for Postgres)
+# Install minimal runtime system dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
     libpq5 \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy uv binary so we can use 'uv run' if needed
-COPY --from=builder /usr/local/bin/uv /usr/local/bin/uv
+# Create a non-privileged user
+RUN groupadd -g 1001 app && \
+    useradd -u 1001 -g app -s /bin/bash -m app
 
-# Create user
-RUN groupadd -g 1001 app && useradd -u 1001 -g app -s /bin/bash -m app
-
-# Copy application (ensure staticfiles/ is included)
+# Copy the application and the virtual environment from builder
+# We chown everything to 'app' to avoid permission errors
 COPY --from=builder --chown=app:app /app /app
 
+# Switch to the non-privileged user
 USER app
 
-# Dynamic port binding for Railway
-# Using 'exec' form within sh -c is the gold standard for Docker signals
-CMD ["sh", "-c", "gunicorn core.wsgi:application --bind 0.0.0.0:${PORT:-8080} --workers 2 --timeout 120 --log-level debug --access-logfile -"]
+# Railway ignores EXPOSE, but it's good practice for documentation
+EXPOSE 8080
+
+# CRITICAL FIX: Use 'sh -c' to expand the ${PORT} variable assigned by Railway.
+# If ${PORT} is not set, it defaults to 8080 for local testing.
+CMD ["sh", "-c", "echo '==> Starting Gunicorn on port ${PORT:-8080}...' && gunicorn core.wsgi:application --bind 0.0.0.0:${PORT:-8080} --workers 2 --timeout 120 --log-level debug"]
