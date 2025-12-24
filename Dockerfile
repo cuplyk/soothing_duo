@@ -63,8 +63,10 @@ RUN groupadd -g 1001 app && \
     useradd -u 1001 -g app -s /bin/bash -m app
 
 # Copy the application and the virtual environment from builder
-# We chown everything to 'app' to avoid permission errors
 COPY --from=builder --chown=app:app /app /app
+
+# Ensure scripts are executable
+RUN chmod +x /app/scripts/start.sh
 
 # Switch to the non-privileged user
 USER app
@@ -72,6 +74,5 @@ USER app
 # Railway ignores EXPOSE, but it's good practice for documentation
 EXPOSE 8080
 
-# CRITICAL FIX: Use 'sh -c' to expand the ${PORT} variable assigned by Railway.
-# If ${PORT} is not set, it defaults to 8080 for local testing.
-CMD ["sh", "-c", "echo '==> Starting Gunicorn on port ${PORT:-8080}...' && gunicorn core.wsgi:application --bind 0.0.0.0:${PORT:-8080} --workers 2 --timeout 120 --log-level debug"]
+# Use the start script
+CMD ["/app/scripts/start.sh"]
