@@ -16,7 +16,7 @@ DEBUG = config("DEBUG", default=False, cast=bool)
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config("SECRET_KEY", default="django-insecure-default-key-please-set-in-prod")
 
-ALLOWED_HOSTS = ["soothingduo-production.up.railway.app", "*", "127.0.0.1", "localhost", "tecnopronto.it", "www.tecnopronto.it"]
+ALLOWED_HOSTS = ["soothingduo-production.up.railway.app", "127.0.0.1", "localhost", "tecnopronto.it", "www.tecnopronto.it"]
 
 CSRF_TRUSTED_ORIGINS = config("CSRF_TRUSTED_ORIGINS", default="http://localhost:8000,http://127.0.0.1:8000,https://*.railway.app,https://www.tecnopronto.it").split(",")
 
