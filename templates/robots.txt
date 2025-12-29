@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+# Proteggi le aree amministrative
+Disallow: /admin/
+Disallow: /accounts/login/
+Disallow: /api/
+
+# Indica la posizione della sitemap
+Sitemap: https://www.tecnopronto.it/sitemap.xml
