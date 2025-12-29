@@ -242,6 +242,10 @@ ACCOUNT_UNIQUE_EMAIL = True
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
 
+# Company Contact Info
+SUPPORT_EMAIL = config("SUPPORT_EMAIL", default="support@tecnopronto.com")
+SUPPORT_NUMBER = config("SUPPORT_NUMBER", default="+39 4566384")
+DEFAULT_FROM_EMAIL = config("DEFAULT_FROM_EMAIL", default="support@tecnopronto.com")
 
 
 #tinymce config
