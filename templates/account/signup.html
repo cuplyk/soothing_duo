@@ -1,7 +1,7 @@
 {% extends '_base.html' %}
 {% load crispy_forms_tags %}
 
-{% block title %}Sign up{% endblock %}
+{% block title %}Registrati{% endblock %}
 
 {% block content %}
 <div class="min-h-screen bg-[#080c0e] flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative overflow-hidden font-sans">
@@ -12,10 +12,10 @@
   <!-- Header -->
   <div class="sm:mx-auto sm:w-full sm:max-w-md relative z-10">
     <h2 class="mt-6 text-center text-3xl font-extrabold text-white">
-      Create your account
+      Crea il tuo account
     </h2>
     <p class="mt-2 text-center text-sm text-white/50">
-      Join us and experience expert IT support.
+      Unisciti a noi e ottieni supporto IT esperto.
     </p>
   </div>
 
@@ -59,7 +59,7 @@
         
         <div class="pt-2">
           <button class="w-full flex justify-center py-3 px-4 border border-transparent rounded-full shadow-lg text-sm font-bold text-white bg-[#D93A00] hover:bg-[#b03000] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#D93A00] transition-all transform hover:scale-[1.02]" type="submit">
-            Sign up
+            Registrati
           </button>
         </div>
       </form>
@@ -72,14 +72,14 @@
           </div>
           <div class="relative flex justify-center text-sm">
             <span class="px-2 bg-[#0F1619] text-white/40">
-              Already have an account?
+              Hai già un account?
             </span>
           </div>
         </div>
 
         <div class="mt-6 text-center">
           <a href="{% url 'account_login' %}" class="font-medium text-[#D93A00] hover:text-[#ff5c1a] transition-colors">
-            Log in existing account
+            Accedi al tuo account
           </a>
         </div>
       </div>

@@ -2,7 +2,7 @@
 {% extends '_base.html' %}
 {% load static %}
 
-{% block title %}{{ category.name }} - Tecno Pronto Blog{% endblock %}
+{% block title %}{{ category.name }} - Blog Tecno Pronto{% endblock %}
 
 {% block content %}
 <div class="min-h-screen bg-[#080c0e] font-sans text-[#e3e5e8]">
@@ -19,7 +19,7 @@
             </div>
             <div>
               <h1 class="text-3xl font-bold mb-1 text-white tracking-tight">{{ category.name }}</h1>
-              <p class="text-white/50 mb-0 font-medium">{{ posts.paginator.count }} posts in this category</p>
+              <p class="text-white/50 mb-0 font-medium">{{ posts.paginator.count }} articoli in questa categoria</p>
             </div>
           </div>
         </div>
@@ -50,7 +50,7 @@
               
               <div class="flex items-center justify-between pt-6 border-t border-white/5">
                 <span class="text-sm font-medium text-[#D93A00] flex items-center gap-2 group/link">
-                  Read Article <i class="fas fa-arrow-right transform group-hover/link:translate-x-1 transition-transform"></i>
+                  Leggi Articolo <i class="fas fa-arrow-right transform group-hover/link:translate-x-1 transition-transform"></i>
                 </span>
                 <div class="flex items-center gap-4 text-xs font-medium text-white/30">
                   <span class="flex items-center gap-1.5"><i class="far fa-comment"></i>{{ post.comments.count }}</span>
@@ -64,10 +64,10 @@
             <div class="mb-4 inline-flex items-center justify-center w-16 h-16 rounded-full bg-white/5">
                 <i class="fas fa-folder-open text-2xl text-white/20"></i>
             </div>
-            <h3 class="text-xl font-bold text-white mb-2">No posts here yet</h3>
-            <p class="text-white/40 mb-6">Be the first to write about {{ category.name }}!</p>
+            <h3 class="text-xl font-bold text-white mb-2">Ancora nessun articolo qui</h3>
+            <p class="text-white/40 mb-6">Sii il primo a scrivere di {{ category.name }}!</p>
             <a href="{% url 'blog:post_create' %}" class="inline-flex items-center gap-2 px-6 py-2 bg-[#D93A00] hover:bg-[#b03000] text-white font-medium rounded-full transition-colors shadow-lg shadow-[#D93A00]/20">
-                Create Post
+                Crea Articolo
             </a>
           </div>
         {% endfor %}
@@ -110,7 +110,7 @@
         <!-- Categories Widget -->
         <div class="bg-[#0F1619] rounded-2xl border border-white/5 overflow-hidden">
           <div class="px-6 py-4 border-b border-white/5 bg-white/[0.02]">
-            <h5 class="font-bold text-white text-sm uppercase tracking-wider"><i class="fas fa-folder mr-2 text-[#D93A00]"></i>All Categories</h5>
+            <h5 class="font-bold text-white text-sm uppercase tracking-wider"><i class="fas fa-folder mr-2 text-[#D93A00]"></i>Tutte le Categorie</h5>
           </div>
           <div class="p-2">
             <div class="flex flex-col">

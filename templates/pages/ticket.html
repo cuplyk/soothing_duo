@@ -1,7 +1,7 @@
 {% extends '_base.html' %}
 {% load static %}
 
-{% block title %}Tecno Pronto Answers{% endblock %}
+{% block title %}Tecno Pronto Risponde{% endblock %}
 
 {% block navbar %}
 {% endblock %}
@@ -26,19 +26,19 @@
                 <i class="fas fa-home w-6 opacity-70"></i> Home
             </a>
             <a href="{% url 'blog:post_list' %}" class="flex items-center px-3 py-2 text-sm font-medium text-white/50 hover:text-white hover:bg-white/5 rounded-lg transition-all">
-                <i class="fas fa-newspaper w-6 opacity-70"></i> Updates
+                <i class="fas fa-newspaper w-6 opacity-70"></i> Aggiornamenti
             </a>
             <a href="{% url 'contacts' %}" class="flex items-center px-3 py-2 text-sm font-medium text-white/50 hover:text-white hover:bg-white/5 rounded-lg transition-all">
-                <i class="fas fa-phone w-6 opacity-70"></i> Contact
+                <i class="fas fa-phone w-6 opacity-70"></i> Contatti
             </a>
         </div>
 
         <div class="mt-auto p-4 border-t border-white/5">
             <div class="bg-gradient-to-br from-[#1A1F23] to-[#0A0E10] rounded-xl p-4 border border-white/5 shadow-2xl relative overflow-hidden group">
                 <div class="absolute inset-0 bg-gradient-to-r from-[#D93A00]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <h4 class="font-bold text-sm mb-1 relative z-10">Pro Support</h4>
-                <p class="text-xs text-white/40 mb-3 relative z-10">Get instant help 24/7 with our premium plan.</p>
-                <button class="w-full py-1.5 text-xs font-semibold bg-white/10 hover:bg-white/20 border border-white/10 rounded text-center transition-colors relative z-10">Upgrade</button>
+                <h4 class="font-bold text-sm mb-1 relative z-10">Supporto Pro</h4>
+                <p class="text-xs text-white/40 mb-3 relative z-10">Ricevi aiuto immediato 24/7 con il nostro piano premium.</p>
+                <button class="w-full py-1.5 text-xs font-semibold bg-white/10 hover:bg-white/20 border border-white/10 rounded text-center transition-colors relative z-10">Passa a Premium</button>
             </div>
         </div>
     </aside>
@@ -51,10 +51,10 @@
             <div class="lg:hidden font-bold text-lg">Tecno<span class="text-[#D93A00]">Pronto</span></div>
             <div class="ml-auto flex items-center gap-4">
                 {% if user.is_authenticated %}
-                    <span class="text-xs font-medium text-white/40 hidden sm:inline">Logged in as {{ user.username }}</span>
-                    <a href="{% url 'account_logout' %}" class="px-3 py-1.5 text-xs font-medium text-white/70 hover:text-white border border-white/10 rounded-md transition-colors">Log out</a>
+                    <span class="text-xs font-medium text-white/40 hidden sm:inline">Connesso come {{ user.username }}</span>
+                    <a href="{% url 'account_logout' %}" class="px-3 py-1.5 text-xs font-medium text-white/70 hover:text-white border border-white/10 rounded-md transition-colors">Esci</a>
                 {% else %}
-                    <a href="{% url 'account_login' %}" class="px-4 py-1.5 text-sm font-semibold bg-[#D93A00] hover:bg-[#b03000] text-white rounded-lg shadow-lg shadow-[#D93A00]/20 transition-all hover:shadow-[#D93A00]/40">Sign In</a>
+                    <a href="{% url 'account_login' %}" class="px-4 py-1.5 text-sm font-semibold bg-[#D93A00] hover:bg-[#b03000] text-white rounded-lg shadow-lg shadow-[#D93A00]/20 transition-all hover:shadow-[#D93A00]/40">Accedi</a>
                 {% endif %}
             </div>
         </header>
@@ -70,22 +70,22 @@
             <div class="text-center max-w-4xl mx-auto space-y-8 relative z-10">
                 <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/5 text-[11px] uppercase tracking-wider font-semibold text-[#D93A00] mb-4">
                     <span class="w-1.5 h-1.5 rounded-full bg-[#D93A00] animate-pulse"></span>
-                    System Online
+                    Sistema Online
                 </div>
                 
                 <h1 class="text-5xl sm:text-7xl lg:text-8xl font-bold tracking-tighter text-white leading-[0.9]">
-                    The support <br>
-                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-white/40">you need to meet.</span>
+                    Il supporto <br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-white/40">di cui hai bisogno.</span>
                 </h1>
                 
                 <p class="text-lg sm:text-xl text-white/40 max-w-2xl mx-auto leading-relaxed">
-                    Fast, reliable, and intelligent technical assistance. Turn your IT problems into <span class="text-white/80">solved tickets</span> in seconds.
+                    Assistenza tecnica veloce, affidabile e intelligente. Trasforma i tuoi problemi IT in <span class="text-white/80">ticket risolti</span> in pochi secondi.
                 </p>
 
                 <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
                     <form action="#" method="GET" class="relative group w-full max-w-md">
                         <div class="absolute -inset-0.5 bg-gradient-to-r from-[#D93A00] to-blue-600 rounded-lg blur opacity-30 group-hover:opacity-60 transition duration-200"></div>
-                        <input type="text" placeholder="Describe your issue..." class="relative w-full bg-[#0B1416] text-white/90 px-6 py-4 rounded-lg border border-white/10 focus:outline-none focus:ring-1 focus:ring-white/20 placeholder-white/20 shadow-xl" />
+                        <input type="text" placeholder="Descrivi il tuo problema..." class="relative w-full bg-[#0B1416] text-white/90 px-6 py-4 rounded-lg border border-white/10 focus:outline-none focus:ring-1 focus:ring-white/20 placeholder-white/20 shadow-xl" />
                         <button class="absolute right-2 top-2 bottom-2 px-4 bg-white/10 hover:bg-white/20 text-white rounded-md font-medium transition-colors">
                             <i class="fas fa-arrow-right"></i>
                         </button>
@@ -132,8 +132,8 @@
                                                 <i class="fas fa-wifi"></i>
                                             </div>
                                             <div class="text-left">
-                                                <div class="text-sm font-medium text-white">Network Error</div>
-                                                <div class="text-xs text-white/40">Diagnosing...</div>
+                                                <div class="text-sm font-medium text-white">Errore Rete</div>
+                                                <div class="text-xs text-white/40">Diagnosi in corso...</div>
                                             </div>
                                         </div>
                                         <div class="h-2 w-16 bg-blue-500/20 rounded-full overflow-hidden">
@@ -146,14 +146,14 @@
                                     <div class="w-8 h-8 rounded-full bg-[#D93A00]/20 flex items-center justify-center text-[#D93A00] group-hover:scale-110 transition-transform">
                                         <i class="fas fa-shield-alt"></i>
                                     </div>
-                                    <div class="text-xs font-medium text-white/70">Security</div>
+                                    <div class="text-xs font-medium text-white/70">Sicurezza</div>
                                 </div>
 
                                 <div class="bg-[#1A2226] p-4 rounded-xl border border-white/5 flex flex-col items-center justify-center gap-2 aspect-video hover:bg-[#20292E] transition-colors cursor-pointer group">
                                     <div class="w-8 h-8 rounded-full bg-green-500/20 flex items-center justify-center text-green-400 group-hover:scale-110 transition-transform">
                                         <i class="fas fa-memory"></i>
                                     </div>
-                                    <div class="text-xs font-medium text-white/70">Performance</div>
+                                    <div class="text-xs font-medium text-white/70">Prestazioni</div>
                                 </div>
                             </div>
 

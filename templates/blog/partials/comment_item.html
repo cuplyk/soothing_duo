@@ -1,30 +1,38 @@
-<div class="comment-item mb-4 pb-4 border-bottom" id="comment-{{ comment.id }}">
-  <div class="d-flex">
-    <img src="https://ui-avatars.com/api/?name={{ comment.author.username|default:comment.name }}&background=6c757d&color=fff" 
-         alt="{{ comment.author.username|default:comment.name }}" class="rounded-circle me-3" width="40" height="40">
-    <div class="flex-grow-1">
-      <div class="d-flex justify-content-between align-items-start mb-2">
-        <div>
-          <h6 class="mb-0">{{ comment.author.get_full_name|default:comment.author.username|default:comment.name }}</h6>
-          <small class="text-muted">{{ comment.created_at|timesince }} ago</small>
-        </div>
-        {% if user == comment.author %}
-        <div class="dropdown">
-          <button class="btn btn-sm btn-outline-secondary border-0" data-bs-toggle="dropdown">
-            <i class="fas fa-ellipsis-v"></i>
-          </button>
-          <ul class="dropdown-menu">
-            <li>
-              <button class="dropdown-item edit-comment-btn" 
-                      data-comment-id="{{ comment.id }}">
-                <i class="fas fa-edit me-2"></i>Edit
-              </button>
-            </li>
-          </ul>
-        </div>
-        {% endif %}
+<div class="flex space-x-4 border-b border-white/5 pb-8 last:border-0 last:pb-0 group" id="comment-{{ comment.id }}">
+  <div class="flex-shrink-0">
+     <img src="https://ui-avatars.com/api/?name={{ comment.author.username }}&background=2d3748&color=fff" 
+          alt="{{ comment.author.username }}" class="w-10 h-10 rounded-full ring-2 ring-[#0F1619]">
+  </div>
+  <div class="flex-grow">
+    <div class="flex justify-between items-start mb-2">
+      <div>
+        <h6 class="text-sm font-bold text-white">{{ comment.author.get_full_name|default:comment.author.username }}</h6>
+        <small class="text-white/30 text-xs">{{ comment.created_at|timesince }} fa</small>
       </div>
-      <p class="mb-0 comment-content">{{ comment.content }}</p>
+      
+      {% if user == comment.author %}
+      <div class="relative" x-data="{ open: false }">
+        <button @click="open = !open" @click.away="open = false" class="text-white/20 hover:text-white transition-colors focus:outline-none p-1 rounded-full hover:bg-white/5">
+          <i class="fas fa-ellipsis-v text-xs"></i>
+        </button>
+        <div x-show="open" 
+             class="origin-top-right absolute right-0 mt-2 w-32 rounded-lg shadow-xl bg-[#13191c] border border-white/10 focus:outline-none z-10" 
+             style="display: none;">
+          <div class="py-1">
+            <button class="w-full text-left px-4 py-2 text-xs font-medium text-white/70 hover:text-white hover:bg-white/5 flex items-center edit-comment-btn transition-colors" 
+                    hx-get="{% url 'blog:comment_edit' comment.id %}"
+                    hx-target="#comment-{{ comment.id }}"
+                    hx-swap="outerHTML">
+              <i class="fas fa-edit mr-2 text-white/30"></i>Modifica
+            </button>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+    
+    <div class="text-white/70 text-sm leading-relaxed comment-content prose prose-invert prose-sm max-w-none">
+        {{ comment.content }}
     </div>
   </div>
 </div>

@@ -1,11 +1,11 @@
-<div class="d-flex align-items-center">
-    <button type="button" 
-            class="btn btn-outline-danger border-0 like-btn {% if liked %}liked{% endif %}"
-            hx-post="{% url 'blog:like_toggle' post.slug %}"
-            hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
-            hx-target="#like-section-{{ post.slug }}"
-            hx-swap="innerHTML">
-        <i class="{% if liked %}fas{% else %}far{% endif %} fa-heart me-2"></i>
-        <span class="like-count">{{ post.likes.count }}</span>
-    </button>
-</div>
+<button type="button" 
+        class="group flex items-center gap-3 text-white/50 hover:text-[#D93A00] transition-colors duration-200 focus:outline-none"
+        hx-post="{% url 'blog:like_toggle' post.slug %}"
+        hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+        hx-target="#like-section-{{ post.slug }}"
+        hx-swap="innerHTML">
+    <span class="p-3 rounded-full bg-white/5 group-hover:bg-[#D93A00]/10 transition-colors duration-200 ring-1 ring-white/5 group-hover:ring-[#D93A00]/30 shadow-lg">
+        <i class="{% if liked %}fas text-[#D93A00]{% else %}far{% endif %} fa-heart text-xl transition-transform group-hover:scale-110"></i>
+    </span>
+    <span class="font-bold text-lg like-count">{{ post.likes.count }}</span>
+</button>

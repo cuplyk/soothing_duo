@@ -9,20 +9,20 @@
         <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
           <div class="md:w-2/3">
             <h1 class="text-3xl sm:text-4xl font-bold mb-4 text-white tracking-tight">
-              Welcome to <span class="text-[#D93A00]">Tecno Pronto</span>
+              Benvenuto su <span class="text-[#D93A00]">Tecno Pronto</span>
             </h1>
             <p class="text-lg text-white/50 mb-6 leading-relaxed">
-              Discover amazing stories, thoughts, and ideas from our community of writers.
+              Scopri storie incredibili, pensieri e idee dalla nostra community di scrittori.
             </p>
             {% if user.is_authenticated %}
             <a href="{% url 'blog:post_create' %}" class="inline-flex items-center gap-2 px-6 py-3 bg-[#D93A00] hover:bg-[#b03000] text-white font-semibold rounded-full shadow-lg hover:shadow-[#D93A00]/30 transition-all transform hover:-translate-y-0.5">
               <i class="fas fa-plus text-sm"></i>
-              <span>Start Writing</span>
+              <span>Inizia a Scrivere</span>
             </a>
             {% else %}
             <a href="{% url 'account_signup' %}" class="inline-flex items-center gap-2 px-6 py-3 bg-[#D93A00] hover:bg-[#b03000] text-white font-semibold rounded-full shadow-lg hover:shadow-[#D93A00]/30 transition-all transform hover:-translate-y-0.5">
               <i class="fas fa-user-plus text-sm"></i>
-              <span>Join Community</span>
+              <span>Unisciti alla Community</span>
             </a>
             {% endif %}
           </div>
@@ -69,7 +69,7 @@
 
             <div class="flex items-center justify-between pt-6 border-t border-white/5">
               <span class="text-sm font-medium text-[#D93A00] flex items-center gap-2 group/link">
-                Read Article 
+                Leggi Articolo 
                 <i class="fas fa-arrow-right transform group-hover/link:translate-x-1 transition-transform"></i>
               </span>
               <div class="flex items-center gap-4 text-xs font-medium text-white/30">
@@ -84,10 +84,10 @@
           <div class="mb-4 inline-flex items-center justify-center w-16 h-16 rounded-full bg-white/5">
               <i class="fas fa-inbox text-2xl text-white/20"></i>
           </div>
-          <h3 class="text-xl font-bold text-white mb-2">No posts yet</h3>
-          <p class="text-white/40 mb-6">Be the first to share your thoughts!</p>
+          <h3 class="text-xl font-bold text-white mb-2">Ancora nessun articolo</h3>
+          <p class="text-white/40 mb-6">Sii il primo a condividere i tuoi pensieri!</p>
           <a href="{% url 'blog:post_create' %}" class="inline-flex items-center gap-2 px-6 py-2 bg-white/5 hover:bg-white/10 text-white font-medium rounded-full transition-colors border border-white/5 hover:border-white/10">
-            Create First Post
+            Crea il Primo Articolo
           </a>
         </div>
         {% endfor %}
@@ -131,7 +131,7 @@
       <div class="bg-[#0F1619] rounded-2xl border border-white/5 overflow-hidden">
         <div class="px-6 py-4 border-b border-white/5 bg-white/[0.02]">
           <h5 class="font-bold text-white text-sm uppercase tracking-wider">
-            <i class="fas fa-folder mr-2 text-[#D93A00]"></i>Categories
+            <i class="fas fa-folder mr-2 text-[#D93A00]"></i>Categorie
           </h5>
         </div>
         <div class="p-2">
@@ -150,7 +150,7 @@
       <div class="bg-[#0F1619] rounded-2xl border border-white/5 overflow-hidden">
         <div class="px-6 py-4 border-b border-white/5 bg-white/[0.02]">
           <h5 class="font-bold text-white text-sm uppercase tracking-wider">
-            <i class="fas fa-fire mr-2 text-[#D93A00]"></i>Trending
+            <i class="fas fa-fire mr-2 text-[#D93A00]"></i>Di Tendenza
           </h5>
         </div>
         <div class="p-4">
@@ -162,7 +162,7 @@
                     {{ post.title }}
                   </h6>
                   <div class="flex items-center gap-2 text-[10px] text-white/30">
-                      <span>{{ post.created_at|timesince }} ago</span>
+                      <span>{{ post.created_at|timesince }} fa</span>
                       {% if post.category %}
                       <span class="w-1 h-1 rounded-full bg-white/20"></span>
                       <span>{{ post.category.name }}</span>

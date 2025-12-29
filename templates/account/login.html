@@ -1,7 +1,7 @@
 {% extends '_base.html' %}
 {% load crispy_forms_tags %}
 
-{% block title %}Log in{% endblock %}
+{% block title %}Accedi{% endblock %}
 
 {% block content %}
 <div class="min-h-screen bg-[#080c0e] flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative overflow-hidden font-sans">
@@ -12,10 +12,10 @@
   <!-- Header -->
   <div class="sm:mx-auto sm:w-full sm:max-w-md relative z-10">
     <h2 class="mt-6 text-center text-3xl font-extrabold text-white">
-      Welcome Back
+      Bentornato
     </h2>
     <p class="mt-2 text-center text-sm text-white/50">
-      Sign in to access your account.
+      Accedi per visualizzare il tuo account.
     </p>
   </div>
 
@@ -71,12 +71,12 @@
             <!-- Forgot Password Link manually inserted if not in form -->
             <div class="flex items-center justify-end mb-4">
                 <a href="{% url 'account_reset_password' %}" class="text-sm font-medium text-[#D93A00] hover:text-[#ff5c1a]">
-                    Forgot your password?
+                    Password dimenticata?
                 </a>
             </div>
 
           <button class="w-full flex justify-center py-3 px-4 border border-transparent rounded-full shadow-lg text-sm font-bold text-white bg-[#D93A00] hover:bg-[#b03000] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#D93A00] transition-all transform hover:scale-[1.02]" type="submit">
-            Log in
+            Accedi
           </button>
         </div>
       </form>
@@ -89,14 +89,14 @@
           </div>
           <div class="relative flex justify-center text-sm">
             <span class="px-2 bg-[#0F1619] text-white/40">
-              New here?
+              Nuovo qui?
             </span>
           </div>
         </div>
 
         <div class="mt-6 text-center">
           <a href="{% url 'account_signup' %}" class="font-medium text-[#D93A00] hover:text-[#ff5c1a] transition-colors">
-            Create an account
+            Crea un account
           </a>
         </div>
       </div>
@@ -107,4 +107,4 @@
 {% endblock content %}
 {% block footer_block %}
 {% endblock footer_block %}
- 
+  

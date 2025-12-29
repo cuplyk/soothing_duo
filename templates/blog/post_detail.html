@@ -2,7 +2,7 @@
 {% extends '_base.html' %}
 {% load static %}
 
-{% block title %}{{ post.title }} - Tecno Pronto Blog{% endblock %}
+{% block title %}{{ post.title }} - Blog Tecno Pronto{% endblock %}
 
 {% block content %}
 <div class="min-h-screen bg-[#080c0e] font-sans text-[#e3e5e8]">
@@ -43,7 +43,7 @@
             <div class="flex items-center text-xs text-white/40 mt-1 font-medium">
               <span>{{ post.created_at|date:"F j, Y" }}</span>
               <span class="mx-2 text-white/10">•</span>
-              <span>{{ post.content|wordcount }} words</span>
+              <span>{{ post.content|wordcount }} parole</span>
             </div>
           </div>
         </div>
@@ -75,7 +75,7 @@
           
           <div class="flex items-center space-x-6 text-white/40 text-sm font-medium">
             <span class="flex items-center gap-2"><i class="far fa-eye text-white/20"></i>{{ post.views }} views</span>
-            <span class="flex items-center gap-2"><i class="far fa-comment text-white/20"></i>{{ post.comments.count }} comments</span>
+            <span class="flex items-center gap-2"><i class="far fa-comment text-white/20"></i>{{ post.comments.count }} commenti</span>
           </div>
         </div>
 
@@ -83,7 +83,7 @@
         {% if user == post.author %}
         <div class="mt-8 pt-8 border-t border-white/5 flex gap-3">
           <a href="{% url 'blog:post_edit' post.slug %}" class="inline-flex items-center px-4 py-2 border border-white/10 bg-white/5 text-white/70 rounded-lg hover:bg-white/10 hover:text-white transition-colors text-sm font-medium">
-            <i class="fas fa-edit mr-2"></i>Edit Post
+            <i class="fas fa-edit mr-2"></i>Modifica Articolo
           </a>
         </div>
         {% endif %}
@@ -95,7 +95,7 @@
       <div class="px-8 py-6 border-b border-white/5 bg-white/[0.02] flex justify-between items-center">
         <h5 class="text-lg font-bold text-white flex items-center">
           <i class="fas fa-comments mr-3 text-[#D93A00]"></i>
-          Discussion <span class="ml-3 bg-[#D93A00]/10 text-[#D93A00] border border-[#D93A00]/20 text-xs py-0.5 px-2.5 rounded-full">{{ comments.count }}</span>
+          Discussione <span class="ml-3 bg-[#D93A00]/10 text-[#D93A00] border border-[#D93A00]/20 text-xs py-0.5 px-2.5 rounded-full">{{ comments.count }}</span>
         </h5>
       </div>
       
@@ -110,19 +110,19 @@
           {% csrf_token %}
           <div class="mb-4 relative">
             <textarea name="content" class="w-full px-5 py-4 bg-[#080c0e] border border-white/10 rounded-xl text-white placeholder-white/30 focus:ring-1 focus:ring-[#D93A00] focus:border-[#D93A00] transition duration-200 resize-y min-h-[140px]" 
-                      placeholder="What are your thoughts?" required></textarea>
-            <div class="absolute bottom-3 right-3 text-[10px] text-white/20 font-mono">Markdown supported</div>
+                      placeholder="Cosa ne pensi?" required></textarea>
+            <div class="absolute bottom-3 right-3 text-[10px] text-white/20 font-mono">Markdown supportato</div>
           </div>
           <div class="flex justify-end">
             <button type="submit" class="inline-flex items-center bg-[#D93A00] hover:bg-[#b03000] text-white font-bold py-2.5 px-6 rounded-lg transition duration-200 shadow-lg hover:shadow-[#D93A00]/30 transform hover:-translate-y-0.5">
-              <i class="fas fa-paper-plane mr-2"></i>Post Comment
+              <i class="fas fa-paper-plane mr-2"></i>Pubblica Commento
             </button>
           </div>
         </form>
         {% else %}
         <div class="bg-blue-900/10 border border-blue-500/20 text-blue-200 rounded-xl p-8 text-center mb-12">
           <p class="font-medium text-lg">
-              <a href="{% url 'account_signup' %}" class="text-[#D93A00] hover:text-[#ff5c1a] underline decoration-2 underline-offset-2">Sign up</a> or <a href="{% url 'account_login' %}" class="text-[#D93A00] hover:text-[#ff5c1a] underline decoration-2 underline-offset-2">Log in</a> to join the conversation.
+              <a href="{% url 'account_signup' %}" class="text-[#D93A00] hover:text-[#ff5c1a] underline decoration-2 underline-offset-2">Registrati</a> o <a href="{% url 'account_login' %}" class="text-[#D93A00] hover:text-[#ff5c1a] underline decoration-2 underline-offset-2">Accedi</a> per partecipare alla conversazione.
           </p>
         </div>
         {% endif %}
@@ -139,7 +139,7 @@
               <div class="flex justify-between items-start mb-2">
                 <div>
                   <h6 class="text-sm font-bold text-white">{{ comment.author.get_full_name|default:comment.author.username }}</h6>
-                  <small class="text-white/30 text-xs">{{ comment.created_at|timesince }} ago</small>
+                  <small class="text-white/30 text-xs">{{ comment.created_at|timesince }} fa</small>
                 </div>
                 
                 {% if user == comment.author %}
@@ -157,9 +157,11 @@
                        class="origin-top-right absolute right-0 mt-2 w-32 rounded-lg shadow-xl bg-[#13191c] border border-white/10 focus:outline-none z-10" 
                        style="display: none;">
                     <div class="py-1">
-                      <button class="w-full text-left px-4 py-2 text-xs font-medium text-white/70 hover:text-white hover:bg-white/5 flex items-center edit-comment-btn transition-colors" 
-                              data-comment-id="{{ comment.id }}">
-                        <i class="fas fa-edit mr-2 text-white/30"></i>Edit
+                      <button class="w-full text-left px-4 py-2 text-xs font-medium text-white/70 hover:text-white hover:bg-white/5 flex items-center transition-colors" 
+                              hx-get="{% url 'blog:comment_edit' comment.id %}"
+                              hx-target="#comment-{{ comment.id }}"
+                              hx-swap="outerHTML">
+                        <i class="fas fa-edit mr-2 text-white/30"></i>Modifica
                       </button>
                     </div>
                   </div>
@@ -177,8 +179,8 @@
             <div class="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center mx-auto mb-4">
                 <i class="fas fa-comments text-2xl text-white/20"></i>
             </div>
-            <p class="text-white/40 text-lg font-medium">No comments yet.</p>
-            <p class="text-white/30 text-sm">Be the first to share your thoughts!</p>
+            <p class="text-white/40 text-lg font-medium">Ancora nessun commento.</p>
+            <p class="text-white/30 text-sm">Sii il primo a condividere i tuoi pensieri!</p>
           </div>
           {% endfor %}
         </div>

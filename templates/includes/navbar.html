@@ -12,8 +12,8 @@
         <!-- Desktop Menu -->
         <div class="hidden md:block">
           <div class="flex items-center space-x-1">
-            <!-- <a href="{% url 'about' %}" class="px-3 py-1.5 rounded-full text-xs font-medium text-white/60 hover:text-white hover:bg-white/10 transition-all duration-200">About</a> -->
-            <a href="{% url 'contacts' %}" class="px-3 py-1.5 rounded-full text-xs font-medium text-white/50 hover:text-white hover:bg-white/10 transition-all duration-200">Contact</a>
+            <!-- <a href="{% url 'about' %}" class="px-3 py-1.5 rounded-full text-xs font-medium text-white/60 hover:text-white hover:bg-white/10 transition-all duration-200">Chi Siamo</a> -->
+            <a href="{% url 'contacts' %}" class="px-3 py-1.5 rounded-full text-xs font-medium text-white/50 hover:text-white hover:bg-white/10 transition-all duration-200">Contatti</a>
             <a href="{% url 'blog:post_list' %}" class="px-3 py-1.5 rounded-full text-xs font-medium text-white/50 hover:text-white hover:bg-white/10 transition-all duration-200">Blog</a>
             <a href="{% url 'ticket' %}" class="px-3 py-1.5 rounded-full text-xs font-medium text-white/50 hover:text-white hover:bg-white/10 transition-all duration-200">Ticket</a>
           </div>
@@ -43,17 +43,17 @@
               <div class="px-3 py-2 border-b border-white/5 bg-white/2">
                   <p class="text-[10px] text-white/40 uppercase font-bold tracking-wider">Account</p>
               </div>
-              <a href="#" class="block px-3 py-2 text-xs text-white/70 hover:bg-white/5 hover:text-white transition-colors">Profile</a>
-              <a href="#" class="block px-3 py-2 text-xs text-white/70 hover:bg-white/5 hover:text-white transition-colors">My Posts</a>
-              <a href="{% url 'account_change_password' %}" class="block px-3 py-2 text-xs text-white/70 hover:bg-white/5 hover:text-white transition-colors">Change password</a>
+              <a href="#" class="block px-3 py-2 text-xs text-white/70 hover:bg-white/5 hover:text-white transition-colors">Profilo</a>
+              <a href="#" class="block px-3 py-2 text-xs text-white/70 hover:bg-white/5 hover:text-white transition-colors">I miei post</a>
+              <a href="{% url 'account_change_password' %}" class="block px-3 py-2 text-xs text-white/70 hover:bg-white/5 hover:text-white transition-colors">Cambia password</a>
               <div class="border-t border-white/5 my-1"></div>
-              <a href="{% url 'account_logout' %}" class="block px-3 py-2 text-xs text-[#D93A00] hover:bg-white/5 transition-colors">Logout</a>
+              <a href="{% url 'account_logout' %}" class="block px-3 py-2 text-xs text-[#D93A00] hover:bg-white/5 transition-colors">Esci</a>
             </div>
           </div>
           {% else %}
-            <a href="{% url 'account_login' %}" class="text-xs font-medium text-white/60 hover:text-white transition-colors px-3 py-1.5">Login</a>
+            <a href="{% url 'account_login' %}" class="text-xs font-medium text-white/60 hover:text-white transition-colors px-3 py-1.5">Accedi</a>
             <a href="{% url 'account_signup' %}" class="px-3 py-1.5 text-xs font-semibold bg-[#D93A00] hover:bg-[#b03000] text-white rounded-full shadow-lg shadow-[#D93A00]/20 transition-all hover:shadow-[#D93A00]/40 hover:-translate-y-0.5">
-                Sign Up
+                Registrati
             </a>
           {% endif %}
         </div>
@@ -62,7 +62,7 @@
       <!-- Mobile menu button -->
       <div class="-mr-2 flex md:hidden">
         <button @click="mobileMenuOpen = !mobileMenuOpen" type="button" class="inline-flex items-center justify-center p-2 rounded-lg text-white/50 hover:text-white hover:bg-white/10 focus:outline-none transition-colors">
-          <span class="sr-only">Open main menu</span>
+          <span class="sr-only">Apri menu principale</span>
           <i class="fas fa-bars text-lg" x-show="!mobileMenuOpen"></i>
           <i class="fas fa-times text-lg" x-show="mobileMenuOpen" style="display: none;"></i>
         </button>
@@ -83,12 +83,12 @@
     
     <div class="px-4 py-4 space-y-1">
       <a href="{% url 'home' %}" class="block px-4 py-2 rounded-lg text-sm font-medium text-white/70 hover:text-white hover:bg-white/5 transition-colors">Home</a>
-      <a href="{% url 'about' %}" class="block px-4 py-2 rounded-lg text-sm font-medium text-white/70 hover:text-white hover:bg-white/5 transition-colors">About</a>
-      <a href="{% url 'contacts' %}" class="block px-4 py-2 rounded-lg text-sm font-medium text-white/70 hover:text-white hover:bg-white/5 transition-colors">Contact</a>
+      <a href="{% url 'about' %}" class="block px-4 py-2 rounded-lg text-sm font-medium text-white/70 hover:text-white hover:bg-white/5 transition-colors">Chi Siamo</a>
+      <a href="{% url 'contacts' %}" class="block px-4 py-2 rounded-lg text-sm font-medium text-white/70 hover:text-white hover:bg-white/5 transition-colors">Contatti</a>
       <a href="{% url 'blog:post_list' %}" class="block px-4 py-2 rounded-lg text-sm font-medium text-white/70 hover:text-white hover:bg-white/5 transition-colors">Blog</a>
       
       <div class="mt-4 px-4">
-          <p class="text-[10px] font-bold text-[#D93A00] uppercase tracking-wider mb-2">Categories</p>
+          <p class="text-[10px] font-bold text-[#D93A00] uppercase tracking-wider mb-2">Categorie</p>
           <div class="grid grid-cols-2 gap-2">
              {% for category in categories|slice:":4" %}
               <a href="{% url 'blog:category_posts' category.slug %}" class="text-xs text-white/50 hover:text-white py-1 transition-colors">{{ category.name }}</a>
@@ -111,13 +111,13 @@
         </div>
       </div>
       <div class="grid grid-cols-2 gap-2 px-2">
-        <a href="#" class="block px-3 py-2 rounded-lg text-xs font-medium text-white/60 hover:text-white hover:bg-white/5 text-center bg-white/5">Profile</a>
-        <a href="{% url 'account_logout' %}" class="block px-3 py-2 rounded-lg text-xs font-medium text-white bg-[#D93A00] hover:bg-[#b03000] text-center shadow-lg shadow-[#D93A00]/20">Logout</a>
+        <a href="#" class="block px-3 py-2 rounded-lg text-xs font-medium text-white/60 hover:text-white hover:bg-white/5 text-center bg-white/5">Profilo</a>
+        <a href="{% url 'account_logout' %}" class="block px-3 py-2 rounded-lg text-xs font-medium text-white bg-[#D93A00] hover:bg-[#b03000] text-center shadow-lg shadow-[#D93A00]/20">Esci</a>
       </div>
       {% else %}
       <div class="grid grid-cols-2 gap-3">
-          <a href="{% url 'account_login' %}" class="flex items-center justify-center px-4 py-2 rounded-lg text-xs font-medium text-white bg-white/5 hover:bg-white/10 transition-colors">Login</a>
-          <a href="{% url 'account_signup' %}" class="flex items-center justify-center px-4 py-2 rounded-lg text-xs font-bold text-white bg-[#D93A00] hover:bg-[#b03000] transition-colors shadow-lg shadow-[#D93A00]/20">Sign Up</a>
+          <a href="{% url 'account_login' %}" class="flex items-center justify-center px-4 py-2 rounded-lg text-xs font-medium text-white bg-white/5 hover:bg-white/10 transition-colors">Accedi</a>
+          <a href="{% url 'account_signup' %}" class="flex items-center justify-center px-4 py-2 rounded-lg text-xs font-bold text-white bg-[#D93A00] hover:bg-[#b03000] transition-colors shadow-lg shadow-[#D93A00]/20">Registrati</a>
       </div>
       {% endif %}
     </div>
