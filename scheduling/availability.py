@@ -8,7 +8,7 @@ class AvailabilityManager:
     - Monday to Friday: 18:00 - 00:00 (Midnight)
     - Saturday and Sunday: Available all day (24h)
     """
-    SCHEDULE_TEXT = "Mon-Fri 18:00-24:00 & Weekends"
+    SCHEDULE_TEXT = "Lun-Ven 18:00-24:00 & Weekend"
 
     @classmethod
     def is_available(cls, now=None):
@@ -43,7 +43,7 @@ class AvailabilityManager:
         return {
             'is_available': is_avail,
             'schedule': cls.SCHEDULE_TEXT,
-            'status_text': "Available Now" if is_avail else "Currently Closed",
+            'status_text': "Disponibile Ora" if is_avail else "Attualmente Chiuso",
             'status_color': "green" if is_avail else "red",
             'status_bg': "green-500/10" if is_avail else "red-500/10",
             'status_border': "green-500/20" if is_avail else "red-500/20",
