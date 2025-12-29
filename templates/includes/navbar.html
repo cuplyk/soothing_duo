@@ -86,15 +86,6 @@
       <a href="{% url 'about' %}" class="block px-4 py-2 rounded-lg text-sm font-medium text-white/70 hover:text-white hover:bg-white/5 transition-colors">Chi Siamo</a>
       <a href="{% url 'contacts' %}" class="block px-4 py-2 rounded-lg text-sm font-medium text-white/70 hover:text-white hover:bg-white/5 transition-colors">Contatti</a>
       <a href="{% url 'blog:post_list' %}" class="block px-4 py-2 rounded-lg text-sm font-medium text-white/70 hover:text-white hover:bg-white/5 transition-colors">Blog</a>
-      
-      <div class="mt-4 px-4">
-          <p class="text-[10px] font-bold text-[#D93A00] uppercase tracking-wider mb-2">Categorie</p>
-          <div class="grid grid-cols-2 gap-2">
-             {% for category in categories|slice:":4" %}
-              <a href="{% url 'blog:category_posts' category.slug %}" class="text-xs text-white/50 hover:text-white py-1 transition-colors">{{ category.name }}</a>
-             {% endfor %}
-          </div>
-      </div>
     </div>
     
     <div class="p-4 border-t border-white/5 bg-[#050809]">
