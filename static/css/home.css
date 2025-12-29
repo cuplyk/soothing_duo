@@ -11,7 +11,7 @@
 
 /* Hero Section */
 .hero-section {
-    background: linear-gradient(rgba(33, 37, 41, 0.7), rgba(33, 37, 41, 0.7)), url('../images/hero_bg.png');
+    background: linear-gradient(rgba(33, 37, 41, 0.7), rgba(33, 37, 41, 0.7));
     /* Assuming PNG from generator */
     background-size: cover;
     background-position: center;
