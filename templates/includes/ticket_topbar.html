@@ -1,0 +1,15 @@
+        <!-- Header (Mobile/Desktop) -->
+        <header class="sticky top-0 z-30 flex items-center justify-between px-6 py-4 bg-[#080c0e]/80 backdrop-blur-md border-b border-white/5">
+            <div class="lg:hidden font-bold text-lg">Tecno<span class="text-[#D93A00]">Pronto</span></div>
+            <div class="ml-auto flex items-center gap-4">
+                {% if user.is_authenticated %}
+                    <span class="text-xs font-medium text-white/40 hidden sm:inline">Connesso come {{ user.username }}</span>
+                    <a href="{% url 'account_logout' %}" class="px-3 py-1.5 text-xs font-medium text-white/70 hover:text-white border border-white/10 rounded-md transition-colors">Esci</a>
+                {% else %}
+                    <a href="{% url 'account_login' %}" class="text-xs font-medium text-white/60 hover:text-white transition-colors px-3 py-1.5">Accedi</a>
+                    <a href="{% url 'account_signup' %}" class="px-3 py-1.5 text-xs font-semibold bg-[#D93A00] hover:bg-[#b03000] text-white rounded-full shadow-lg shadow-[#D93A00]/20 transition-all hover:shadow-[#D93A00]/40 hover:-translate-y-0.5">
+                        Registrati
+                    </a>
+                {% endif %}
+            </div>
+        </header>
