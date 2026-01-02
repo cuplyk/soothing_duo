@@ -8,63 +8,81 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
   
-  <title>{% block title %}Tecno Pronto - Supporto IT & Sviluppo Web{% endblock title %}</title>
-  
-  <!-- SEO Meta Tags -->
-  <meta name="description" content="{% block meta_description %}Tecno Pronto offre supporto IT professionale e sviluppo web per privati e piccole imprese. Assistenza computer serale e nei weekend.{% endblock %}">
-  <meta name="keywords" content="{% block meta_keywords %}supporto it, riparazione computer, sviluppo web, tecnico informatico, assistenza pc, siti web, reti wifi, assistenza serale{% endblock %}">
+  <title>{% block title %}Tecno Pronto | Supporto IT e Sviluppo Web a Verona{% endblock title %}</title>
+  <meta name="description" content="{% block meta_description %}Tecno Pronto offre assistenza computer professionale, riparazioni PC e sviluppo web a Verona. Supporto IT serale e weekend per privati e imprese.{% endblock %}">
+  <meta name="keywords" content="{% block meta_keywords %}supporto it verona, assistenza pc verona, riparazione computer verona, tecnico informatico verona, sviluppo web verona, assistenza informatica serale{% endblock %}">
   <meta name="author" content="Tecno Pronto">
   <meta name="robots" content="index, follow">
   <meta name="theme-color" content="#080c0e">
 
-  <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
-  <meta property="og:url" content="{{ request.build_absolute_uri }}">
-  <meta property="og:title" content="{% block og_title %}Tecno Pronto - Supporto IT & Sviluppo Web{% endblock %}">
-  <meta property="og:description" content="{% block og_description %}Tecno Pronto offre supporto IT professionale e sviluppo web per privati e piccole imprese. Assistenza computer serale e nei weekend.{% endblock %}">
-  <meta property="og:image" content="{% block og_image %}{% static 'images/tecnopronto.png' %}{% endblock %}">
+  <meta property="og:url" content="https://www.tecnopronto.it{{ request.path }}">
+  <meta property="og:title" content="{% block og_title %}Tecno Pronto - Supporto IT & Sviluppo Web Verona{% endblock %}">
+  <meta property="og:description" content="{% block og_description %}Supporto IT professionale e sviluppo web a Verona. Assistenza computer anche in orario serale.{% endblock %}">
+  <meta property="og:image" content="{% block og_image %}https://www.tecnopronto.it{% static 'images/tecnopronto.png' %}{% endblock %}">
   <meta property="og:site_name" content="Tecno Pronto">
   <meta property="og:locale" content="it_IT">
 
-  <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:url" content="{{ request.build_absolute_uri }}">
-  <meta property="twitter:title" content="{% block twitter_title %}Tecno Pronto - Supporto IT & Sviluppo Web{% endblock %}">
-  <meta property="twitter:description" content="{% block twitter_description %}Tecno Pronto offre supporto IT professionale e sviluppo web per privati e piccole imprese. Assistenza computer serale e nei weekend.{% endblock %}">
-  <meta property="twitter:image" content="{% block twitter_image %}{% static 'images/tecnopronto.png' %}{% endblock %}">
+  <meta property="twitter:url" content="https://www.tecnopronto.it{{ request.path }}">
+  <meta property="twitter:title" content="{% block twitter_title %}Tecno Pronto - Supporto IT Verona{% endblock %}">
+  <meta property="twitter:description" content="{% block twitter_description %}Assistenza informatica e creazione siti web a Verona.{% endblock %}">
+  <meta property="twitter:image" content="{% block twitter_image %}https://www.tecnopronto.it{% static 'images/tecnopronto.png' %}{% endblock %}">
 
-  <!-- Canonical -->
-  <link rel="canonical" href="{{ request.build_absolute_uri }}">  
+  <link rel="canonical" href="https://www.tecnopronto.it{{ request.path }}">  
 
   <link rel="shortcut icon" type="image/x-icon" href="{% static 'images/tecnopronto.ico' %}">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  
   {% block css %}
-  {% tailwind_css %}
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <!-- Custom CSS -->
-  <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    {% tailwind_css %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
   {% endblock %}
 
-  <!-- Other head content -->
   {% csrf_token %}
   <meta name="csrf-token" content="{{ csrf_token }}">
+
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "ITService",
       "name": "Tecno Pronto",
-      "description": "Supporto IT professionale e sviluppo web dopo l'orario lavorativo.",
-      "url": "{{ request.build_absolute_uri }}",
-      "areaServed": "Italy",
-      "hoursAvailable": "Mo-Su 18:00-23:00"
+      "alternateName": "Tecno Pronto Verona",
+      "description": "Supporto IT professionale e sviluppo web a Verona. Specializzati in assistenza PC serale e weekend.",
+      "url": "https://www.tecnopronto.it",
+      "logo": "https://www.tecnopronto.it{% static 'images/tecnopronto.png' %}",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Verona",
+        "addressRegion": "VR",
+        "addressCountry": "IT"
+      },
+      "areaServed": {
+        "@type": "City",
+        "name": "Verona"
+      },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Servizi Informatici",
+        "itemListElement": [
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Riparazione Computer" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Sviluppo Web" } }
+        ]
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+          "opens": "18:00",
+          "closes": "23:00"
+        }
+      ]
     }
   </script>
-
 </head>
 
 <body class="bg-light">

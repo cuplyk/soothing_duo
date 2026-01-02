@@ -22,4 +22,7 @@ class Blog(TemplateView):
     template_name = "pages/blog.html"    
 
 class TicketPageView(TemplateView):
-    template_name = "pages/ticket.html" 
+    template_name = "tickets/ticket.html" 
+
+class TicketDashboardView(TemplateView):
+    template_name = "tickets/dashboard.html" 

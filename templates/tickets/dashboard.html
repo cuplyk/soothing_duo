@@ -1,0 +1,223 @@
+{% extends '_base.html' %}
+{% load static %}
+
+{% block title %}Dashboard Ticket{% endblock %}
+
+{% block navbar %}
+{% endblock %}
+
+{% block content %}
+<div class="flex h-screen bg-[#080c0e] font-sans selection:bg-[#D93A00] selection:text-white overflow-hidden text-[#e3e5e8]">
+
+    <!-- Sidebar -->
+    {% include 'includes/ticket_sidebar.html' %}
+
+    <!-- Main Content -->
+    <main class="flex-1 relative flex flex-col overflow-y-auto overflow-x-hidden custom-scrollbar">
+        
+        <!-- Topbar -->
+        {% include 'includes/ticket_topbar.html' %}
+
+        <!-- Dashboard Content -->
+        <div class="flex-1 p-6 lg:p-10 max-w-[1600px] mx-auto w-full">
+            
+            <!-- Bento Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 auto-rows-[140px]">
+                
+                <!-- Welcome & Action (Span 2 col) -->
+                <div class="col-span-1 md:col-span-2 row-span-2 relative group overflow-hidden rounded-3xl border border-white/5 bg-[#13191c] p-6 flex flex-col justify-between transition-all hover:border-white/10">
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-[#D93A00]/20 to-purple-500/0 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
+                    
+                    <div class="relative z-10">
+                        <h2 class="text-3xl font-bold text-white mb-2">Sup, Ale! 👋</h2>
+                        <p class="text-white/40 max-w-md">Hai <span class="text-white font-medium">3 ticket attivi</span> che richiedono la tua attenzione. Il sistema è operativo al 100%.</p>
+                    </div>
+
+                    <div class="relative z-10 flex gap-3 mt-6">
+                        <button class="bg-[#D93A00] hover:bg-[#b03000] text-white px-6 py-3 rounded-xl font-medium transition-all shadow-lg shadow-[#D93A00]/20 flex items-center gap-2 group/btn">
+                            <i class="fas fa-plus group-hover/btn:rotate-90 transition-transform"></i>
+                            Nuovo Ticket
+                        </button>
+                        <button class="bg-white/5 hover:bg-white/10 text-white px-6 py-3 rounded-xl font-medium transition-all border border-white/5 flex items-center gap-2">
+                            <i class="fas fa-search"></i>
+                            Cerca
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Stat Card: Open Tickets -->
+                <div class="group relative overflow-hidden rounded-3xl border border-white/5 bg-[#13191c] p-6 hover:bg-[#161d21] transition-all">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="w-10 h-10 rounded-xl bg-orange-500/10 flex items-center justify-center text-orange-500 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-exclamation-circle text-lg"></i>
+                        </div>
+                        <span class="text-xs font-medium text-white/20 bg-white/5 px-2 py-1 rounded-md">Live</span>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-bold text-white mb-1">12</div>
+                        <div class="text-sm text-white/40">Ticket Aperti</div>
+                    </div>
+                </div>
+
+                <!-- Stat Card: Avg Response -->
+                <div class="group relative overflow-hidden rounded-3xl border border-white/5 bg-[#13191c] p-6 hover:bg-[#161d21] transition-all">
+                    <div class="flex justify-between items-start mb-4">
+                         <div class="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-500 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-clock text-lg"></i>
+                        </div>
+                        <span class="text-xs font-medium text-emerald-400/20 text-emerald-400 bg-emerald-400/5 px-2 py-1 rounded-md">-12%</span>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-bold text-white mb-1">2.4h</div>
+                        <div class="text-sm text-white/40">Tempo Risposta</div>
+                    </div>
+                </div>
+
+                <!-- Stat Card: Solved -->
+                <div class="group relative overflow-hidden rounded-3xl border border-white/5 bg-[#13191c] p-6 hover:bg-[#161d21] transition-all">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="w-10 h-10 rounded-xl bg-green-500/10 flex items-center justify-center text-green-500 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-check-circle text-lg"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-bold text-white mb-1">84</div>
+                        <div class="text-sm text-white/40">Risolti questo mese</div>
+                    </div>
+                </div>
+
+                <!-- System Status (Small) -->
+                <div class="group relative overflow-hidden rounded-3xl border border-white/5 bg-[#13191c] p-6 flex items-center justify-between hover:bg-[#161d21] transition-all">
+                    <div class="flex items-center gap-3">
+                        <div class="relative">
+                            <div class="w-3 h-3 bg-emerald-500 rounded-full animate-pulse"></div>
+                            <div class="absolute inset-0 bg-emerald-500 rounded-full animate-ping opacity-20"></div>
+                        </div>
+                        <span class="text-sm font-medium text-white/60">Sistemi Operativi</span>
+                    </div>
+                    <i class="fas fa-chevron-right text-white/20 group-hover:text-white/60 transition-colors"></i>
+                </div>
+
+                <!-- Recent Activity List (Span 2 Col, Span 2 Row) -->
+                <div class="col-span-1 md:col-span-2 row-span-2 rounded-3xl border border-white/5 bg-[#13191c] overflow-hidden flex flex-col">
+                    <div class="p-6 border-b border-white/5 flex items-center justify-between">
+                        <h3 class="font-medium text-white">Attività Recente</h3>
+                        <button class="text-xs text-white/40 hover:text-white transition-colors">Vedi tutto</button>
+                    </div>
+                    <div class="flex-1 overflow-y-auto custom-scrollbar p-2">
+                        <!-- Item 1 -->
+                        <div class="group flex items-center gap-4 p-3 rounded-2xl hover:bg-white/5 transition-colors cursor-pointer">
+                            <div class="w-10 h-10 rounded-full bg-purple-500/10 flex items-center justify-center text-purple-400 shrink-0">
+                                <span class="font-bold text-xs">SR</span>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <div class="flex justify-between mb-0.5">
+                                    <h4 class="text-sm font-medium text-white truncate">Server Down - Production</h4>
+                                    <span class="text-xs text-white/20">2m fa</span>
+                                </div>
+                                <p class="text-xs text-white/40 truncate">Aggiornamento da <span class="text-white/60">Sara Rossi</span>: "Il server risponde..."</p>
+                            </div>
+                        </div>
+
+                        <!-- Item 2 -->
+                        <div class="group flex items-center gap-4 p-3 rounded-2xl hover:bg-white/5 transition-colors cursor-pointer">
+                            <div class="w-10 h-10 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-400 shrink-0">
+                                <span class="font-bold text-xs">MT</span>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <div class="flex justify-between mb-0.5">
+                                    <h4 class="text-sm font-medium text-white truncate">Nuova licenza software</h4>
+                                    <span class="text-xs text-white/20">1h fa</span>
+                                </div>
+                                <p class="text-xs text-white/40 truncate">Ticket aperto da <span class="text-white/60">Marco T.</span></p>
+                            </div>
+                        </div>
+
+                        <!-- Item 3 -->
+                        <div class="group flex items-center gap-4 p-3 rounded-2xl hover:bg-white/5 transition-colors cursor-pointer">
+                            <div class="w-10 h-10 rounded-full bg-[#D93A00]/10 flex items-center justify-center text-[#D93A00] shrink-0">
+                                <span class="font-bold text-xs">SYS</span>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <div class="flex justify-between mb-0.5">
+                                    <h4 class="text-sm font-medium text-white truncate">Backup Completato</h4>
+                                    <span class="text-xs text-white/20">3h fa</span>
+                                </div>
+                                <p class="text-xs text-white/40 truncate">Backup giornaliero eseguito con successo.</p>
+                            </div>
+                        </div>
+                        
+                         <!-- Item 4 -->
+                        <div class="group flex items-center gap-4 p-3 rounded-2xl hover:bg-white/5 transition-colors cursor-pointer">
+                            <div class="w-10 h-10 rounded-full bg-pink-500/10 flex items-center justify-center text-pink-400 shrink-0">
+                                <span class="font-bold text-xs">EL</span>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <div class="flex justify-between mb-0.5">
+                                    <h4 class="text-sm font-medium text-white truncate">Errore Login</h4>
+                                    <span class="text-xs text-white/20">5h fa</span>
+                                </div>
+                                <p class="text-xs text-white/40 truncate">Elisa L. ha segnalato un problema di accesso.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- KB / Quick Links (Span 1 Col, Span 2 Row) -->
+                <div class="col-span-1 row-span-2 rounded-3xl border border-white/5 bg-[#13191c] p-6 flex flex-col">
+                    <h3 class="font-medium text-white mb-4">Risorse Rapide</h3>
+                    <div class="space-y-3 flex-1">
+                        <a href="#" class="block p-4 rounded-2xl bg-white/[0.02] border border-white/5 hover:bg-white/[0.05] transition-all hover:scale-[1.02] group">
+                            <div class="flex items-center justify-between mb-2">
+                                <div class="w-8 h-8 rounded-lg bg-indigo-500/20 flex items-center justify-center text-indigo-400">
+                                    <i class="fas fa-book"></i>
+                                </div>
+                                <i class="fas fa-arrow-right -rotate-45 text-white/20 group-hover:text-white/60 transition-colors"></i>
+                            </div>
+                            <div class="font-medium text-sm text-white/80">Manuali</div>
+                            <div class="text-xs text-white/40">Docs e guide</div>
+                        </a>
+                        
+                        <a href="#" class="block p-4 rounded-2xl bg-white/[0.02] border border-white/5 hover:bg-white/[0.05] transition-all hover:scale-[1.02] group">
+                            <div class="flex items-center justify-between mb-2">
+                                <div class="w-8 h-8 rounded-lg bg-teal-500/20 flex items-center justify-center text-teal-400">
+                                    <i class="fas fa-video"></i>
+                                </div>
+                                <i class="fas fa-arrow-right -rotate-45 text-white/20 group-hover:text-white/60 transition-colors"></i>
+                            </div>
+                            <div class="font-medium text-sm text-white/80">Video Tutorial</div>
+                            <div class="text-xs text-white/40">Impara veloce</div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Announcement Banner (Span Full Width) -->
+                 <div class="col-span-1 md:col-span-2 lg:col-span-4 rounded-3xl border border-blue-500/10 bg-blue-500/5 p-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400 shrink-0">
+                            <i class="fas fa-bullhorn animate-pulse"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-sm font-medium text-white">Manutenzione Programmata</h4>
+                            <p class="text-xs text-white/50">Il sistema sarà offline Domenica dalle 02:00 alle 04:00 per aggiornamenti.</p>
+                        </div>
+                    </div>
+                    <button class="text-xs font-semibold text-blue-400 hover:text-blue-300 bg-blue-500/10 hover:bg-blue-500/20 px-4 py-2 rounded-lg transition-colors whitespace-nowrap">
+                        Dettagli
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+</div>
+
+<style>
+    /* Custom Scrollbar */
+    .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
+</style>
+{% endblock content %}
