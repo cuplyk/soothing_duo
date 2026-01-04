@@ -3,9 +3,9 @@ from django.core.mail import send_mail
 from django.views.generic import CreateView
 from django.urls import reverse_lazy
 from django.contrib import messages
-from django.conf import settings
 from .forms import ContactForm
 from .models import ContactMessage
+from decouple import config
 
 class ContactView(CreateView):
     model = ContactMessage
@@ -15,8 +15,8 @@ class ContactView(CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["support_email"] = settings.SUPPORT_EMAIL
-        context["support_number"] = settings.SUPPORT_NUMBER
+        context["support_email"] = config("SUPPORT_EMAIL")
+        context["support_number"] = config("SUPPORT_NUMBER")
         return context
 
     def form_valid(self, form):
@@ -34,13 +34,13 @@ class ContactView(CreateView):
             f"Email: {contact_message.email}\n\n"
             f"Messaggio:\n{contact_message.message}"
         )
-        recipient = "support@tecnopronto.it"
-        
+        recipient = config("SUPPORT_EMAIL")
+        sender = config("EMAIL_HOST_USER")
         try:
             send_mail(
                 subject,
                 message_body,
-                settings.DEFAULT_FROM_EMAIL,
+                sender,
                 [recipient],
                 fail_silently=False,
             )
